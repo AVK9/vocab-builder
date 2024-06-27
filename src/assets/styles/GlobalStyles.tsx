@@ -8,23 +8,24 @@ import sfProDisplayRegular from '../fonts/sf-pro-display-regular.otf';
 import { createGlobalStyle } from 'styled-components';
 
 export const Global = createGlobalStyle`
-    * {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 :root {
---black: #121417;
---green: #85aa9f;
---white: #fcfcfc;
---white-1: #f8f8f8;
+  --black: #121417;
+  --green: #85aa9f;
+  --green-hov: #a5c0b8;
+  --white: #fcfcfc;
+  --white-1: #f8f8f8;
   --font-family: "MacPaw Fixel Display", sans-serif;
   --second-family: "SF Pro Display", sans-serif;
 }
 
-    html,
-    body {
+html,
+body {
       font-weight: 400;
       font-style: normal;
       width: 100%;
@@ -33,21 +34,22 @@ export const Global = createGlobalStyle`
       scroll-behavior: smooth;
       
     }
-    html[data-theme='light'] {
---black: #121417;
---green: #85aa9f;
---white: #fcfcfc;
---white-1: #f8f8f8;
+
+html[data-theme='light'] {
+  --black: #121417;
+  --green: #85aa9f;
+  --white: #fcfcfc;
+  --white-1: #f8f8f8;
 }
 
 html[data-theme='dark'] {
---black: #f8f8f8;
---green: #85aa9f;
---white: #121417;
---white-1: #121417;
+  --black: #f8f8f8;
+  --green: #85aa9f;
+  --white: #121417;
+  --white-1: #121417;
 }
 
-    .wrapper {
+.wrapper {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -57,31 +59,31 @@ main {
   flex-grow: 1;
 }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
       margin: 0;
     }
-    a {
+a {
       color: inherit;
       text-decoration: none;
     }
-     ul,
-     ol {
+ul,
+ol {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-    img {
+img {
       display: block;
       max-width: 100%;
       height: auto;
     }
-    button {
+button {
     padding: 0;
     border: none;
     font: inherit;
@@ -91,40 +93,40 @@ main {
     }
 
 
-    @font-face {
+@font-face {
       font-family: 'MacPaw Fixel Display';
       font-weight: 700;
       font-style: normal;
       src: url(${fixelDisplayBold}) format('truetype');
     }
-    @font-face {
+@font-face {
       font-family: 'MacPaw Fixel Display';
       font-weight: 500;
       font-style: normal;
       src: url(${fixelDisplayMedium}) format('truetype');
     }
 
-    @font-face {
+@font-face {
       font-family: 'MacPaw Fixel Display';
       font-weight: 400;
       font-style: normal;
       src: url(${fixelDisplayRegular}) format('truetype');
     }
 
-        @font-face {
+@font-face {
       font-family: 'MacPaw Fixel Display';
       font-weight: 400;
       font-style: normal;
       src: url(${fixelDisplaySemiBold}) format('truetype');
     }
 
-        @font-face {
+@font-face {
       font-family: 'SF Pro Display';
       font-weight: 400;
       font-style: normal;
       src: url(${sfProDisplayLight}) format('truetype');
     }
-        @font-face {
+@font-face {
       font-family: 'SF Pro Display';
       font-weight: 400;
       font-style: normal;

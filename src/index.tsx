@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import { theme } from './assets/styles';
+import { Global, theme } from './assets/styles';
 import { ThemeProvider } from 'styled-components';
 import '../src/assets/styles/styles.scss';
 
@@ -14,6 +14,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
+        <Global />
         <App />
       </ThemeProvider>
     </BrowserRouter>

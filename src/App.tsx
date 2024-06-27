@@ -1,15 +1,18 @@
 import React from 'react';
-import logo from './assets/img/logo.svg';
 
+import { Button } from 'components/common/Button';
+import Logo from 'components/common/Logo';
 
-// function App() {
 const App: React.FC = () => {
   return (
     <div>
-      <img src={logo} className="App-logo" alt="logo" />
-
+      <Button>Register</Button>
+      <Button add>Add</Button>
+      <Button cansel>Cansel</Button>
+      <Button cansel1>Cansel</Button>
+      <Logo />
     </div>
   );
-}
+};
 
 export default App;
