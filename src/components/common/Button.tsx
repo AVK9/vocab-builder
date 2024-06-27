@@ -40,8 +40,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   background: ${({ theme }) => theme.animation.cubicBezier};
   box-shadow: ${({ theme }) => theme.shadows.small};
 
-  /* transition: background ${({ theme }) => theme.animation.cubicBezier},
-    box-shadow ${({ theme }) => theme.animation.cubicBezier}; */
   transition: all ${({ theme }) => theme.animation.cubicBezier};
   &:hover {
     background: ${props => props.backgroundhover || 'var(--green-hov)'};
@@ -53,7 +51,7 @@ const StyledButton = styled.button<StyledButtonProps>`
 
       height: 56px;
       background-color: var(--white);
-      transition: border ${({ theme }) => theme.animation.cubicBezier};
+      transition: all ${({ theme }) => theme.animation.cubicBezier};
       &:hover {
         color: var(--green);
         background-color: var(--white);
@@ -66,7 +64,7 @@ const StyledButton = styled.button<StyledButtonProps>`
       border: 1px solid rgba(252, 252, 252, 0.4);
       height: 56px;
       background-color: inherit;
-      transition: border ${({ theme }) => theme.animation.cubicBezier};
+      transition: all ${({ theme }) => theme.animation.cubicBezier};
       &:hover {
         color: var(--black);
         background-color: var(--white);
@@ -79,7 +77,7 @@ const StyledButton = styled.button<StyledButtonProps>`
       border: 1px solid var(--green);
       height: 56px;
       background-color: inherit;
-      transition: border ${({ theme }) => theme.animation.cubicBezier};
+      transition: all ${({ theme }) => theme.animation.cubicBezier};
       &:hover {
         color: var(--white);
         background-color: var(--green);
