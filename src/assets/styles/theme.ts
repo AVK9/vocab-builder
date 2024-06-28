@@ -18,6 +18,6 @@ export const theme = Object.freeze({
     medium: '0 9px 47px 11px rgba(51, 51, 51, 0.18);',
   },
   animation: {
-    cubicBezier: '0.3s cubic-bezier(0.7, 0.98, 0.86, 0.98)',
+    cubicBezier: '0.5s cubic-bezier(0.7, 0.98, 0.86, 0.98)',
   },
 });
