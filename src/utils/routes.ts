@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import {
   DICTIONARY_ROUTE,
+  HOME_ROUTE,
   LOGIN_ROUTE,
   NOTFAUND_ROUTE,
   RECOMMEND_ROUTE,
@@ -8,6 +9,7 @@ import {
   TRAINING_ROUTE,
 } from './const';
 
+const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 const LoginPage = lazy(() => import('pages/LoginPage/LoginPage'));
 const RegisterPage = lazy(() => import('pages/RegisterPage/RegisterPage'));
 const DictionaryPage = lazy(
@@ -18,6 +20,10 @@ const TrainingPage = lazy(() => import('pages/TrainingPage/TrainingPage'));
 const NotFaund = lazy(() => import('pages/NotFaund/NotFaund'));
 
 export const publicRoutes = [
+  {
+    path: HOME_ROUTE,
+    Component: HomePage,
+  },
   {
     path: REGISTER_ROUTE,
     Component: RegisterPage,
@@ -33,6 +39,18 @@ export const publicRoutes = [
 ];
 
 export const privateRoutes = [
+  {
+    path: HOME_ROUTE,
+    Component: HomePage,
+  },
+  {
+    path: REGISTER_ROUTE,
+    Component: RegisterPage,
+  },
+  {
+    path: LOGIN_ROUTE,
+    Component: LoginPage,
+  },
   {
     path: DICTIONARY_ROUTE,
     Component: DictionaryPage,

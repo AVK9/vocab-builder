@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { DICTIONARY_ROUTE, RECOMMEND_ROUTE } from 'utils/const';
-import { TRAINING_ROUTE } from './../../utils/const';
+import { DICTIONARY_ROUTE, RECOMMEND_ROUTE, TRAINING_ROUTE } from 'utils/const';
+import { Flex } from './Flex';
 
 interface NavigationProps {
   colors?: string;
@@ -43,11 +43,11 @@ export const StyledLink = styled(NavLink)`
 
 const UserNav = () => {
   return (
-    <>
+    <Flex gap="20px">
       <StyledLink to={DICTIONARY_ROUTE}>Dictionary</StyledLink>
       <StyledLink to={RECOMMEND_ROUTE}>Recommend</StyledLink>
       <StyledLink to={TRAINING_ROUTE}>Training</StyledLink>
-    </>
+    </Flex>
   );
 };
 

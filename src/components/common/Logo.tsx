@@ -1,36 +1,42 @@
 import React from 'react';
-import logo from '../../assets/img/logo.svg';
 import styled from 'styled-components';
+import { MyLogo } from './LogoImg';
+
+interface StyledLogoProps {
+  color?: string;
+  children?: React.ReactNode;
+}
 
 const LogoBox = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
+
+  .custom-logo {
+    @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+      width: 40px;
+      height: 40px;
+    }
+  }
 `;
-const LogoName = styled.p`
+const LogoName = styled.p<StyledLogoProps>`
   font-family: var(--font-family);
   font-weight: 600;
   font-size: 18px;
   line-height: 133%;
-  color: var(--black);
+  color: ${props => props.color || 'var(--black)'};
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     font-size: 22px;
     line-height: 145%;
   }
 `;
-const LogoImg = styled.img`
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    width: 40px;
-    height: 40px;
-  }
-`;
 
-const Logo = () => {
+const Logo: React.FC<StyledLogoProps> = props => {
   return (
     <LogoBox>
-      <LogoImg src={logo} alt="logo" />
-      <LogoName>VocabBuilder</LogoName>
+      <MyLogo {...props} className="custom-logo" />
+      <LogoName {...props}>VocabBuilder</LogoName>
     </LogoBox>
   );
 };

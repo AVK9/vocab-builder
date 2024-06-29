@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { NOTFAUND_ROUTE } from 'utils/const';
 import { Layout } from 'components/Layout/Layout';
 import { privateRoutes, publicRoutes } from 'utils/routes';
+import HomePage from 'pages/HomePage/HomePage';
 
 interface RouteProps {
   path: string;
@@ -26,6 +27,7 @@ export const AppRouter: FC = () => {
 
   return (
     <Routes>
+      <Route path="/" element={<HomePage />} />
       <Route element={<Layout />}>
         {user ? (
           <>
