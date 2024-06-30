@@ -10,6 +10,7 @@ interface StyledButtonProps {
   backgroundhover?: string;
   add?: boolean;
   cansel?: boolean;
+  link?: string;
   cansel1?: boolean;
   children?: React.ReactNode;
 }
@@ -81,6 +82,20 @@ const StyledButton = styled.button<StyledButtonProps>`
       &:hover {
         color: var(--white);
         background-color: var(--green);
+      }
+    `}
+        ${props =>
+    props.link &&
+    css`
+      color: rgba(18, 20, 23, 0.5);
+      height: 24px;
+      background-color: inherit;
+      text-decoration: underline;
+      box-shadow: none;
+      transition: all ${({ theme }) => theme.animation.cubicBezier};
+      &:hover {
+        color: var(--black);
+        background-color: inherit;
       }
     `}
 `;

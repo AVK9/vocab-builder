@@ -5,19 +5,24 @@ import { BrowserRouter } from 'react-router-dom';
 import { Global, theme } from './assets/styles';
 import { ThemeProvider } from 'styled-components';
 import '../src/assets/styles/styles.scss';
-
+import { Provider } from 'react-redux';
+import { persistor, store } from 'store/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <Global />
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode >
+  // <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <Global />
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </PersistGate>
+  </Provider>
+  // </React.StrictMode>
 );
-
