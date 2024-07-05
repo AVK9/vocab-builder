@@ -71,7 +71,8 @@ export const InputField: React.FC<InputFieldProps> = ({
 }) => {
   const regexPatterns = {
     name: /[а-яА-Яa-zA-Z]{3,}/,
-    password: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}$/,
+    // password: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}$/,
+    password: /^(?=(?:.*[а-яА-Яa-zA-Z]){6,})(?=.*\d).+$/,
     email: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
   };
 
