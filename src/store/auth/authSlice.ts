@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   loginOutThunk,
-  loginThunk,
+  signInThunk,
   refreshThunk,
   signUpThunk,
 } from './authThunk';
@@ -19,8 +19,7 @@ const initialState: AuthState = {
   isLoading: false,
   error: null,
   token: null,
-  name: null,
-  email: null,
+  profile: null,
 };
 const authSlice = createSlice({
   name: 'auth',
@@ -29,19 +28,18 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(signUpThunk.fulfilled, handleSignUp)
-      .addCase(loginThunk.fulfilled, handleSignUp)
+      .addCase(signInThunk.fulfilled, handleSignUp)
       .addCase(refreshThunk.fulfilled, handleRefresh)
       .addCase(refreshThunk.rejected, state => {
         state.token = null;
-        state.name = null;
-        state.email = null;
+        state.profile = null;
         // localStorage.clear()
       })
 
       .addCase(loginOutThunk.fulfilled, handleLoginOut)
 
       .addMatcher(
-        ({ type }): boolean => type.endsWith('/pendihg'),
+        ({ type }): boolean => type.endsWith('/pending'),
         handlePending
       )
       .addMatcher(

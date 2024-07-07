@@ -4,6 +4,8 @@ import { NOTFAUND_ROUTE } from 'utils/const';
 import { Layout } from 'components/Layout/Layout';
 import { privateRoutes, publicRoutes } from 'utils/routes';
 import HomePage from 'pages/HomePage/HomePage';
+import { useSelector } from 'react-redux';
+import { isAuthSelector } from 'store/auth/selectors';
 
 interface RouteProps {
   path: string;
@@ -11,7 +13,7 @@ interface RouteProps {
 }
 
 export const AppRouter: FC = () => {
-  const user = true;
+  const token = useSelector(isAuthSelector);
 
   const renderRoute = (route: RouteProps): ReactNode => (
     <Route
@@ -29,7 +31,7 @@ export const AppRouter: FC = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route element={<Layout />}>
-        {user ? (
+        {token ? (
           <>
             {privateRoutes.map(renderRoute)}
             <Route

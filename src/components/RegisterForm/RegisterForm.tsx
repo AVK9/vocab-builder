@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InputField } from 'components/common/InputField';
@@ -8,10 +8,12 @@ import * as yup from 'yup';
 import { Button } from 'components/common/Button';
 import { FormBox, IconBox, InfoInput, InputBox } from './RegisterForm.styled';
 import { IconSvg } from 'components/common/IconSvg';
-import { LOGIN_ROUTE } from 'utils/const';
+import { DICTIONARY_ROUTE, LOGIN_ROUTE } from 'utils/const';
 import { useDispatch } from 'react-redux';
 import { signUpThunk } from 'store/auth/authThunk';
 import { AppDispatch } from 'store/store';
+import { useSelector } from 'react-redux';
+import { isAuthSelector } from 'store/auth/selectors';
 
 interface FormValues {
   name: string;
@@ -28,6 +30,7 @@ const schema = yup.object().shape({
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+  const token = useSelector(isAuthSelector);
   const [showPass, setShowPass] = useState<boolean>(false);
 
   const isShowPass = () => setShowPass(prev => !prev);
@@ -40,11 +43,6 @@ const RegisterForm: React.FC = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
-  //   const onSubmit: SubmitHandler<FormValues> = data => {
-  //     const { email, password, name } = data;
-  //     dispatch(signUpThunk(data));
-  //     console.log(data);
-  //     };
 
   const onSubmit = async (data: {
     email: string;
@@ -53,6 +51,12 @@ const RegisterForm: React.FC = () => {
   }) => {
     await dispatch(signUpThunk(data));
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate(DICTIONARY_ROUTE);
+    }
+  }, [navigate, token]);
 
   return (
     <FormBox>

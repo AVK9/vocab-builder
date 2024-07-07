@@ -23,16 +23,17 @@ export const handleSignUp = (
   action: PayloadAction<SignUpResponse>
 ) => {
   state.token = action.payload.token;
-  state.name = action.payload.name;
-  state.email = action.payload.email;
+  state.profile = {
+    name: action.payload.name,
+    email: action.payload.email,
+  };
   state.isLoading = false;
   state.error = null;
 };
 
 export const handleLoginOut = (state: AuthState) => {
   state.token = null;
-  state.name = null;
-  state.email = null;
+  state.profile = null;
   state.isLoading = false;
   state.error = null;
 };
@@ -42,8 +43,10 @@ export const handleLogin = (
   action: PayloadAction<{ token: string; name: string; email: string }>
 ) => {
   state.token = action.payload.token;
-  state.name = action.payload.name;
-  state.email = action.payload.email;
+  state.profile = {
+    name: action.payload.name,
+    email: action.payload.email,
+  };
   state.isLoading = false;
   state.error = null;
 };
@@ -52,6 +55,8 @@ export const handleRefresh = (
   action: PayloadAction<{ token: string; name: string; email: string }>
 ) => {
   state.token = action.payload.token;
-  state.name = action.payload.name;
-  state.email = action.payload.email;
+  state.profile = {
+    name: action.payload.name,
+    email: action.payload.email,
+  };
 };

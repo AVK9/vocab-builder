@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import sprite from '../../assets/img/sprite.svg';
 
 interface IconWrapperProps {
@@ -8,6 +8,7 @@ interface IconWrapperProps {
   stroke?: string;
   fill?: string;
   icon?: string;
+  tablet?: string;
 }
 
 const IconWrapper = styled.svg<IconWrapperProps>`
@@ -22,6 +23,14 @@ const IconWrapper = styled.svg<IconWrapperProps>`
   &:hover {
     transform: scale(1.1);
   }
+  ${props =>
+    props.tablet &&
+    css`
+      @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        width: 40px;
+        height: 28px;
+      }
+    `}
 `;
 
 export const IconSvg: React.FC<IconWrapperProps> = props => {

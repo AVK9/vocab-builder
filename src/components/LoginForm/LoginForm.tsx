@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InputField } from 'components/common/InputField';
 import { Text } from 'components/common/Text';
@@ -8,22 +8,28 @@ import * as yup from 'yup';
 import { Button } from 'components/common/Button';
 import { FormBox, IconBox, InfoInput, InputBox } from './LoginForm.styled';
 import { IconSvg } from 'components/common/IconSvg';
-import { REGISTER_ROUTE } from 'utils/const';
+import { DICTIONARY_ROUTE, REGISTER_ROUTE } from 'utils/const';
+import { useDispatch } from 'react-redux';
+import { signInThunk } from 'store/auth/authThunk';
+import { AppDispatch } from 'store/store';
+import { isAuthSelector } from 'store/auth/selectors';
+import { useSelector } from 'react-redux';
 
 interface FormValues {
-  name: string;
   email: string;
   password: string;
 }
 
 const schema = yup.object().shape({
-  name: yup.string().min(3).max(30).required(),
   email: yup.string().email().required(),
   password: yup.string().min(5).max(16).required(),
 });
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const token = useSelector(isAuthSelector);
+
   const [showPass, setShowPass] = useState<boolean>(false);
 
   const isShowPass = () => setShowPass(prev => !prev);
@@ -36,9 +42,16 @@ const LoginForm: React.FC = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
-  const onSubmit: SubmitHandler<FormValues> = data => {
-    const { email, password, name } = data;
+
+  const onSubmit = async (data: { email: string; password: string }) => {
+    await dispatch(signInThunk(data));
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate(DICTIONARY_ROUTE);
+    }
+  }, [token, navigate]);
 
   return (
     <FormBox>

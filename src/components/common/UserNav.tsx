@@ -2,52 +2,51 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { DICTIONARY_ROUTE, RECOMMEND_ROUTE, TRAINING_ROUTE } from 'utils/const';
-import { Flex } from './Flex';
-
-interface NavigationProps {
-  colors?: string;
-  children?: React.ReactNode;
-}
-
-export const Navigation = styled.nav<NavigationProps>`
-  width: 138px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 28px;
-
-  transition: color ${({ theme }) => theme.animation.cubicBezier},
-    box-shadow ${({ theme }) => theme.animation.cubicBezier};
-
-  &:hover {
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.menuM}) {
-    display: none;
-  }
-`;
 
 export const StyledLink = styled(NavLink)`
   font-family: var(--font-family);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 125%;
-  color: #121417;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--black);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+  height: 43px;
+  padding: 12px 28px;
+
+  transition: all ${({ theme }) => theme.animation.cubicBezier},
+    box-shadow ${({ theme }) => theme.animation.cubicBezier};
+
   &:hover {
-    color: var(--primary);
+    color: var(--green);
   }
   &.active {
-    color: var(--primary);
+    background: var(--green);
+
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--white);
+    outline: none;
   }
 `;
 
-const UserNav = () => {
+export const Navigation = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const UserNav: React.FC = () => {
   return (
-    <Flex gap="20px">
+    <Navigation>
       <StyledLink to={DICTIONARY_ROUTE}>Dictionary</StyledLink>
       <StyledLink to={RECOMMEND_ROUTE}>Recommend</StyledLink>
       <StyledLink to={TRAINING_ROUTE}>Training</StyledLink>
-    </Flex>
+    </Navigation>
   );
 };
 

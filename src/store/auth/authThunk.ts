@@ -1,14 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  loginApi,
-  loginOutApi,
-  refreshApi,
-  setTokenApi,
-  signUpApi,
-} from 'services/authApi';
+import { loginApi, loginOutApi, refreshApi, signUpApi } from 'services/authApi';
 import { RootState } from 'store/store';
 import {
   ApiError,
+  LoginOutApiResponse,
   RefreshApiResponse,
   SignInData,
   SignUpData,
@@ -27,11 +22,11 @@ export const signUpThunk = createAsyncThunk<
   }
 });
 
-export const loginThunk = createAsyncThunk<
+export const signInThunk = createAsyncThunk<
   SignUpResponse,
   SignInData,
   { rejectValue: ApiError }
->('auth/login', async (body, { rejectWithValue }) => {
+>('auth/signIn', async (body, { rejectWithValue }) => {
   try {
     return await loginApi(body);
   } catch (error: any) {
@@ -45,12 +40,6 @@ export const refreshThunk = createAsyncThunk<
   { rejectValue: ApiError }
 >('auth/refresh', async (_, { rejectWithValue, getState }) => {
   try {
-    // const token = getState().auth.token;
-    // if (!token) {
-    //   throw new Error('Token is null');
-    // }
-    // return await refreshApi(token);
-
     const state = getState() as RootState;
     return await refreshApi(state.auth.token!);
   } catch (error: any) {
@@ -59,14 +48,19 @@ export const refreshThunk = createAsyncThunk<
 });
 
 export const loginOutThunk = createAsyncThunk<
-  void,
+  LoginOutApiResponse,
   void,
   { rejectValue: ApiError }
 >('auth/loginOut', async (_, { rejectWithValue, getState }) => {
   try {
     const state = getState() as RootState;
-    setTokenApi(state.auth.token!);
-    await loginOutApi();
+
+    if (state.auth.token !== null) {
+      await loginOutApi(state.auth.token);
+      return {} as LoginOutApiResponse;
+    } else {
+      return rejectWithValue({ message: 'Token is missing' } as ApiError);
+    }
   } catch (error: any) {
     return rejectWithValue(error.response.data.error);
   }

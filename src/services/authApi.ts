@@ -34,6 +34,14 @@ export const refreshApi = async (
   return data;
 };
 
-export const loginOutApi = async (): Promise<void> => {
-  await api.post<LoginOutApiResponse>('/users/signout');
+export const loginOutApi = async (token: string): Promise<void> => {
+  await api.post<LoginOutApiResponse>(
+    '/users/signout',
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 };

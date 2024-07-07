@@ -40,18 +40,6 @@ export const publicRoutes = [
 
 export const privateRoutes = [
   {
-    path: HOME_ROUTE,
-    Component: HomePage,
-  },
-  {
-    path: REGISTER_ROUTE,
-    Component: RegisterPage,
-  },
-  {
-    path: LOGIN_ROUTE,
-    Component: LoginPage,
-  },
-  {
     path: DICTIONARY_ROUTE,
     Component: DictionaryPage,
   },

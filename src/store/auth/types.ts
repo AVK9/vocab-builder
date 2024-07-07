@@ -25,8 +25,10 @@ export interface AuthState {
   isLoading: boolean;
   error: string | null;
   token: string | null;
-  name: string | null;
-  email: string | null;
+  profile: {
+    name: string;
+    email: string;
+  } | null;
 }
 
 export interface UserProfile {

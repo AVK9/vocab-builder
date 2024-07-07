@@ -12,6 +12,7 @@ interface StyledButtonProps {
   cansel?: boolean;
   link?: string;
   cansel1?: boolean;
+  logout?: string;
   children?: React.ReactNode;
 }
 
@@ -91,6 +92,24 @@ const StyledButton = styled.button<StyledButtonProps>`
       height: 24px;
       background-color: inherit;
       text-decoration: underline;
+      box-shadow: none;
+      transition: all ${({ theme }) => theme.animation.cubicBezier};
+      &:hover {
+        color: var(--black);
+        background-color: inherit;
+      }
+    `}
+    ${props =>
+    props.logout &&
+    css`
+      font-family: var(--font-family);
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 150%;
+      color: var(--black);
+      width: 81px;
+      height: 24px;
+      background-color: inherit;
       box-shadow: none;
       transition: all ${({ theme }) => theme.animation.cubicBezier};
       &:hover {

@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MyLogo } from './LogoImg';
+import { Link } from 'react-router-dom';
+import { HOME_ROUTE } from './../../utils/const';
 
 interface StyledLogoProps {
   color?: string;
@@ -34,10 +36,12 @@ const LogoName = styled.p<StyledLogoProps>`
 
 const Logo: React.FC<StyledLogoProps> = props => {
   return (
-    <LogoBox>
-      <MyLogo {...props} className="custom-logo" />
-      <LogoName {...props}>VocabBuilder</LogoName>
-    </LogoBox>
+    <Link to={HOME_ROUTE}>
+      <LogoBox>
+        <MyLogo {...props} className="custom-logo" />
+        <LogoName {...props}>VocabBuilder</LogoName>
+      </LogoBox>
+    </Link>
   );
 };
 

@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate persistor={persistor}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <Global />

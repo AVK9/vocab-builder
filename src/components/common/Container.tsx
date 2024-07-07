@@ -9,8 +9,8 @@ const Box = styled.div<StyledContainerProps>`
   margin: 0 auto;
   width: 100%;
   background-color: ${props => props.bg || 'transparent'};
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 16px;
+  padding-right: 16px;
 
   @media only screen and (min-width: 768px) {
     padding-left: 32px;
