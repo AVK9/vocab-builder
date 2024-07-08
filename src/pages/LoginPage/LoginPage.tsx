@@ -1,22 +1,16 @@
 import img from '../../assets/img/illustration.svg';
 import React from 'react';
-import styled from 'styled-components';
 import LoginForm from 'components/LoginForm/LoginForm';
-
-const Box = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Images = styled.img`
-  max-width: 247px;
-`;
+import BulletList from 'components/common/BulletList';
+import { Box, BulletListBox, Images } from './LoginPage.styled';
 
 const LoginPage: React.FC = () => {
   return (
     <Box>
       <Images src={img} alt="study" />
+      <BulletListBox>
+        <BulletList />
+      </BulletListBox>
       <LoginForm />
     </Box>
   );
