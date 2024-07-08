@@ -11,28 +11,28 @@ import {
   Decorite,
   ImageBig,
   Images,
+  Phone,
   Triug,
 } from './RegisterPage.styled';
 import decorImg from '../../assets/img/vector.svg';
-import Back from 'components/common/Back';
 
 const RegisterPage: React.FC = () => {
   return (
-    // <Back>
-    <Box>
-      <Images src={img} alt="study-picture" />
-      <RegisterForm />
-      <BulletListBox>
-        <ImageBig src={img} alt="study-picture" />
-        <BulletList />
-        <Decorite />
-        {/* <Bgr src={decorImg} alt="decor" /> */}
-        {/* <BoxBack>
+    <Phone>
+      <Box>
+        <Images src={img} alt="study-picture" />
+        <RegisterForm />
+        <BulletListBox>
+          <ImageBig src={img} alt="study-picture" />
+          <BulletList />
+          <Decorite />
+          {/* <Bgr src={decorImg} alt="decor" /> */}
+          {/* <BoxBack>
           <Triug />
         </BoxBack> */}
-      </BulletListBox>
-    </Box>
-    // </Back>
+        </BulletListBox>
+      </Box>
+    </Phone>
   );
 };
 
