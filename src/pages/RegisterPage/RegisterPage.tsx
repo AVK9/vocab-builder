@@ -17,20 +17,20 @@ import Back from 'components/common/Back';
 
 const RegisterPage: React.FC = () => {
   return (
-    <Back>
-      <Box>
-        <Images src={img} alt="study-picture" />
-        <RegisterForm />
-        <BulletListBox>
-          <ImageBig src={img} alt="study-picture" />
-          <BulletList />
-          {/* <Bgr src={decorImg} alt="decor" /> */}
-          <BoxBack>
-            <Triug />
-          </BoxBack>
-        </BulletListBox>
-      </Box>
-    </Back>
+    // <Back>
+    <Box>
+      <Images src={img} alt="study-picture" />
+      <RegisterForm />
+      <BulletListBox>
+        <ImageBig src={img} alt="study-picture" />
+        <BulletList />
+        {/* <Bgr src={decorImg} alt="decor" /> */}
+        <BoxBack>
+          <Triug />
+        </BoxBack>
+      </BulletListBox>
+    </Box>
+    // </Back>
   );
 };
 
