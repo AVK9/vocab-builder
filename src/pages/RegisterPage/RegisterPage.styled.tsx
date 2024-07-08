@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Phone = styled.div`
   /* height: calc(100vh - 88px); */
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f8f8f8;
 `;
 
