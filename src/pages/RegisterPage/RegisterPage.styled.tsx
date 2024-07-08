@@ -60,7 +60,7 @@ export const Bgr = styled.img`
     right: -300px;
     width: 400px;
     height: 700px;
-    overflow: hidden;
+    /* overflow: hidden; */
     /* border: black solid; */
     /* z-index: 2; */
     /* display: none; */
