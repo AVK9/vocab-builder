@@ -60,11 +60,6 @@ export const BulletListBox = styled.div`
   }
 `;
 
-export const ContentBox = styled.div`
-  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
-    /* width: 1205px; */
-  }
-`;
 export const Decorite = styled.div`
   display: none;
   z-index: -100;

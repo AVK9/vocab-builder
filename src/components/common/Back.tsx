@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Box = styled.div`
   background-color: #f8f8f8;
-  height: calc(100vh - 88px);
+  min-height: calc(100vh - 88px);
   width: 100%;
 `;
 

@@ -13,6 +13,13 @@ const ListItem = styled.li`
   text-align: center;
   color: rgba(18, 20, 23, 0.8);
 
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 16px;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    line-height: 150%;
+  }
+
   &:not(:first-child)::before {
     content: '•';
     margin-right: 10px;

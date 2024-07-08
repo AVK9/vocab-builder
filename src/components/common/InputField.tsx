@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { IconSvg } from './IconSvg';
 
 const InputBox = styled.div`
-  height: 80px;
+  height: 70px;
 `;
 
 const Input = styled.input<{ error: boolean }>`
