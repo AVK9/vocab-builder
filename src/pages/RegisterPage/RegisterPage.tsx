@@ -8,6 +8,7 @@ import {
   BoxBack,
   BulletListBox,
   ContentBox,
+  Decorite,
   ImageBig,
   Images,
   Triug,
@@ -24,10 +25,11 @@ const RegisterPage: React.FC = () => {
       <BulletListBox>
         <ImageBig src={img} alt="study-picture" />
         <BulletList />
+        <Decorite />
         {/* <Bgr src={decorImg} alt="decor" /> */}
-        <BoxBack>
+        {/* <BoxBack>
           <Triug />
-        </BoxBack>
+        </BoxBack> */}
       </BulletListBox>
     </Box>
     // </Back>

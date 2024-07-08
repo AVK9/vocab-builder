@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Box = styled.div`
+  /* height: calc(100vh - 88px); */
+  background-color: #f8f8f8;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -22,7 +24,7 @@ export const Images = styled.img`
   }
 `;
 export const ImageBig = styled.img`
-  /* z-index: 100;  */
+  z-index: 100;
   /* margin-bottom: 6px;
   max-width: 247px; */
   @media (min-width: calc(${({ theme }) => theme.breakpoints.mobileX} + 1px)) {
@@ -90,7 +92,7 @@ export const Triug = styled.div`
   width: 527px;
   height: 693px;
 
-  background: linear-gradient(
+  /* background: linear-gradient(
     to bottom,
     rgba(133, 170, 159, 0.01) 60%,
     rgba(133, 170, 159, 0.05) 70%,
@@ -100,9 +102,15 @@ export const Triug = styled.div`
     rgba(133, 170, 159, 0.12) 98%,
     rgba(133, 170, 159, 0.08) 0%,
     rgba(255, 255, 255, 0) 100%
-  );
+  ); */
   /* background: red; */
   clip-path: polygon(25% 10%, 75% 10%, 100% 100%, 20% 100%);
+
+  flex-shrink: 0;
+
+  opacity: 0.4;
+  background: rgba(133, 170, 159, 0.51);
+  filter: blur(400px);
 `;
 // 292deg,
 // rgba(133, 170, 159, 0.51) 0%,
@@ -114,3 +122,32 @@ export const Triug = styled.div`
 // rgba(133, 170, 159, 0.51) 90%,
 // rgba(133, 170, 159, 0.51) 0%,
 // rgba(255, 255, 255, 0) 100%
+
+export const Decorite = styled.div`
+  z-index: -100;
+  width: 600px;
+  height: 400px;
+  border-radius: 50%;
+  position: absolute;
+  top: 300px;
+
+  /* bottom: -300px; */
+  /* left: 0px; */
+  transform: rotate(30deg);
+  flex-shrink: 0;
+  border-radius: 50%;
+  opacity: 0.8;
+  background: rgba(133, 170, 159, 0.51);
+
+  filter: blur(70px);
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    bottom: -300px;
+    right: -300px;
+
+    /* overflow: hidden; */
+    /* border: black solid; */
+    /* z-index: 2; */
+    /* display: none; */
+  }
+`;

@@ -33,15 +33,18 @@ const LogoName = styled.p<StyledLogoProps>`
     line-height: 145%;
   }
 `;
+const L = styled(Link)`
+  outline: none;
+`;
 
 const Logo: React.FC<StyledLogoProps> = props => {
   return (
-    <Link to={HOME_ROUTE}>
+    <L to={HOME_ROUTE}>
       <LogoBox>
         <MyLogo {...props} className="custom-logo" />
         <LogoName {...props}>VocabBuilder</LogoName>
       </LogoBox>
-    </Link>
+    </L>
   );
 };
 
