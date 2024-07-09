@@ -6,3 +6,5 @@ export const profileSelector = (state: RootState): any | null =>
   state.auth.profile;
 export const loadingSelector = (state: RootState): boolean =>
   state.auth.isLoading;
+export const errorSelector = (state: RootState): string | null =>
+  state.auth.error;

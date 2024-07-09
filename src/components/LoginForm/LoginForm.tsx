@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InputField } from 'components/common/InputField';
 import { Text } from 'components/common/Text';
@@ -12,8 +12,9 @@ import { DICTIONARY_ROUTE, REGISTER_ROUTE } from 'utils/const';
 import { useDispatch } from 'react-redux';
 import { signInThunk } from 'store/auth/authThunk';
 import { AppDispatch } from 'store/store';
-import { isAuthSelector } from 'store/auth/selectors';
+import { errorSelector, isAuthSelector } from 'store/auth/selectors';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 interface FormValues {
   email: string;
@@ -21,15 +22,22 @@ interface FormValues {
 }
 
 const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().min(5).max(16).required(),
+  email: yup
+    .string()
+    .email('Invalid email format')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .min(7, 'The password must consist of 6 English letters and 1 number.')
+    .max(7, 'The password must consist of 6 English letters and 1 number.')
+    .required('Password is required'),
 });
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const token = useSelector(isAuthSelector);
-
+  const error = useSelector(errorSelector);
   const [showPass, setShowPass] = useState<boolean>(false);
 
   const isShowPass = () => setShowPass(prev => !prev);
@@ -38,20 +46,30 @@ const LoginForm: React.FC = () => {
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: { email: string; password: string }) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data, event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    setValue('email', data.email);
+    setValue('password', data.password);
     await dispatch(signInThunk(data));
   };
 
   useEffect(() => {
-    if (token) {
+    if (token && !error) {
       navigate(DICTIONARY_ROUTE);
     }
-  }, [token, navigate]);
+    if (error) {
+      console.log('errorerror', error);
+      toast.error(`${error}`);
+    }
+  }, [navigate, token, error]);
 
   return (
     <FormBox>

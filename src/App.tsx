@@ -8,7 +8,7 @@ const App: React.FC = () => {
   const loading = useSelector(loadingSelector);
 
   if (loading) {
-    return <LoaderPercent />;
+    // return <LoaderPercent />;
   }
   return (
     <>

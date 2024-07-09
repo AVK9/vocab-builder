@@ -18,7 +18,7 @@ export const signUpThunk = createAsyncThunk<
   try {
     return await signUpApi(body);
   } catch (error: any) {
-    return rejectWithValue(error.response.data.error);
+    return rejectWithValue(error.response.data.message);
   }
 });
 
@@ -30,7 +30,7 @@ export const signInThunk = createAsyncThunk<
   try {
     return await loginApi(body);
   } catch (error: any) {
-    return rejectWithValue(error.response.data.error);
+    return rejectWithValue(error.response.data.message);
   }
 });
 
@@ -43,7 +43,7 @@ export const refreshThunk = createAsyncThunk<
     const state = getState() as RootState;
     return await refreshApi(state.auth.token!);
   } catch (error: any) {
-    return rejectWithValue(error.response.data.error);
+    return rejectWithValue(error.response.data.message);
   }
 });
 
@@ -62,6 +62,6 @@ export const loginOutThunk = createAsyncThunk<
       return rejectWithValue({ message: 'Token is missing' } as ApiError);
     }
   } catch (error: any) {
-    return rejectWithValue(error.response.data.error);
+    return rejectWithValue(error.response.data.message);
   }
 });

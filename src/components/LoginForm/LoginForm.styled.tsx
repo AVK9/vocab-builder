@@ -33,7 +33,14 @@ export const Box = styled.div`
 export const InputBox = styled.div`
   position: relative;
 `;
-export const InfoInput = styled.div``;
+export const InfoInput = styled.div`
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 0.01em;
+  color: #d80027;
+`;
 export const IconBox = styled.div`
   position: absolute;
   right: 18px;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { IconSvg } from './IconSvg';
 
 const InputBox = styled.div`
-  height: 70px;
+  height: 80px;
 `;
 
 const Input = styled.input<{ error: boolean }>`
@@ -59,20 +59,23 @@ interface InputFieldProps {
   type?: string;
   placeholder?: string;
   errors?: any;
+  value?: string;
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
   name,
   control,
   tooltipText,
+  value,
   type = 'text',
   placeholder = '',
+
   errors,
 }) => {
   const regexPatterns = {
     name: /[а-яА-Яa-zA-Z]{3,}/,
     // password: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}$/,
-    password: /^(?=(?:.*[а-яА-Яa-zA-Z]){6,})(?=.*\d).+$/,
+    password: /^(?=.*\d)[a-zA-Z]{6}\d$/,
     email: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
   };
 
@@ -105,10 +108,12 @@ export const InputField: React.FC<InputFieldProps> = ({
       <Controller
         name={name}
         control={control}
+        defaultValue={value}
         render={({ field }) => (
           <Input
             {...field}
             placeholder={placeholder}
+            value={value}
             type={type}
             onFocus={handleFocus}
             onBlur={() => {

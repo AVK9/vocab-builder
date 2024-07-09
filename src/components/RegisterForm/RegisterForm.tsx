@@ -13,7 +13,8 @@ import { useDispatch } from 'react-redux';
 import { signUpThunk } from 'store/auth/authThunk';
 import { AppDispatch } from 'store/store';
 import { useSelector } from 'react-redux';
-import { isAuthSelector } from 'store/auth/selectors';
+import { errorSelector, isAuthSelector } from 'store/auth/selectors';
+import { toast } from 'react-toastify';
 
 interface FormValues {
   name: string;
@@ -23,14 +24,22 @@ interface FormValues {
 
 const schema = yup.object().shape({
   name: yup.string().min(3).max(30).required(),
-  email: yup.string().email().required(),
-  password: yup.string().min(5).max(16).required(),
+  email: yup
+    .string()
+    .email('Invalid email format')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .min(7, 'The password must consist of 6 English letters and 1 number.')
+    .max(7, 'The password must consist of 6 English letters and 1 number.')
+    .required('Password is required'),
 });
 
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const token = useSelector(isAuthSelector);
+  const error = useSelector(errorSelector);
   const [showPass, setShowPass] = useState<boolean>(false);
 
   const isShowPass = () => setShowPass(prev => !prev);
@@ -39,24 +48,31 @@ const RegisterForm: React.FC = () => {
     register,
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: {
-    email: string;
-    password: string;
-    name: string;
-  }) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data, event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    setValue('name', data.name);
+    setValue('email', data.email);
+    setValue('password', data.password);
     await dispatch(signUpThunk(data));
   };
 
   useEffect(() => {
-    if (token) {
+    if (token && !error) {
       navigate(DICTIONARY_ROUTE);
     }
-  }, [navigate, token]);
+    if (error) {
+      console.log('errorerror', error);
+      toast.error(`${error}`);
+    }
+  }, [navigate, token, error]);
 
   return (
     <FormBox>
