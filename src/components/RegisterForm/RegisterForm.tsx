@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InputField } from 'components/common/InputField';
@@ -12,8 +12,6 @@ import { DICTIONARY_ROUTE, LOGIN_ROUTE } from 'utils/const';
 import { useDispatch } from 'react-redux';
 import { signUpThunk } from 'store/auth/authThunk';
 import { AppDispatch } from 'store/store';
-import { useSelector } from 'react-redux';
-import { errorSelector, isAuthSelector } from 'store/auth/selectors';
 import { toast } from 'react-toastify';
 
 interface FormValues {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InputField } from 'components/common/InputField';
@@ -12,15 +12,7 @@ import { DICTIONARY_ROUTE, REGISTER_ROUTE } from 'utils/const';
 import { useDispatch } from 'react-redux';
 import { signInThunk } from 'store/auth/authThunk';
 import { AppDispatch } from 'store/store';
-import {
-  errorSelector,
-  isAuthSelector,
-  loadingSelector,
-  profileSelector,
-} from 'store/auth/selectors';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { LoaderPercent } from 'components/Loader/LoaderPercent';
 
 interface FormValues {
   email: string;
