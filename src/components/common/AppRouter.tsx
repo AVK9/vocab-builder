@@ -1,11 +1,19 @@
-import React, { FC, ReactNode, Suspense } from 'react';
+import React, { FC, ReactNode, Suspense, useEffect } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { NOTFAUND_ROUTE } from 'utils/const';
 import { Layout } from 'components/Layout/Layout';
 import { privateRoutes, publicRoutes } from 'utils/routes';
 import HomePage from 'pages/HomePage/HomePage';
 import { useSelector } from 'react-redux';
-import { isAuthSelector } from 'store/auth/selectors';
+import {
+  isAuthSelector,
+  loadingSelector,
+  profileSelector,
+} from 'store/auth/selectors';
+import { LoaderPercent } from 'components/Loader/LoaderPercent';
+import { refreshThunk } from 'store/auth/authThunk';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from 'store/store';
 
 interface RouteProps {
   path: string;
@@ -13,14 +21,22 @@ interface RouteProps {
 }
 
 export const AppRouter: FC = () => {
-  const token = useSelector(isAuthSelector);
+  const isAuth = useSelector(isAuthSelector);
+  const loading = useSelector(loadingSelector);
+  const profile = useSelector(profileSelector);
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    if (isAuth && !profile) {
+      dispatch(refreshThunk());
+    }
+  }, [isAuth, profile, dispatch]);
 
   const renderRoute = (route: RouteProps): ReactNode => (
     <Route
       key={route.path}
       path={route.path}
       element={
-        <Suspense fallback={null}>
+        <Suspense fallback={<LoaderPercent />}>
           <route.Component />
         </Suspense>
       }
@@ -31,7 +47,7 @@ export const AppRouter: FC = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route element={<Layout />}>
-        {token ? (
+        {isAuth ? (
           <>
             {privateRoutes.map(renderRoute)}
             <Route

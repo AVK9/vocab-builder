@@ -1,5 +1,9 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { WordsState } from './wordsTypes';
+import {
+  getWordsAllApiResponse,
+  getWordsResponse,
+  WordsState,
+} from './wordsTypes';
 
 export const handlePending = (state: WordsState) => {
   state.isLoading = true;
@@ -18,12 +22,26 @@ export const handleRejected = (
   state.error = action.payload;
 };
 
-export const handleGetWords = (
+export const handleGetWordsCategories = (
   state: WordsState,
   action: PayloadAction<string[]>
 ) => {
   state.categories = action.payload;
   console.log('handleGetWords :>> ', action.payload);
+};
+export const handleGetWordsAll = (
+  state: WordsState,
+  action: PayloadAction<getWordsAllApiResponse>
+) => {
+  state.wordsAll = action.payload.results;
+};
+export const handleGetWordsOwn = (
+  state: WordsState,
+  action: PayloadAction<getWordsResponse>
+) => {
+  state.wordsOwn = action.payload.results;
+  console.log('handleGetWordsOwn :>> ', action.payload);
+  console.log('handleGetWordsOwn :>> ', action.payload.results);
 };
 // export const handleAddContact = (state, { payload }) => {
 //   console.log('handleAddContact :>> ', payload);

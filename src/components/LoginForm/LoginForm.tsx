@@ -12,9 +12,15 @@ import { DICTIONARY_ROUTE, REGISTER_ROUTE } from 'utils/const';
 import { useDispatch } from 'react-redux';
 import { signInThunk } from 'store/auth/authThunk';
 import { AppDispatch } from 'store/store';
-import { errorSelector, isAuthSelector } from 'store/auth/selectors';
+import {
+  errorSelector,
+  isAuthSelector,
+  loadingSelector,
+  profileSelector,
+} from 'store/auth/selectors';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { LoaderPercent } from 'components/Loader/LoaderPercent';
 
 interface FormValues {
   email: string;
@@ -36,8 +42,6 @@ const schema = yup.object().shape({
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const token = useSelector(isAuthSelector);
-  const error = useSelector(errorSelector);
   const [showPass, setShowPass] = useState<boolean>(false);
 
   const isShowPass = () => setShowPass(prev => !prev);
@@ -58,19 +62,14 @@ const LoginForm: React.FC = () => {
     }
     setValue('email', data.email);
     setValue('password', data.password);
-    await dispatch(signInThunk(data));
-  };
+    const resultAction = await dispatch(signInThunk(data));
 
-  useEffect(() => {
-    if (token && !error) {
+    if (signInThunk.rejected.match(resultAction)) {
+      toast.error(`${resultAction.payload}`);
+    } else {
       navigate(DICTIONARY_ROUTE);
     }
-    if (error) {
-      console.log('errorerror', error);
-      toast.error(`${error}`);
-    }
-  }, [navigate, token, error]);
-
+  };
   return (
     <FormBox>
       <Text>Login</Text>

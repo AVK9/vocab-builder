@@ -3,6 +3,7 @@ import { AuthState, SignUpResponse } from './types';
 
 export const handlePending = (state: AuthState) => {
   state.isLoading = true;
+  console.log('handlePending isLoading = true', state.isLoading);
   state.error = '';
 };
 export const handleFulfilled = (state: AuthState) => {

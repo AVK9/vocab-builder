@@ -41,7 +41,7 @@ export const ImageBig = styled.img`
 export const BulletListMob = styled.div`
   margin-top: 16px;
   margin-bottom: 43px;
-  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+  @media (min-width: calc(${({ theme }) => theme.breakpoints.mobileX} + 1px)) {
     display: none;
   }
 `;

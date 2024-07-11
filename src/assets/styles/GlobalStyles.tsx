@@ -2,8 +2,8 @@ import fixelDisplayBold from '../fonts/FixelDisplay-Bold.otf';
 import fixelDisplayMedium from '../fonts/FixelDisplay-Medium.otf';
 import fixelDisplayRegular from '../fonts/FixelDisplay-Regular.otf';
 import fixelDisplaySemiBold from '../fonts/FixelDisplay-SemiBold.otf';
-import sfProDisplayLight from '../fonts/sf-pro-display-light.otf';
-import sfProDisplayRegular from '../fonts/sf-pro-display-regular.otf';
+import sfProDisplayLight from '../fonts/SF-Pro-Display-Light.otf';
+import sfProDisplayRegular from '../fonts/SF-Pro-Display-Regular.otf';
 
 import { createGlobalStyle } from 'styled-components';
 

@@ -3,23 +3,39 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { refreshThunk } from 'store/auth/authThunk';
-import { isAuthSelector, profileSelector } from 'store/auth/selectors';
+import {
+  isAuthSelector,
+  loadingSelector,
+  profileSelector,
+} from 'store/auth/selectors';
 import { AppDispatch } from 'store/store';
-import { getWordsCategoriesThunk } from 'store/words/wordsThunk';
+import {
+  getWordsAllThunk,
+  getWordsCategoriesThunk,
+  getWordsOwnThunk,
+} from 'store/words/wordsThunk';
 
 const DictionaryPage = () => {
   const token = useSelector(isAuthSelector);
-  const profile = useSelector(profileSelector);
+  const loading = useSelector(loadingSelector);
   const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    if (token && !profile) {
-      dispatch(refreshThunk());
-    }
-  }, [token, profile, dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(getWordsCategoriesThunk());
-  // }, []);
+  useEffect(() => {
+    const data = {
+      keyword: '',
+      category: '',
+      isIrregular: false,
+      page: 1,
+      limit: 7,
+    };
+    // dispatch(getWordsCategoriesThunk());
+    // dispatch(getWordsAllThunk(data));
+    dispatch(getWordsOwnThunk(data));
+  }, []);
+
+  if (loading) {
+    return <LoaderPercent />;
+  }
 
   return <div>DictionaryPage</div>;
 };

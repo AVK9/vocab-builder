@@ -3,7 +3,7 @@ import Logo from 'components/common/Logo';
 import { useNavigate } from 'react-router-dom';
 import { DICTIONARY_ROUTE, LOGIN_ROUTE } from 'utils/const';
 import { useSelector } from 'react-redux';
-import { isAuthSelector } from 'store/auth/selectors';
+import { profileSelector } from 'store/auth/selectors';
 
 const HomeBox = styled.div`
   background-color: var(--green);
@@ -14,12 +14,12 @@ const HomeBox = styled.div`
 `;
 
 const HomePage = () => {
-  const token = useSelector(isAuthSelector);
+  const profile = useSelector(profileSelector);
 
   const navigate = useNavigate();
 
   setTimeout(() => {
-    if (!token) {
+    if (!profile) {
       navigate(LOGIN_ROUTE);
     } else {
       navigate(DICTIONARY_ROUTE);

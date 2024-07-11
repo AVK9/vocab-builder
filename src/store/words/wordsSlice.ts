@@ -1,17 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getWordsCategoriesThunk } from './wordsThunk';
+import {
+  getWordsAllThunk,
+  getWordsCategoriesThunk,
+  getWordsOwnThunk,
+} from './wordsThunk';
 import { WordsState } from './wordsTypes';
 
 import {
   handleFulfilled,
-  handleGetWords,
+  handleGetWordsCategories,
+  handleGetWordsAll,
   handlePending,
   handleRejected,
+  handleGetWordsOwn,
 } from './wordsHandlers';
 
 const initialState: WordsState = {
   categories: [],
+  wordsAll: [],
+  wordsOwn: [],
   isLoading: false,
   error: null,
 };
@@ -21,7 +29,9 @@ const wordsSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(getWordsCategoriesThunk.fulfilled, handleGetWords)
+      .addCase(getWordsCategoriesThunk.fulfilled, handleGetWordsCategories)
+      .addCase(getWordsAllThunk.fulfilled, handleGetWordsAll)
+      .addCase(getWordsOwnThunk.fulfilled, handleGetWordsOwn)
       //   .addCase(addContactThunk.fulfilled, handleAddContact)
       //   .addCase(delContactThunk.fulfilled, handleDelContact)
       .addMatcher(

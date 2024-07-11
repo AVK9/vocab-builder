@@ -38,8 +38,6 @@ const schema = yup.object().shape({
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const token = useSelector(isAuthSelector);
-  const error = useSelector(errorSelector);
   const [showPass, setShowPass] = useState<boolean>(false);
 
   const isShowPass = () => setShowPass(prev => !prev);
@@ -61,18 +59,13 @@ const RegisterForm: React.FC = () => {
     setValue('name', data.name);
     setValue('email', data.email);
     setValue('password', data.password);
-    await dispatch(signUpThunk(data));
-  };
-
-  useEffect(() => {
-    if (token && !error) {
+    const resultAction = await dispatch(signUpThunk(data));
+    if (signUpThunk.rejected.match(resultAction)) {
+      toast.error(`${resultAction.payload}`);
+    } else {
       navigate(DICTIONARY_ROUTE);
     }
-    if (error) {
-      console.log('errorerror', error);
-      toast.error(`${error}`);
-    }
-  }, [navigate, token, error]);
+  };
 
   return (
     <FormBox>
