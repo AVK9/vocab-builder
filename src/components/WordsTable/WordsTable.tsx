@@ -5,8 +5,17 @@ import {
   getCoreRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { Table, TableContainer, Td, Th, Tr } from './WordsTable.styled';
-
+import {
+  Head,
+  InnerContainer,
+  Table,
+  TableContainer,
+  Td,
+  Th,
+  Tr,
+} from './WordsTable.styled';
+import { IconSvg } from 'components/common/IconSvg';
+import { Butn, ButnText } from './WordsTable.styled';
 interface Word {
   en: string;
   ua: string;
@@ -23,12 +32,22 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
     () => [
       {
         accessorKey: 'en',
-        header: 'Word',
+        header: () => (
+          <Head>
+            Word
+            <IconSvg icon="uk" />
+          </Head>
+        ),
         cell: info => info.getValue(),
       },
       {
         accessorKey: 'ua',
-        header: 'Translation',
+        header: () => (
+          <Head>
+            Translation
+            <IconSvg icon="ua" />
+          </Head>
+        ),
         cell: info => info.getValue(),
       },
       {
@@ -40,7 +59,10 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
         accessorKey: 'actions',
         header: '',
         cell: info => (
-          <button onClick={() => handleAddWord(info.row.original)}>Add</button>
+          <Butn onClick={() => handleAddWord(info.row.original)}>
+            <ButnText>Add to dictionary </ButnText>
+            <IconSvg icon="arrow-right" stroke="var(--green)" />
+          </Butn>
         ),
       },
     ],
@@ -60,33 +82,35 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
 
   return (
     <TableContainer>
-      <Table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <Tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <Th key={header.id}>
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                </Th>
-              ))}
-            </Tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <Tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <Td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </Td>
-              ))}
-            </Tr>
-          ))}
-        </tbody>
-      </Table>
+      <InnerContainer>
+        <Table>
+          <thead>
+            {table.getHeaderGroups().map(headerGroup => (
+              <Tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <Th key={header.id}>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                  </Th>
+                ))}
+              </Tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map(row => (
+              <Tr key={row.id}>
+                {row.getVisibleCells().map(cell => (
+                  <Td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Td>
+                ))}
+              </Tr>
+            ))}
+          </tbody>
+        </Table>
+      </InnerContainer>
     </TableContainer>
   );
 };

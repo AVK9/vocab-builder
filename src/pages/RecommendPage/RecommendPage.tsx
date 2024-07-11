@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
 import { selectWordsAll } from 'store/words/wordsSelectors';
 import { getWordsAllThunk } from 'store/words/wordsThunk';
+import { RecommendPageBox } from './RecommendPage.styled';
 
 const RecommendPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,10 +28,9 @@ const RecommendPage = () => {
   console.log('words', words);
 
   return (
-    <div>
-      RecommendPage
+    <RecommendPageBox>
       <WordsTable words={words} />
-    </div>
+    </RecommendPageBox>
   );
 };
 
