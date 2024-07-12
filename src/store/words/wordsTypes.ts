@@ -7,12 +7,18 @@ export interface Word {
   owner?: string;
   progress?: number;
 }
+export interface WordsResponse {
+  results: Word[];
+  totalPages: number;
+  page: number;
+  perPage: number;
+}
 
 export interface WordsState {
   isLoading: boolean;
   error: string | null;
   categories: string[];
-  wordsAll: Word[];
+  wordsAll: WordsResponse;
   wordsOwn: Word[];
 }
 

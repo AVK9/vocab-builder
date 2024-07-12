@@ -1,5 +1,5 @@
 import WordsTable from 'components/WordsTable/WordsTable';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
@@ -7,31 +7,57 @@ import { selectWordsAll } from 'store/words/wordsSelectors';
 import { getWordsAllThunk } from 'store/words/wordsThunk';
 import { RecommendPageBox } from './RecommendPage.styled';
 import Back from 'components/common/Back';
+import Pagination from 'components/Pagination/Pagination';
 
 const RecommendPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+
+    console.log('currentPage', page);
+    const data = {
+      keyword: '',
+      category: '',
+      isIrregular: false,
+      page,
+      limit: 7,
+    };
     const resultAction = async () => {
-      const data = {
-        keyword: '',
-        category: '',
-        isIrregular: false,
-        page: 2,
-        limit: 7,
-      };
       await dispatch(getWordsAllThunk(data));
     };
     resultAction();
+  };
+
+  useEffect(() => {
+    const data = {
+      keyword: '',
+      category: '',
+      isIrregular: false,
+      page: 1,
+      limit: 7,
+    };
+    const resultAction = async () => {
+      await dispatch(getWordsAllThunk(data));
+    };
+    resultAction();
+    // console.log('totalPages', resultAction);
   }, [dispatch]);
 
   const words = useSelector(selectWordsAll);
-  console.log('words', words);
+  console.log('words', words.totalPages);
 
   return (
     <Back>
       <RecommendPageBox>
-        <WordsTable words={words} />
+        <WordsTable words={words.results} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={words.totalPages}
+          onPageChange={handlePageChange}
+        />
       </RecommendPageBox>
     </Back>
   );

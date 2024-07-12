@@ -5,7 +5,7 @@ import {
   getWordsCategoriesThunk,
   getWordsOwnThunk,
 } from './wordsThunk';
-import { WordsState } from './wordsTypes';
+import { WordsState, getWordsResponse } from './wordsTypes';
 
 import {
   handleFulfilled,
@@ -18,7 +18,12 @@ import {
 
 const initialState: WordsState = {
   categories: [],
-  wordsAll: [],
+  wordsAll: {
+    results: [],
+    totalPages: 0,
+    page: 0,
+    perPage: 0,
+  },
   wordsOwn: [],
   isLoading: false,
   error: null,

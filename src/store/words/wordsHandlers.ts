@@ -33,15 +33,15 @@ export const handleGetWordsAll = (
   state: WordsState,
   action: PayloadAction<getWordsAllApiResponse>
 ) => {
-  state.wordsAll = action.payload.results;
+  state.wordsAll = action.payload;
+  console.log('handleGetWordsAll :>> ', action.payload);
+  console.log('handleGetWordsAll :>> ', action.payload.results);
 };
 export const handleGetWordsOwn = (
   state: WordsState,
   action: PayloadAction<getWordsResponse>
 ) => {
   state.wordsOwn = action.payload.results;
-  console.log('handleGetWordsOwn :>> ', action.payload);
-  console.log('handleGetWordsOwn :>> ', action.payload.results);
 };
 // export const handleAddContact = (state, { payload }) => {
 //   console.log('handleAddContact :>> ', payload);
