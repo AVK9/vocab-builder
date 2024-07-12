@@ -7,7 +7,9 @@ import {
 } from '@tanstack/react-table';
 import {
   Head,
+  Icon,
   InnerContainer,
+  LastRowTd,
   Table,
   TableContainer,
   Td,
@@ -35,7 +37,9 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
         header: () => (
           <Head>
             Word
-            <IconSvg icon="uk" />
+            <Icon>
+              <IconSvg icon="uk" />
+            </Icon>
           </Head>
         ),
         cell: info => info.getValue(),
@@ -45,7 +49,9 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
         header: () => (
           <Head>
             Translation
-            <IconSvg icon="ua" />
+            <Icon>
+              <IconSvg icon="ua" />
+            </Icon>
           </Head>
         ),
         cell: info => info.getValue(),
@@ -70,7 +76,6 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
   );
 
   const handleAddWord = (word: Word) => {
-    // Додайте ваш обробник подій для додавання слова тут
     console.log('Adding word:', word);
   };
 
@@ -99,13 +104,27 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map(row => (
+            {table.getRowModel().rows.map((row, rowIndex) => (
               <Tr key={row.id}>
-                {row.getVisibleCells().map(cell => (
-                  <Td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Td>
-                ))}
+                {row
+                  .getVisibleCells()
+                  .map(cell =>
+                    rowIndex === table.getRowModel().rows.length - 1 ? (
+                      <LastRowTd key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </LastRowTd>
+                    ) : (
+                      <Td key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </Td>
+                    )
+                  )}
               </Tr>
             ))}
           </tbody>

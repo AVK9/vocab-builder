@@ -4,9 +4,9 @@ export const TableContainer = styled.div`
   position: relative;
   border-radius: 8px;
   overflow: hidden;
-  padding: 18px; /* Це буде відступ для внутрішнього бордера */
-  background-color: var(--green);
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 18px;
+    background-color: #fff;
     &:before {
       content: '';
       position: absolute;
@@ -14,7 +14,7 @@ export const TableContainer = styled.div`
       left: 0;
       right: 0;
       bottom: 0;
-      border: solid var(--green) 18px;
+      border: solid #fff 18px;
       border-radius: inherit;
       pointer-events: none;
       box-sizing: border-box;
@@ -27,14 +27,14 @@ export const InnerContainer = styled.div`
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background: #ffffff;
-  z-index: 1;
+  background: var(--white);
+  z-index: 2;
 `;
 
 export const Table = styled.table`
   width: 100%;
-  height: 563px;
   border-collapse: collapse;
+  border-spacing: 0;
 `;
 
 export const Th = styled.th`
@@ -44,27 +44,45 @@ export const Th = styled.th`
   border: 1px solid #dbdbdb;
   text-align: left;
 
-  @media (min-width: calc(${({ theme }) => theme.breakpoints.mobile} + 55px)) {
-    padding: 10px;
+  &:first-child {
+    border-top-left-radius: 8px;
   }
-  @media (min-width: calc(${({ theme }) => theme.breakpoints.mobileX} - 1px)) {
-    padding: 16px;
-  }
-  @media (min-width: calc(${({ theme }) => theme.breakpoints.tablet} - 0px)) {
-    padding: 22px;
-    font-size: 18px;
+
+  &:last-child {
+    border-top-right-radius: 8px;
   }
 
   font-family: var(--font-family);
   font-weight: 500;
-
   color: var(--black);
+
+  @media (min-width: calc(${({ theme }) => theme.breakpoints.mobile} + 55px)) {
+    padding: 10px;
+  }
+
+  @media (min-width: calc(${({ theme }) => theme.breakpoints.mobileX} - 1px)) {
+    padding: 16px;
+  }
+
+  @media (min-width: calc(${({ theme }) => theme.breakpoints.tablet} - 0px)) {
+    padding: 22px;
+    font-size: 18px;
+  }
 `;
 
 export const Td = styled.td`
-  /* background-color: white; */
-  padding: 5px;
+  text-align: left;
   border: 1px solid #dbdbdb;
+  z-index: 2;
+  padding: 5px;
+
+  &:first-child {
+    border-bottom-left-radius: 0;
+  }
+
+  &:last-child {
+    border-bottom-right-radius: 0;
+  }
 
   @media (min-width: calc(${({ theme }) => theme.breakpoints.mobile} + 55px)) {
     padding: 10px;
@@ -82,6 +100,17 @@ export const Td = styled.td`
   font-size: 14px;
   color: var(--black);
 `;
+
+export const LastRowTd = styled(Td)`
+  &:first-child {
+    border-bottom-left-radius: 8px;
+  }
+
+  &:last-child {
+    border-bottom-right-radius: 8px;
+  }
+`;
+
 export const Tr = styled.tr`
   &:first-child ${Th} {
     border-top: none;
@@ -98,6 +127,7 @@ export const Tr = styled.tr`
     border-right: none;
   }
 `;
+
 export const Butn = styled.button`
   display: flex;
   justify-content: center;
@@ -124,4 +154,10 @@ export const Head = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+export const Icon = styled.span`
+  display: none;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: block;
+  }
 `;

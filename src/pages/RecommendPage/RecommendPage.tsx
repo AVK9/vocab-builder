@@ -6,6 +6,7 @@ import { AppDispatch } from 'store/store';
 import { selectWordsAll } from 'store/words/wordsSelectors';
 import { getWordsAllThunk } from 'store/words/wordsThunk';
 import { RecommendPageBox } from './RecommendPage.styled';
+import Back from 'components/common/Back';
 
 const RecommendPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -28,9 +29,11 @@ const RecommendPage = () => {
   console.log('words', words);
 
   return (
-    <RecommendPageBox>
-      <WordsTable words={words} />
-    </RecommendPageBox>
+    <Back>
+      <RecommendPageBox>
+        <WordsTable words={words} />
+      </RecommendPageBox>
+    </Back>
   );
 };
 
