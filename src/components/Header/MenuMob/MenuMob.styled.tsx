@@ -46,7 +46,7 @@ export const Popup = styled.div<StyledProps>`
 `;
 
 export const Illustration = styled.div`
-  /* position: absolute; */
+  position: absolute;
   bottom: 0;
 
   width: 363px;
