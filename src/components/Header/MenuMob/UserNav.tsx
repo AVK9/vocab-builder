@@ -1,8 +1,16 @@
 import { IconSvg } from 'components/common/IconSvg';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { loginOutThunk } from 'store/auth/authThunk';
+import { AppDispatch } from 'store/store';
 import styled from 'styled-components';
-import { DICTIONARY_ROUTE, RECOMMEND_ROUTE, TRAINING_ROUTE } from 'utils/const';
+import {
+  DICTIONARY_ROUTE,
+  HOME_ROUTE,
+  RECOMMEND_ROUTE,
+  TRAINING_ROUTE,
+} from 'utils/const';
 
 export const Navigation = styled.nav`
   margin-top: 166px;
@@ -73,13 +81,31 @@ const StyledIconSvg = styled(IconSvg)`
   height: 16px;
 `;
 
-const UserNav: React.FC = () => {
+interface UserNavProps {
+  handleClose: () => void;
+}
+
+const UserNav: React.FC<UserNavProps> = ({ handleClose }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await dispatch(loginOutThunk());
+    navigate(HOME_ROUTE);
+  };
+
   return (
     <Navigation>
-      <StyledLink to={DICTIONARY_ROUTE}>Dictionary</StyledLink>
-      <StyledLink to={RECOMMEND_ROUTE}>Recommend</StyledLink>
-      <StyledLink to={TRAINING_ROUTE}>Training</StyledLink>
-      <BtnLogOut>
+      <StyledLink to={DICTIONARY_ROUTE} onClick={handleClose}>
+        Dictionary
+      </StyledLink>
+      <StyledLink to={RECOMMEND_ROUTE} onClick={handleClose}>
+        Recommend
+      </StyledLink>
+      <StyledLink to={TRAINING_ROUTE} onClick={handleClose}>
+        Training
+      </StyledLink>
+      <BtnLogOut onClick={handleLogout}>
         Log out
         <StyledIconSvg icon="arrow-right" />
       </BtnLogOut>

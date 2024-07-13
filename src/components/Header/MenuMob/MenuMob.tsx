@@ -49,7 +49,7 @@ const MenuMob: React.FC<HeaderMobProps> = ({ isOpen, onClose }) => {
       <Backdrop isOpen={isOpen} onClick={handleBackdropClick} />
       <Popup isOpen={isOpen}>
         <UserBar handleClose={handleClose} />
-        <UserNav />
+        <UserNav handleClose={handleClose} />
         {/* <Box></Box> */}
         <Illustration />
       </Popup>
