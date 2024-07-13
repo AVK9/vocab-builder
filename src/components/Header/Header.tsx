@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 const Header = () => {
   const token = useSelector(isAuthSelector);
+
   return (
     <Box>
       <Logo />

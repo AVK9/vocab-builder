@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Flex } from './Flex';
 
 import { IconSvg } from './IconSvg';
 import { useSelector } from 'react-redux';
@@ -10,6 +9,8 @@ import { loginOutThunk } from 'store/auth/authThunk';
 import { AppDispatch } from 'store/store';
 import { useNavigate } from 'react-router-dom';
 import { HOME_ROUTE } from 'utils/const';
+import { createPortal } from 'react-dom';
+import MenuMob from 'components/Header/MenuMob/MenuMob';
 
 const BoxUserBar = styled.div`
   display: flex;
@@ -97,6 +98,13 @@ const UserBar: React.FC = () => {
     navigate(HOME_ROUTE);
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
+  const modalRoot = document.getElementById('modal-root');
+
   const userName = (profile: { name: string }): string => {
     if (profile.name.length < 6) {
       return profile.name;
@@ -104,21 +112,32 @@ const UserBar: React.FC = () => {
     return profile.name.slice(0, 6) + '...';
   };
 
-  return (
-    <BoxUserBar>
-      {profile && <Name>{userName(profile)}</Name>}
-      <UserAvatar>
-        <IconSvg icon="user" fill="white" />
-      </UserAvatar>
-      <Button type="button" onClick={handleLogout}>
-        Log out
-        <IconSvg icon="arrow-right" stroke="black" />
-      </Button>
+  if (!modalRoot) {
+    console.error('modal-root element not found');
+    return null;
+  }
 
-      <Nav type="button">
-        <IconSvg icon="nav" stroke="black" tablet="true" />
-      </Nav>
-    </BoxUserBar>
+  return (
+    <>
+      <BoxUserBar>
+        {profile && <Name>{userName(profile)}</Name>}
+        <UserAvatar>
+          <IconSvg icon="user" fill="white" />
+        </UserAvatar>
+        <Button type="button" onClick={handleLogout}>
+          Log out
+          <IconSvg icon="arrow-right" stroke="black" />
+        </Button>
+
+        <Nav type="button" onClick={openModal}>
+          <IconSvg icon="nav" stroke="black" tablet="true" />
+        </Nav>
+      </BoxUserBar>
+      {createPortal(
+        <MenuMob isOpen={isOpen} onClose={closeModal} />,
+        modalRoot
+      )}
+    </>
   );
 };
 
