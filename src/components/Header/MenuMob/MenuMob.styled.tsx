@@ -28,7 +28,7 @@ export const Popup = styled.div<StyledProps>`
 
   padding: 16px;
   width: 185px;
-  /* height: 100%; */
+  min-height: 100%;
   /* overflow-y: auto; */
 
   /* &::-webkit-scrollbar {
