@@ -29,12 +29,12 @@ export const Popup = styled.div<StyledProps>`
   padding: 16px;
   width: 185px;
   min-height: 100%;
-  /* overflow-y: auto; */
+  overflow-y: auto;
 
-  /* &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 0;
     height: 0;
-  } */
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
