@@ -13,7 +13,6 @@ import {
 } from 'utils/const';
 
 export const Navigation = styled.nav`
-  margin-top: 166px;
   display: flex;
   gap: 28px;
   flex-direction: column;

@@ -33,14 +33,15 @@ export const Popup = styled.div<StyledProps>`
   min-height: 101%;
   overflow-y: auto;
 
-  &::-webkit-scrollbar {
+  /* &::-webkit-scrollbar {
     width: 0;
     height: 0;
-  }
+  } */
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   flex-grow: 1;
   @media (min-width: ${({ theme }) => theme.breakpoints.mobileX}) {
     /* right: -130px; */
@@ -49,8 +50,8 @@ export const Popup = styled.div<StyledProps>`
 `;
 
 export const Illustration = styled.div`
-  position: absolute;
-  bottom: 0;
+  /* position: absolute; */
+  /* bottom: 0; */
 
   width: 363px;
   height: 318px;

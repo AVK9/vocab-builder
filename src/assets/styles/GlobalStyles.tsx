@@ -56,7 +56,7 @@ html[data-theme='dark'] {
   overflow: hidden;
 }
 main {
-  /* flex-grow: 1; */
+  flex-grow: 1;
 }
 
 h1,
