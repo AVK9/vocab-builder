@@ -6,39 +6,38 @@ interface StyledProps {
 }
 
 export const Backdrop = styled.div<StyledProps>`
-  position: fixed;
+  position: absolute;
+  min-height: 101%;
   inset: 0px;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
+  visibility: ${props => (props.isOpen ? 'visible' : 'hidden')};
   opacity: ${props => (props.isOpen ? 1 : 0)};
-  transition: opacity 0.5s ease-in-out;
+  transition: visibility 0.5s, opacity 0.5s ease-in-out;
   z-index: 1000;
 `;
 
 export const Popup = styled.div<StyledProps>`
   z-index: 1001;
-  position: absolute;
-  /* right: -92.5px; */
-  /* right: 0; */
-  top: 0%;
-  /* transform: translate(-50%, -50%); */
-  /* overflow: hidden; */
+  overflow: hidden;
   background: var(--green);
-  right: ${({ isOpen }) => (isOpen ? '0' : '-200%')};
-  /* opacity: ${props => (props.isOpen ? 1 : 0)};
-  /* transition: opacity 0.8s ease-in-out; */
-  /* transform: translateY(-150%); */
+  position: absolute;
+  right: 0px;
+  top: 0;
+  transform: ${({ isOpen }) =>
+    isOpen ? 'translateX(0%)' : 'translateX(150%)'};
   transition: all 0.8s;
 
   padding: 16px;
   width: 185px;
-  min-height: 100%;
+  min-height: 101%;
   overflow-y: auto;
 
-  /* &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 0;
     height: 0;
-  } */
+  }
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,10 +58,4 @@ export const Illustration = styled.div`
   background-repeat: no-repeat;
   /* background-position: left center; */
   background-size: contain;
-`;
-export const Box = styled.div`
-  background-color: red;
-  margin-top: 92px;
-  width: 100%;
-  height: 318px;
 `;

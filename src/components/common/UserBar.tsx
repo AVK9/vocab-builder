@@ -10,7 +10,7 @@ import { AppDispatch } from 'store/store';
 import { useNavigate } from 'react-router-dom';
 import { HOME_ROUTE } from 'utils/const';
 import { createPortal } from 'react-dom';
-import MenuMob from 'components/Header/MenuMob/MenuMob';
+import MenuMobile from 'components/Header/MenuMobile/MenuMobile';
 
 const BoxUserBar = styled.div`
   display: flex;
@@ -43,6 +43,7 @@ export const UserAvatar = styled.div`
 `;
 
 const Nav = styled.button`
+  outline: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,8 +101,14 @@ const UserBar: React.FC = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const openModal = () => {
+    setIsOpen(true);
+    console.log('openModal=>', isOpen);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
+    console.log('closeModal=>', isOpen);
+  };
 
   const modalRoot = document.getElementById('modal-root');
 
@@ -134,7 +141,7 @@ const UserBar: React.FC = () => {
         </Nav>
       </BoxUserBar>
       {createPortal(
-        <MenuMob isOpen={isOpen} onClose={closeModal} />,
+        <MenuMobile isOpen={isOpen} onClose={closeModal} />,
         modalRoot
       )}
     </>

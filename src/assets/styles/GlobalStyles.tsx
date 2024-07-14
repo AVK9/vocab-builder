@@ -56,7 +56,7 @@ html[data-theme='dark'] {
   overflow: hidden;
 }
 main {
-  flex-grow: 1;
+  /* flex-grow: 1; */
 }
 
 h1,
@@ -97,40 +97,46 @@ button {
       font-family: 'MacPaw Fixel Display';
       font-weight: 700;
       font-style: normal;
-      src: url(${fixelDisplayBold}) format('truetype');
+      src: url(${fixelDisplayBold}) format('opentype');
+      font-display: swap;
     }
 @font-face {
       font-family: 'MacPaw Fixel Display';
       font-weight: 500;
       font-style: normal;
-      src: url(${fixelDisplayMedium}) format('truetype');
+      src: url(${fixelDisplayMedium}) format('opentype');
+      font-display: swap;
     }
 
 @font-face {
       font-family: 'MacPaw Fixel Display';
       font-weight: 400;
       font-style: normal;
-      src: url(${fixelDisplayRegular}) format('truetype');
+      src: url(${fixelDisplayRegular}) format('opentype');
+      font-display: swap;
     }
 
 @font-face {
       font-family: 'MacPaw Fixel Display';
       font-weight: 400;
       font-style: normal;
-      src: url(${fixelDisplaySemiBold}) format('truetype');
+      src: url(${fixelDisplaySemiBold}) format('opentype');
+      font-display: swap;
     }
 
 @font-face {
       font-family: 'SF Pro Display';
       font-weight: 400;
       font-style: normal;
-      src: url(${sfProDisplayLight}) format('truetype');
+      src: url(${sfProDisplayLight}) format('opentype');
+      font-display: swap;
     }
 @font-face {
       font-family: 'SF Pro Display';
       font-weight: 400;
       font-style: normal;
-      src: url(${sfProDisplayRegular}) format('truetype');
+      src: url(${sfProDisplayRegular}) format('opentype');
+      font-display: swap;
     }
 
 

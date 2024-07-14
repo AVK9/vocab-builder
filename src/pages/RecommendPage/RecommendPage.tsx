@@ -50,16 +50,16 @@ const RecommendPage = () => {
   console.log('words', words.totalPages);
 
   return (
-    <Back>
-      <RecommendPageBox>
-        <WordsTable words={words.results} />
-        <Pagination
-          currentPage={currentPage}
-          totalPages={words.totalPages}
-          onPageChange={handlePageChange}
-        />
-      </RecommendPageBox>
-    </Back>
+    // <Back>
+    <RecommendPageBox>
+      <WordsTable words={words.results} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={words.totalPages}
+        onPageChange={handlePageChange}
+      />
+    </RecommendPageBox>
+    // </Back>
   );
 };
 

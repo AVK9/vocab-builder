@@ -44,13 +44,3 @@ $maxWidth: 2560;
         white-space: wrap;
     }
 }
-
-
-.menu {
-    transform: translateY(-150%);
-    transition: all .4s;
-}
-
-.menu.showHeaderMobile {
-    transform: translateY(0%);
-}

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Backdrop, Illustration, Popup, Box } from './MenuMob.styled';
+import { Backdrop, Illustration, Popup } from './MenuMobile.styled';
 import UserBar from './UserBar';
 import UserNav from './UserNav';
 
@@ -8,30 +8,26 @@ interface HeaderMobProps {
   onClose: () => void;
 }
 
-const MenuMob: React.FC<HeaderMobProps> = ({ isOpen, onClose }) => {
-  const handleClose = () => {
-    setTimeout(onClose, 500);
-  };
-
+const MenuMobile: React.FC<HeaderMobProps> = ({ isOpen, onClose }) => {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.currentTarget === event.target) {
-      // handleClose();
+      onClose();
     }
   };
 
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     document.body.style.overflow = 'hidden';
-  //   }
-  //   return () => {
-  //     document.body.style.overflow = 'unset';
-  //   };
-  // }, [isOpen]);
+  useEffect(() => {
+    // if (isOpen) {
+    //   document.body.style.overflow = 'hidden';
+    // }
+    // return () => {
+    // document.body.style.overflow = 'unset';
+    // };
+  }, [isOpen]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        // onClose();
+        onClose();
       }
     };
 
@@ -42,8 +38,6 @@ const MenuMob: React.FC<HeaderMobProps> = ({ isOpen, onClose }) => {
     };
   }, [onClose]);
 
-  // if (!isOpen) return null;
-
   return (
     <>
       <Backdrop isOpen={isOpen} onClick={handleBackdropClick} />
@@ -51,13 +45,12 @@ const MenuMob: React.FC<HeaderMobProps> = ({ isOpen, onClose }) => {
         isOpen={isOpen}
         className={isOpen ? 'menu showHeaderMobile' : 'menu'}
       >
-        <UserBar handleClose={handleClose} />
-        <UserNav handleClose={handleClose} />
-        {/* <Box></Box> */}
+        <UserBar onClose={onClose} />
+        <UserNav onClose={onClose} />
         <Illustration />
       </Popup>
     </>
   );
 };
 
-export default MenuMob;
+export default MenuMobile;
