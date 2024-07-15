@@ -1,4 +1,7 @@
-#VocabBuilder
+  <a href="https://vocab-builder-theta.vercel.app/login" target="_blank">
+    <img src="./src/assets/img/logo.svg" alt="learnlingo" width="30">
+#VocabBuilder 
+  </a>
 
 **Technical information from the VocabBuilder project** -
 https://docs.google.com/spreadsheets/d/15zCxbWA7ubDmFzjmzzXe6ysiHVMd4iD2PcZ7ilN2gRc/edit?gid=1060862504#gid=1060862504
