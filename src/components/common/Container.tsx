@@ -7,10 +7,12 @@ interface StyledContainerProps {
 
 const Box = styled.div<StyledContainerProps>`
   margin: 0 auto;
-  width: 100%;
+  width: 320px;
+  overflow: hidden;
   background-color: ${props => props.bg || 'transparent'};
 
   @media only screen and (min-width: 768px) {
+    width: 768px;
     padding-left: 32px;
     padding-right: 32px;
   }

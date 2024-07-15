@@ -16,12 +16,12 @@ const MenuMobile: React.FC<HeaderMobProps> = ({ isOpen, onClose }) => {
   };
 
   useEffect(() => {
-    // if (isOpen) {
-    //   document.body.style.overflow = 'hidden';
-    // }
-    // return () => {
-    // document.body.style.overflow = 'unset';
-    // };
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, [isOpen]);
 
   useEffect(() => {

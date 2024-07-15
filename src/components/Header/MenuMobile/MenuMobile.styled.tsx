@@ -6,8 +6,7 @@ interface StyledProps {
 }
 
 export const Backdrop = styled.div<StyledProps>`
-  position: absolute;
-  min-height: 101%;
+  position: fixed;
   inset: 0px;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
@@ -21,7 +20,7 @@ export const Popup = styled.div<StyledProps>`
   z-index: 1001;
   overflow: hidden;
   background: var(--green);
-  position: absolute;
+  position: fixed;
   right: 0px;
   top: 0;
   transform: ${({ isOpen }) =>
@@ -30,33 +29,27 @@ export const Popup = styled.div<StyledProps>`
 
   padding: 16px;
   width: 185px;
-  min-height: 101%;
+  min-height: 100%;
   overflow-y: auto;
 
-  /* &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 0;
     height: 0;
-  } */
+  }
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  flex-grow: 1;
   @media (min-width: ${({ theme }) => theme.breakpoints.mobileX}) {
-    /* right: -130px; */
     width: 260px;
   }
 `;
 
 export const Illustration = styled.div`
-  /* position: absolute; */
-  /* bottom: 0; */
-
   width: 363px;
   height: 318px;
   background-image: url(${illustration});
   background-repeat: no-repeat;
-  /* background-position: left center; */
   background-size: contain;
 `;

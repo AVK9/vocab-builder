@@ -8,9 +8,9 @@ export const Layout = () => {
   return (
     <div className="wrapper">
       <header>
-        {/* <Container> */}
-        <Header />
-        {/* </Container> */}
+        <Container>
+          <Header />
+        </Container>
       </header>
       <main>
         <Outlet />
