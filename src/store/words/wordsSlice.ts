@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import {
   addWordOwnThunk,
+  delWordsOwnThunk,
+  editWordsOwnThunk,
   getWordsAllThunk,
   getWordsCategoriesThunk,
   getWordsOwnThunk,
@@ -16,6 +18,8 @@ import {
   handleRejected,
   handleGetWordsOwn,
   handleAddWordOwn,
+  handleDelWordsOwn,
+  handleEditWordsOwn,
 } from './wordsHandlers';
 
 const initialState: WordsState = {
@@ -45,7 +49,8 @@ const wordsSlice = createSlice({
       .addCase(getWordsAllThunk.fulfilled, handleGetWordsAll)
       .addCase(getWordsOwnThunk.fulfilled, handleGetWordsOwn)
       .addCase(addWordOwnThunk.fulfilled, handleAddWordOwn)
-      //   .addCase(delContactThunk.fulfilled, handleDelContact)
+      .addCase(delWordsOwnThunk.fulfilled, handleDelWordsOwn)
+      .addCase(editWordsOwnThunk.fulfilled, handleEditWordsOwn)
       .addMatcher(
         ({ type }): boolean => type.endsWith('/pendihg'),
         handlePending

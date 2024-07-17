@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setTokenApi } from 'services/authApi';
 import {
   addWordOwnApi,
+  delWordsOwnApi,
+  editWordsOwnApi,
   getWordsAllApi,
   getWordsCategoriesApi,
   getWordsOwnApi,
@@ -9,6 +11,8 @@ import {
 import { RootState } from 'store/store';
 import {
   ApiError,
+  DellWord,
+  EditWord,
   getWordsAllApiResponse,
   getWordsAllData,
   getWordsData,
@@ -67,27 +71,30 @@ export const addWordOwnThunk = createAsyncThunk<
   }
 });
 
-// export const addContactThunk = createAsyncThunk(
-//   'contacts/addContacts',
-//   async (contact, { rejectWithValue }) => {
-//     try {
-//       const data = await addContactApi(contact);
+export const delWordsOwnThunk = createAsyncThunk<
+  DellWord,
+  string,
+  { rejectValue: ApiError }
+>('words/delWordsOwn', async (id: string, { rejectWithValue, getState }) => {
+  try {
+    const state = getState() as RootState;
 
-//       return data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data.error);
-//     }
-//   }
-// );
+    return await delWordsOwnApi(state.auth.token!, id);
+  } catch (error: any) {
+    return rejectWithValue(error.response.data.message);
+  }
+});
 
-// export const delContactThunk = createAsyncThunk(
-//   'contacts/delContacts',
-//   async (delId, { rejectWithValue }) => {
-//     try {
-//       const data = await delContactApi(delId);
-//       return data;
-//     } catch (error) {
-//       return rejectWithValue(error.response.data.error);
-//     }
-//   }
-// );
+export const editWordsOwnThunk = createAsyncThunk<
+  Word,
+  EditWord,
+  { rejectValue: ApiError }
+>('words/editWordsOwn', async (body, { rejectWithValue, getState }) => {
+  try {
+    const state = getState() as RootState;
+
+    return await editWordsOwnApi(state.auth.token!, body);
+  } catch (error: any) {
+    return rejectWithValue(error.response.data.message);
+  }
+});

@@ -1,5 +1,6 @@
 import {
-  dellWord,
+  DellWord,
+  EditWord,
   getWordsAllApiResponse,
   getWordsAllData,
   getWordsData,
@@ -67,11 +68,25 @@ export const addWordOwnApi = async (
 export const delWordsOwnApi = async (
   token: string,
   id: string
-): Promise<dellWord> => {
-  const { data } = await api.delete<dellWord>(`/words/delete/${id}`, {
+): Promise<DellWord> => {
+  const { data } = await api.delete<DellWord>(`/words/delete/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+
+  return data;
+};
+export const editWordsOwnApi = async (
+  token: string,
+  reqData: EditWord
+): Promise<Word> => {
+  const { data } = await api.patch<Word>(`/words/edit/${reqData.id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    params: reqData,
+  });
+
   return data;
 };

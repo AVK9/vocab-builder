@@ -66,7 +66,14 @@ export interface getWordsResponse {
   perPage: number;
 }
 
-export interface dellWord {
+export interface DellWord {
   message: string;
   id: string;
+}
+export interface EditWord {
+  id: string;
+  en: string;
+  ua: string;
+  category: string;
+  isIrregular: boolean;
 }

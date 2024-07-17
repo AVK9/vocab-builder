@@ -1,5 +1,8 @@
 import { IconSvg } from 'components/common/IconSvg';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from 'store/store';
+import { delWordsOwnThunk } from 'store/words/wordsThunk';
 import styled from 'styled-components';
 
 interface StyledProps {
@@ -14,11 +17,15 @@ const EditDelPopupBox = styled.div<StyledProps>`
   background: #fff;
 
   position: absolute;
-  z-index: 1000000;
-  bottom: -110px;
+  z-index: 99;
+  bottom: -80px;
   left: -80px;
 
-  display: ${props => (props.isOpen ? 'block' : 'none')};
+  display: ${props => (props.isOpen ? 'flex' : 'none')};
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
 `;
 
 const Btn = styled.button`
@@ -27,7 +34,6 @@ const Btn = styled.button`
   align-items: center;
   gap: 8px;
 
-  margin-bottom: 8px;
   outline: none;
 `;
 const BtnName = styled.span`
@@ -57,21 +63,24 @@ const EditDelPopup: React.FC<EditDelPopupProps> = ({
   isOpen,
   onClose,
 }) => {
-  console.log('EditDelPopup', isOpen);
+  const dispatch = useDispatch<AppDispatch>();
+
+  console.log('EditDelPopup', data);
   const editWord = () => {
     onClose();
   };
-  const delWord = () => {
+  const delWord = async () => {
+    await dispatch(delWordsOwnThunk(data._id));
     onClose();
   };
   return (
     <EditDelPopupBox isOpen={isOpen}>
       <Btn type="button" onClick={editWord}>
-        <IconSvg icon="edit" stroke="var(--green)" />
+        <IconSvg icon="edit" stroke="var(--green)" size="16px" />
         <BtnName>Edit</BtnName>
       </Btn>
       <Btn type="button" onClick={delWord}>
-        <IconSvg icon="trash" stroke="var(--green)" />
+        <IconSvg icon="trash" stroke="var(--green)" size="16px" />
         <BtnName>Delete</BtnName>
       </Btn>
     </EditDelPopupBox>

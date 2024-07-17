@@ -1,5 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import {
+  DellWord,
+  EditWord,
   getWordsAllApiResponse,
   getWordsResponse,
   Word,
@@ -50,7 +52,23 @@ export const handleAddWordOwn = (
   state.wordsOwn.results = [...state.wordsOwn.results, action.payload];
 };
 
-// export const handleDelContact = (state, { payload }) => {
-//   const item = state.contacts.findIndex(index => index.id === payload.id);
-//   state.contacts.splice(item, 1);
-// };
+export const handleDelWordsOwn = (
+  state: WordsState,
+  action: PayloadAction<DellWord>
+) => {
+  const item = state.wordsOwn.results.findIndex(
+    index => index._id === action.payload.id
+  );
+  state.wordsOwn.results.splice(item, 1);
+};
+
+export const handleEditWordsOwn = (
+  state: WordsState,
+  action: PayloadAction<Word>
+) => {
+  const item = state.wordsOwn.results.findIndex(
+    index => index._id === action.payload._id
+  );
+
+  state.wordsOwn.results[item] = action.payload;
+};

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const TableContainer = styled.div`
   position: relative;
   border-radius: 8px;
-  overflow: hidden;
+  /* overflow: hidden; */
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 18px;
     background-color: #fff;
