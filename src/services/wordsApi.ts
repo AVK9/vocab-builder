@@ -1,8 +1,10 @@
 import {
+  dellWord,
   getWordsAllApiResponse,
   getWordsAllData,
   getWordsData,
   getWordsResponse,
+  Word,
 } from 'store/words/wordsTypes';
 import { api } from './api';
 
@@ -45,8 +47,31 @@ export const getWordsOwnApi = async (
   });
   return data;
 };
+export const addWordOwnApi = async (
+  token: string,
+  id: string
+): Promise<Word> => {
+  const { data } = await api.post<Word>(
+    `/words/add/${id}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
-// export const delContactApi = async delId => {
-//   const { data } = await api.delete(`/contacts/${delId}`);
-//   return data;
-// };
+  return data;
+};
+
+export const delWordsOwnApi = async (
+  token: string,
+  id: string
+): Promise<dellWord> => {
+  const { data } = await api.delete<dellWord>(`/words/delete/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};

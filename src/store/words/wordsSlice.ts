@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import {
+  addWordOwnThunk,
   getWordsAllThunk,
   getWordsCategoriesThunk,
   getWordsOwnThunk,
@@ -14,6 +15,7 @@ import {
   handlePending,
   handleRejected,
   handleGetWordsOwn,
+  handleAddWordOwn,
 } from './wordsHandlers';
 
 const initialState: WordsState = {
@@ -24,7 +26,12 @@ const initialState: WordsState = {
     page: 0,
     perPage: 0,
   },
-  wordsOwn: [],
+  wordsOwn: {
+    results: [],
+    totalPages: 0,
+    page: 0,
+    perPage: 0,
+  },
   isLoading: false,
   error: null,
 };
@@ -37,7 +44,7 @@ const wordsSlice = createSlice({
       .addCase(getWordsCategoriesThunk.fulfilled, handleGetWordsCategories)
       .addCase(getWordsAllThunk.fulfilled, handleGetWordsAll)
       .addCase(getWordsOwnThunk.fulfilled, handleGetWordsOwn)
-      //   .addCase(addContactThunk.fulfilled, handleAddContact)
+      .addCase(addWordOwnThunk.fulfilled, handleAddWordOwn)
       //   .addCase(delContactThunk.fulfilled, handleDelContact)
       .addMatcher(
         ({ type }): boolean => type.endsWith('/pendihg'),

@@ -1,4 +1,4 @@
-  <a href="https://vocab-builder-theta.vercel.app/login" target="_blank">
+  <a href="https://vocab-builder-theta.vercel.app" target="_blank">
     <img src="./src/assets/img/logo.svg" alt="learnlingo" width="30">
 #VocabBuilder 
   </a>

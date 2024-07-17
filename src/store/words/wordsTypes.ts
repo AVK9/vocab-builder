@@ -7,6 +7,7 @@ export interface Word {
   owner?: string;
   progress?: number;
 }
+
 export interface WordsResponse {
   results: Word[];
   totalPages: number;
@@ -19,7 +20,7 @@ export interface WordsState {
   error: string | null;
   categories: string[];
   wordsAll: WordsResponse;
-  wordsOwn: Word[];
+  wordsOwn: WordsResponse;
 }
 
 export interface getWordsAllData {
@@ -63,4 +64,9 @@ export interface getWordsResponse {
   totalPages: number;
   page: number;
   perPage: number;
+}
+
+export interface dellWord {
+  message: string;
+  id: string;
 }

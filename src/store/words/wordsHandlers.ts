@@ -2,6 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import {
   getWordsAllApiResponse,
   getWordsResponse,
+  Word,
   WordsState,
 } from './wordsTypes';
 
@@ -34,19 +35,20 @@ export const handleGetWordsAll = (
   action: PayloadAction<getWordsAllApiResponse>
 ) => {
   state.wordsAll = action.payload;
-  console.log('handleGetWordsAll :>> ', action.payload);
-  console.log('handleGetWordsAll :>> ', action.payload.results);
 };
 export const handleGetWordsOwn = (
   state: WordsState,
   action: PayloadAction<getWordsResponse>
 ) => {
-  state.wordsOwn = action.payload.results;
+  state.wordsOwn = action.payload;
 };
-// export const handleAddContact = (state, { payload }) => {
-//   console.log('handleAddContact :>> ', payload);
-//   state.contacts.push(payload);
-// };
+
+export const handleAddWordOwn = (
+  state: WordsState,
+  action: PayloadAction<Word>
+) => {
+  state.wordsOwn.results = [...state.wordsOwn.results, action.payload];
+};
 
 // export const handleDelContact = (state, { payload }) => {
 //   const item = state.contacts.findIndex(index => index.id === payload.id);

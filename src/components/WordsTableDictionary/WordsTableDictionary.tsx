@@ -10,17 +10,21 @@ import {
   Icon,
   InnerContainer,
   LastRowTd,
+  Persent,
+  CellFlex,
+  ProgressPersent,
   Table,
   TableContainer,
   Td,
   Th,
   Tr,
-} from './WordsTable.styled';
+} from './WordsTableDictionary.styled';
 import { IconSvg } from 'components/common/IconSvg';
-import { Butn, ButnText } from './WordsTable.styled';
+import { Butn, ButnText } from './WordsTableDictionary.styled';
 import { addWordOwnThunk } from 'store/words/wordsThunk';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
+import ProgressCircle from 'components/common/ProgressCircle';
 
 interface Word {
   _id: string;
@@ -37,7 +41,7 @@ interface WordsTableProps {
   words: Word[];
 }
 
-const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
+const WordsTableDictionary: React.FC<WordsTableProps> = ({ words }) => {
   const dispatch = useDispatch<AppDispatch>();
   const columns = useMemo<ColumnDef<Word>[]>(
     () => [
@@ -66,27 +70,38 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
         cell: info => info.getValue(),
       },
       {
-        accessorKey: 'category',
-        header: 'Category',
-        cell: info => info.getValue(),
+        accessorKey: 'progress',
+        header: 'Progress',
+        cell: info => {
+          const value = info.getValue() as number;
+          return (
+            <CellFlex>
+              <ProgressPersent>
+                <Persent>{value} %</Persent>
+              </ProgressPersent>
+              <ProgressCircle percentage={value} size={26} strokeWidth={5} />
+            </CellFlex>
+          );
+        },
       },
       {
         accessorKey: 'actions',
         header: '',
         cell: info => (
-          <Butn onClick={() => handleAddWord(info.row.original)}>
-            <ButnText>Add to dictionary </ButnText>
-            <IconSvg icon="arrow-right" stroke="var(--green)" />
-          </Butn>
+          <CellFlex>
+            <Butn onClick={() => handleEditWord(info.row.original)}>
+              <IconSvg icon="Dot" fill="var(--black)" size="16px" />
+            </Butn>
+          </CellFlex>
         ),
       },
     ],
     []
   );
 
-  const handleAddWord = async (word: Word) => {
+  const handleEditWord = async (word: Word) => {
     console.log('Adding word:', word._id);
-    await dispatch(addWordOwnThunk(word._id));
+    // await dispatch(addWordOwnThunk(word._id));
   };
 
   const table = useReactTable({
@@ -144,4 +159,4 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
   );
 };
 
-export default WordsTable;
+export default WordsTableDictionary;
