@@ -163,6 +163,8 @@ export const Icon = styled.span`
 `;
 
 export const CellFlex = styled.span`
+  position: relative;
+
   display: flex;
   justify-content: center;
   align-items: center;

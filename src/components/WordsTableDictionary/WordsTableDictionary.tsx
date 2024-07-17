@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   ColumnDef,
   useReactTable,
@@ -25,6 +25,7 @@ import { addWordOwnThunk } from 'store/words/wordsThunk';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
 import ProgressCircle from 'components/common/ProgressCircle';
+import EditDelPopup from './EditDelPopup';
 
 interface Word {
   _id: string;
@@ -42,6 +43,8 @@ interface WordsTableProps {
 }
 
 const WordsTableDictionary: React.FC<WordsTableProps> = ({ words }) => {
+  const [openPopupId, setOpenPopupId] = useState<string | null>(null);
+
   const dispatch = useDispatch<AppDispatch>();
   const columns = useMemo<ColumnDef<Word>[]>(
     () => [
@@ -89,18 +92,28 @@ const WordsTableDictionary: React.FC<WordsTableProps> = ({ words }) => {
         header: '',
         cell: info => (
           <CellFlex>
-            <Butn onClick={() => handleEditWord(info.row.original)}>
+            <Butn
+              onClick={() => {
+                const id = info.row.original._id;
+                setOpenPopupId(prevId => (prevId === id ? null : id));
+              }}
+            >
               <IconSvg icon="Dot" fill="var(--black)" size="16px" />
             </Butn>
+            <EditDelPopup
+              data={info.row.original}
+              isOpen={openPopupId === info.row.original._id}
+              onClose={() => setOpenPopupId(null)}
+            />
           </CellFlex>
         ),
       },
     ],
-    []
+    [openPopupId]
   );
 
   const handleEditWord = async (word: Word) => {
-    console.log('Adding word:', word._id);
+    console.log('Adding word:', word);
     // await dispatch(addWordOwnThunk(word._id));
   };
 
