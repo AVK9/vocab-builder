@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Backdrop, Illustration, Popup, Box } from './MenuMob.styled';
+import { Backdrop, Illustration, Popup } from './MenuMob.styled';
 import UserBar from './UserBar';
 import UserNav from './UserNav';
 
@@ -15,23 +15,29 @@ const MenuMob: React.FC<HeaderMobProps> = ({ isOpen, onClose }) => {
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.currentTarget === event.target) {
-      // handleClose();
     }
   };
 
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     document.body.style.overflow = 'hidden';
-  //   }
-  //   return () => {
-  //     document.body.style.overflow = 'unset';
-  //   };
-  // }, [isOpen]);
+  const calculateScrollbarWidth = () => {
+    return window.innerWidth - document.documentElement.clientWidth;
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      const scrollbarWidth = calculateScrollbarWidth();
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.body.style.paddingRight = '0px';
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        // onClose();
       }
     };
 
@@ -42,18 +48,12 @@ const MenuMob: React.FC<HeaderMobProps> = ({ isOpen, onClose }) => {
     };
   }, [onClose]);
 
-  // if (!isOpen) return null;
-
   return (
     <>
       <Backdrop isOpen={isOpen} onClick={handleBackdropClick} />
-      <Popup
-        isOpen={isOpen}
-        className={isOpen ? 'menu showHeaderMobile' : 'menu'}
-      >
+      <Popup isOpen={isOpen}>
         <UserBar handleClose={handleClose} />
         <UserNav handleClose={handleClose} />
-        {/* <Box></Box> */}
         <Illustration />
       </Popup>
     </>

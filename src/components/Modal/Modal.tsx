@@ -22,19 +22,30 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     }
   };
 
+  const calculateScrollbarWidth = () => {
+    return window.innerWidth - document.documentElement.clientWidth;
+  };
+
   useEffect(() => {
     if (isOpen) {
       setOpen(true);
+      const scrollbarWidth = calculateScrollbarWidth();
       document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
     return () => {
       document.body.style.overflow = 'unset';
+      document.body.style.paddingRight = '0px';
     };
   }, [isOpen]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (
+        event.key === 'Escape' ||
+        event.key === ' ' ||
+        event.code === 'Space'
+      ) {
         onClose();
       }
     };
@@ -45,12 +56,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose]);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     onClose();
-  //   }
-  // }, [onClose, user]);
 
   if (!isOpen) return null;
 

@@ -32,8 +32,6 @@ body {
       margin: 0;
       line-height: 1;
       scroll-behavior: smooth;
-      overflow-x: hidden;
-      
     }
 
 html[data-theme='light'] {

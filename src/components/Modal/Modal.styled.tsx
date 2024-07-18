@@ -28,7 +28,7 @@ export const Popup = styled.div<StyledProps>`
   padding: 16px;
   width: 80%;
   max-width: 566px;
-  /* max-height: 80%; */
+  max-height: 95%;
   overflow-y: auto;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {

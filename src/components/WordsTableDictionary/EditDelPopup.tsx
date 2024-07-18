@@ -103,10 +103,11 @@ const EditDelPopup: React.FC<EditDelPopupProps> = ({
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-      }
-      if (event.key === ' ' || event.code === 'Space') {
+      if (
+        event.key === 'Escape' ||
+        event.key === ' ' ||
+        event.code === 'Space'
+      ) {
         onClose();
       }
     };
