@@ -19,18 +19,19 @@ export const Popup = styled.div<StyledProps>`
   top: 50%;
   transform: translate(-50%, -50%);
 
-  background: #fff;
+  background: var(--green);
   opacity: ${props => (props.isOpen ? 1 : 0)};
   transition: opacity 0.8s ease-in-out;
 
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: 15px;
+  padding: 16px;
   width: 80%;
   max-width: 566px;
   max-height: 80%;
   overflow-y: auto;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    border-radius: 30px;
     padding: 64px;
   }
 

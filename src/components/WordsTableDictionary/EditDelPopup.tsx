@@ -1,5 +1,8 @@
 import { IconSvg } from 'components/common/IconSvg';
-import React from 'react';
+import EditWordContent from 'components/Modal/EditWordContent';
+import Modal from 'components/Modal/Modal';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
 import { delWordsOwnThunk } from 'store/words/wordsThunk';
@@ -8,6 +11,15 @@ import styled from 'styled-components';
 interface StyledProps {
   isOpen: boolean;
 }
+
+const Backdrop = styled.div<StyledProps>`
+  position: fixed;
+  inset: 0px;
+  background: rgba(0, 0%, 0%, 0.5);
+  display: ${props => (props.isOpen ? 'block' : 'none')};
+  transition: all 0.5s ease-in-out;
+  z-index: 10;
+`;
 
 const EditDelPopupBox = styled.div<StyledProps>`
   border-radius: 15px;
@@ -65,25 +77,73 @@ const EditDelPopup: React.FC<EditDelPopupProps> = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  console.log('EditDelPopup', data);
-  const editWord = () => {
+  const [isModal, setIsModal] = useState(false);
+
+  const openModal = () => setIsModal(true);
+
+  const closeModal = () => {
+    setIsModal(false);
     onClose();
   };
+
+  const editWord = () => {
+    openModal();
+  };
+
   const delWord = async () => {
     await dispatch(delWordsOwnThunk(data._id));
     onClose();
   };
+
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.currentTarget === event.target) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+      if (event.key === ' ' || event.code === 'Space') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
+  const modalRoot = document.getElementById('modal-root');
+  if (!modalRoot) {
+    console.error('modal-root element not found');
+    return null;
+  }
+
   return (
-    <EditDelPopupBox isOpen={isOpen}>
-      <Btn type="button" onClick={editWord}>
-        <IconSvg icon="edit" stroke="var(--green)" size="16px" />
-        <BtnName>Edit</BtnName>
-      </Btn>
-      <Btn type="button" onClick={delWord}>
-        <IconSvg icon="trash" stroke="var(--green)" size="16px" />
-        <BtnName>Delete</BtnName>
-      </Btn>
-    </EditDelPopupBox>
+    <>
+      <Backdrop isOpen={isOpen} onClick={handleBackdropClick} />
+      <EditDelPopupBox isOpen={isOpen}>
+        <Btn type="button" onClick={editWord}>
+          <IconSvg icon="edit" stroke="var(--green)" size="16px" />
+          <BtnName>Edit</BtnName>
+        </Btn>
+        <Btn type="button" onClick={delWord}>
+          <IconSvg icon="trash" stroke="var(--green)" size="16px" />
+          <BtnName>Delete</BtnName>
+        </Btn>
+      </EditDelPopupBox>
+      {createPortal(
+        <Modal isOpen={isModal} onClose={closeModal}>
+          <EditWordContent data={data} closeModal={closeModal} />
+        </Modal>,
+        modalRoot
+      )}
+    </>
   );
 };
 
