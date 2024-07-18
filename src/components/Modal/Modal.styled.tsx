@@ -7,8 +7,9 @@ export const Backdrop = styled.div<StyledProps>`
   position: fixed;
   inset: 0px;
   background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   opacity: ${props => (props.isOpen ? 1 : 0)};
-  transition: opacity 0.5s ease-in-out;
+  transform: opacity 0.8s ease-in-out;
   z-index: 1000;
 `;
 
@@ -17,17 +18,17 @@ export const Popup = styled.div<StyledProps>`
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: ${props =>
+    props.isOpen ? 'translate(-50%, -50%)' : 'translate(-50%, -60%)'};
+  opacity: ${props => (props.isOpen ? 1 : 0)};
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
 
   background: var(--green);
-  opacity: ${props => (props.isOpen ? 1 : 0)};
-  transition: opacity 0.8s ease-in-out;
-
   border-radius: 15px;
   padding: 16px;
   width: 80%;
   max-width: 566px;
-  max-height: 80%;
+  /* max-height: 80%; */
   overflow-y: auto;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {

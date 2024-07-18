@@ -71,7 +71,7 @@ export interface DellWord {
   id: string;
 }
 export interface EditWord {
-  id: string;
+  id?: string;
   en: string;
   ua: string;
   category: string;

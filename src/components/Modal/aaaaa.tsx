@@ -13,7 +13,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 
   const handleClose = () => {
     setOpen(false);
-    setTimeout(onClose, 800);
+    setTimeout(onClose, 500);
   };
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -45,12 +45,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose]);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     onClose();
-  //   }
-  // }, [onClose, user]);
 
   if (!isOpen) return null;
 

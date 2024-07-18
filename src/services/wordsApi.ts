@@ -81,12 +81,17 @@ export const editWordsOwnApi = async (
   token: string,
   reqData: EditWord
 ): Promise<Word> => {
-  const { data } = await api.patch<Word>(`/words/edit/${reqData.id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params: reqData,
-  });
+  const { id, en, ua, category, isIrregular } = reqData;
+
+  const { data } = await api.patch<Word>(
+    `/words/edit/${id}`,
+    { en, ua, category, isIrregular },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 
   return data;
 };
