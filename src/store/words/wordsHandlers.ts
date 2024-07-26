@@ -4,6 +4,7 @@ import {
   EditWord,
   getWordsAllApiResponse,
   getWordsResponse,
+  TotalCountResponse,
   Word,
   WordsState,
 } from './wordsTypes';
@@ -71,4 +72,10 @@ export const handleEditWordsOwn = (
   );
 
   state.wordsOwn.results[item] = action.payload;
+};
+export const handleWordsStatistics = (
+  state: WordsState,
+  action: PayloadAction<TotalCountResponse>
+) => {
+  state.totalCount = action.payload.totalCount;
 };

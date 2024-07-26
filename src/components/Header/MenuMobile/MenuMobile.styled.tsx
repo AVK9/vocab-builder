@@ -14,6 +14,10 @@ export const Backdrop = styled.div<StyledProps>`
   opacity: ${props => (props.isOpen ? 1 : 0)};
   transition: visibility 0.5s, opacity 0.5s ease-in-out;
   z-index: 1000;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    display: none;
+  }
 `;
 
 export const Popup = styled.div<StyledProps>`
@@ -43,6 +47,9 @@ export const Popup = styled.div<StyledProps>`
   justify-content: space-between;
   @media (min-width: ${({ theme }) => theme.breakpoints.mobileX}) {
     width: 260px;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    display: none;
   }
 `;
 

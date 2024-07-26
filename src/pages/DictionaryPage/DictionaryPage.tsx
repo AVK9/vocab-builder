@@ -13,11 +13,13 @@ import {
   getWordsAllThunk,
   getWordsCategoriesThunk,
   getWordsOwnThunk,
+  getWordsStatisticsThunk,
 } from 'store/words/wordsThunk';
 import { DictionaryPageBox } from './DictionaryPage.styled';
 import Pagination from 'components/Pagination/Pagination';
-import { selectWordsOwn } from 'store/words/wordsSelectors';
+import { selectTotalCount, selectWordsOwn } from 'store/words/wordsSelectors';
 import WordsTableDictionary from 'components/WordsTableDictionary/WordsTableDictionary';
+import Filter from 'components/Filter/Filter';
 
 const DictionaryPage = () => {
   const token = useSelector(isAuthSelector);
@@ -54,13 +56,15 @@ const DictionaryPage = () => {
     };
     const resultAction = async () => {
       await dispatch(getWordsOwnThunk(data));
+      await dispatch(getWordsStatisticsThunk());
     };
     resultAction();
     // console.log('totalPages', resultAction);
   }, [dispatch]);
 
   const words = useSelector(selectWordsOwn);
-  console.log('words', words.totalPages);
+  const totalCount = useSelector(selectTotalCount);
+  console.log('words', words);
 
   if (loading) {
     return <LoaderPercent />;
@@ -69,6 +73,7 @@ const DictionaryPage = () => {
   return (
     <Back>
       <DictionaryPageBox>
+        <Filter totalCount={totalCount} />
         <WordsTableDictionary words={words.results} />
         <Pagination
           currentPage={currentPage}

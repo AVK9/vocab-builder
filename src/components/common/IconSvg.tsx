@@ -9,6 +9,7 @@ interface IconWrapperProps {
   fill?: string;
   icon?: string;
   tablet?: string;
+  onClick?: () => void;
 }
 
 const IconWrapper = styled.svg<IconWrapperProps>`
@@ -19,6 +20,7 @@ const IconWrapper = styled.svg<IconWrapperProps>`
   stroke: ${props => props.stroke || 'transparent'};
   fill: ${props => props.fill || 'transparent'};
   transition: transform 0.2s;
+  stroke-width: 1.5px;
 
   &:hover {
     transform: scale(1.1);

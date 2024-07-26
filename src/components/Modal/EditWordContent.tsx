@@ -52,6 +52,13 @@ const Input = styled.input`
   height: 48px;
   margin-bottom: 16px;
 `;
+const InputBox = styled.div`
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 8px;
+  }
+`;
 
 const EditWordContent: React.FC<EditWordContentProps> = ({
   closeModal,
@@ -75,17 +82,21 @@ const EditWordContent: React.FC<EditWordContentProps> = ({
 
   return (
     <EditWordContentBox>
-      <NameBox>
-        <IconSvg icon="ua" size="28px" />
-        <Name>Ukrainian</Name>
-      </NameBox>
+      <InputBox>
+        <NameBox>
+          <IconSvg icon="ua" size="28px" />
+          <Name>Ukrainian</Name>
+        </NameBox>
 
-      <Input value={wordUA} onChange={e => setWordUa(e.target.value)} />
-      <NameBox>
-        <IconSvg icon="uk" size="28px" />
-        <Name>English</Name>
-      </NameBox>
-      <Input value={wordEn} onChange={e => setWordEn(e.target.value)} />
+        <Input value={wordUA} onChange={e => setWordUa(e.target.value)} />
+      </InputBox>
+      <InputBox>
+        <NameBox>
+          <IconSvg icon="uk" size="28px" />
+          <Name>English</Name>
+        </NameBox>
+        <Input value={wordEn} onChange={e => setWordEn(e.target.value)} />
+      </InputBox>
       <ButtonBox>
         <Button add={true} margin="16px 0px 32px 0px" onClick={handleEditWord}>
           Save

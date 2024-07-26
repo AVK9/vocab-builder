@@ -7,6 +7,7 @@ export const selectLoading = (state: RootState) => state.words.isLoading;
 export const selectError = (state: RootState) => state.words.error;
 export const selectWordsAll = (state: RootState) => state.words.wordsAll;
 export const selectWordsOwn = (state: RootState) => state.words.wordsOwn;
+export const selectTotalCount = (state: RootState) => state.words.totalCount;
 // export const selectFilter = (state) => state.filter.filter
 
 // export const selectVisibleContacts = createSelector(

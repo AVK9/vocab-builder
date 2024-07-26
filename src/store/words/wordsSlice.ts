@@ -7,6 +7,7 @@ import {
   getWordsAllThunk,
   getWordsCategoriesThunk,
   getWordsOwnThunk,
+  getWordsStatisticsThunk,
 } from './wordsThunk';
 import { WordsState, getWordsResponse } from './wordsTypes';
 
@@ -20,10 +21,12 @@ import {
   handleAddWordOwn,
   handleDelWordsOwn,
   handleEditWordsOwn,
+  handleWordsStatistics,
 } from './wordsHandlers';
 
 const initialState: WordsState = {
   categories: [],
+  totalCount: 0,
   wordsAll: {
     results: [],
     totalPages: 0,
@@ -51,6 +54,7 @@ const wordsSlice = createSlice({
       .addCase(addWordOwnThunk.fulfilled, handleAddWordOwn)
       .addCase(delWordsOwnThunk.fulfilled, handleDelWordsOwn)
       .addCase(editWordsOwnThunk.fulfilled, handleEditWordsOwn)
+      .addCase(getWordsStatisticsThunk.fulfilled, handleWordsStatistics)
       .addMatcher(
         ({ type }): boolean => type.endsWith('/pendihg'),
         handlePending

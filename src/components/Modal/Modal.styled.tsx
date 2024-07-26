@@ -9,7 +9,7 @@ export const Backdrop = styled.div<StyledProps>`
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
   opacity: ${props => (props.isOpen ? 1 : 0)};
-  transform: opacity 0.8s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
   z-index: 1000;
 `;
 

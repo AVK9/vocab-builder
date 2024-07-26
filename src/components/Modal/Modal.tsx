@@ -46,7 +46,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         event.key === ' ' ||
         event.code === 'Space'
       ) {
-        onClose();
+        handleClose();
       }
     };
 
@@ -55,9 +55,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, []);
 
-  if (!isOpen) return null;
+  if (!isOpen && !open) return null;
 
   return (
     <Backdrop isOpen={isOpen} onClick={handleBackdropClick}>

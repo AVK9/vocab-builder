@@ -19,6 +19,7 @@ export interface WordsState {
   isLoading: boolean;
   error: string | null;
   categories: string[];
+  totalCount: number;
   wordsAll: WordsResponse;
   wordsOwn: WordsResponse;
 }
@@ -76,4 +77,8 @@ export interface EditWord {
   ua: string;
   category: string;
   isIrregular: boolean;
+}
+
+export interface TotalCountResponse {
+  totalCount: number;
 }
