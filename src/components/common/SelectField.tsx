@@ -5,10 +5,10 @@ import { IconSvg } from './IconSvg';
 const SelectWrapper = styled.div`
   position: relative;
   width: 343px;
-  margin-bottom: 40px;
+  margin-bottom: 8px;
 `;
 
-const SelectedItem = styled.div`
+const Input = styled.div`
   cursor: pointer;
   outline: none;
 
@@ -24,6 +24,7 @@ const SelectedItem = styled.div`
   font-size: 16px;
   line-height: 150%;
   color: var(--black);
+  transition: border 0.5s ease-in-out;
 
   &:hover {
     border: 1px solid var(--green);
@@ -31,69 +32,66 @@ const SelectedItem = styled.div`
 `;
 
 const IconSvgBox = styled.div`
-  /* margin-left: 24px; */
   position: absolute;
-  bottom: 17px;
+  bottom: 11.5px;
   right: 24px;
   display: flex;
+  align-items: center;
   gap: 10px;
 `;
 
 const OptionsList = styled.ul<{ isOpen: boolean }>`
-  padding: 18px;
-  border-radius: 22px;
+  box-shadow: 0 4px 47px 0 rgba(18, 20, 23, 0.08);
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 12px 0px;
+  width: 343px;
   overflow-y: auto;
   z-index: 10;
   position: absolute;
-  top: 85px;
-  list-style: none;
-  background-color: #fff;
-  width: 100%;
-  font-family: var(--font-family);
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 111%;
-  color: rgba(18, 20, 23, 0.2);
+  top: 56px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   opacity: ${props => (props.isOpen ? 1 : 0)};
   max-height: ${props => (props.isOpen ? 'auto' : '0px')};
-  transition: opacity 0.5s, max-height 0.3s ease-in-out;
+  transition: opacity 0.7s, max-height 0.5s ease-in-out;
 `;
 
 const OptionItem = styled.li`
   font-family: var(--font-family);
-  white-space: nowrap;
   font-weight: 500;
-  font-size: 18px;
-  line-height: 111%;
-  color: rgba(18, 20, 23, 0.2);
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--black);
+  padding-left: 24px;
+
   transition: all 0.5s;
   cursor: pointer;
   &:hover {
-    color: #121417;
+    color: var(--white);
+    background-color: rgba(133, 170, 159, 0.5);
   }
   &:last-child {
     border-bottom: none;
   }
 `;
 
-interface SelectFieldsProps {
+interface SelectFieldProps {
   holder: string;
   categories: string[];
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onSelectChange: (selectedValue: string) => void;
 }
 
-const SelectFields: React.FC<SelectFieldsProps> = ({
+const SelectField: React.FC<SelectFieldProps> = ({
   holder,
-  onChange,
+  onSelectChange,
   categories,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(categories[0]);
+  const [selected, setSelected] = useState('Categories');
   const [isClear, setIsClear] = useState(false);
-  const [showName, setShowName] = useState(true);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -102,7 +100,6 @@ const SelectFields: React.FC<SelectFieldsProps> = ({
       !wrapperRef.current.contains(event.target as Node)
     ) {
       setIsOpen(false);
-      setShowName(true);
     }
   };
 
@@ -113,7 +110,6 @@ const SelectFields: React.FC<SelectFieldsProps> = ({
       event.key === 'Spacebar'
     ) {
       setIsOpen(false);
-      setShowName(true);
     }
   };
 
@@ -134,43 +130,43 @@ const SelectFields: React.FC<SelectFieldsProps> = ({
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
-    setShowName(false);
   };
 
   const handleSelect = (value: string) => {
     setSelected(value);
+    console.log('selected', selected);
     setIsOpen(false);
     setIsClear(true);
+    onSelectChange(value);
   };
 
   const clearField = () => {
-    setSelected(categories[0]);
+    setSelected(holder);
     setIsClear(false);
-    setShowName(true);
+    onSelectChange(holder);
   };
 
-  const truncateString = (str: string, num: number) => {
-    if (str.length <= num) {
-      return str;
-    }
-    return str.slice(0, num) + '...';
-  };
+  useEffect(() => {
+    onSelectChange(selected);
+  }, [selected, onSelectChange]);
 
   return (
     <SelectWrapper ref={wrapperRef}>
-      <SelectedItem onClick={toggleDropdown}>
-        {showName && holder}
-        {truncateString(selected, 100)}
-      </SelectedItem>
+      <Input onClick={toggleDropdown}>{selected}</Input>
       <IconSvgBox>
         {isClear && (
           <IconSvg icon="x" stroke="black" size="20px" onClick={clearField} />
         )}
-        <IconSvg onClick={toggleDropdown} icon="d" fill="black" size="20px" />
+        <IconSvg
+          onClick={toggleDropdown}
+          icon="angle-small-down-2"
+          size="25px"
+          fill="black"
+        />
       </IconSvgBox>
 
       <OptionsList isOpen={isOpen}>
-        {categories.slice().map((item, index) => (
+        {categories.map((item, index) => (
           <OptionItem key={index} onClick={() => handleSelect(item)}>
             {item}
           </OptionItem>
@@ -180,4 +176,4 @@ const SelectFields: React.FC<SelectFieldsProps> = ({
   );
 };
 
-export default SelectFields;
+export default SelectField;

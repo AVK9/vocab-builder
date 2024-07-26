@@ -1,22 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BtnBox,
   BtnName,
+  IconBox,
+  IconDot,
   IconSvgStyled,
   Input,
   InputBox,
+  Label,
+  RadioBlock,
+  RadioBox,
+  RadioInput,
   ToStudy,
   ValueWord,
 } from './Filter.styled';
 import { IconSvg } from 'components/common/IconSvg';
 import { Link } from 'react-router-dom';
 import { TRAINING_ROUTE } from 'utils/const';
-import SelectFields from 'components/common/SelectFields';
+import SelectField from 'components/common/SelectField';
 
 interface FilterProps {
   totalCount: number;
 }
 const Filter: React.FC<FilterProps> = ({ totalCount }) => {
+  const [search, setSearch] = useState('');
+  const [select, setSelect] = useState('');
+  const [radio, setRadio] = useState('Regular');
+
   const categories = [
     'verb',
     'participle',
@@ -31,17 +41,58 @@ const Filter: React.FC<FilterProps> = ({ totalCount }) => {
     'functional phrase',
   ];
 
+  const handleSelectChange = (selectedValue: string) => {
+    setSelect(selectedValue);
+    console.log('selectedValue', selectedValue);
+  };
+  console.log('search', search);
+
   return (
-    <div>
+    <>
       <InputBox>
-        <Input placeholder="Find the word" />
+        <Input
+          placeholder="Find the word"
+          onChange={e => setSearch(e.target.value)}
+        />
         <IconSvgStyled icon="search" stroke="black" size="20px" />
       </InputBox>
-      <SelectFields
+      <SelectField
         holder="Categories"
         categories={categories}
-        onChange={e => e.target}
+        onSelectChange={handleSelectChange}
       />
+      <RadioBlock>
+        <RadioBox>
+          <Label active={radio === 'Regular'}>
+            <RadioInput
+              type="radio"
+              name="werb"
+              value="Regular"
+              checked={radio === 'Regular'}
+              onChange={() => setRadio('Regular')}
+            />
+            Regular
+          </Label>
+          <IconBox active={radio === 'Regular'}>
+            <IconDot active={radio === 'Regular'} />
+          </IconBox>
+        </RadioBox>
+        <RadioBox>
+          <Label active={radio === 'Irregular'}>
+            <RadioInput
+              type="radio"
+              name="werb"
+              value="Irregular"
+              checked={radio === 'Irregular'}
+              onChange={() => setRadio('Irregular')}
+            />
+            Irregular
+          </Label>
+          <IconBox active={radio === 'Irregular'}>
+            <IconDot active={radio === 'Irregular'} />
+          </IconBox>
+        </RadioBox>
+      </RadioBlock>
       <ToStudy>
         To study: <ValueWord>{totalCount}</ValueWord>
       </ToStudy>
@@ -58,7 +109,7 @@ const Filter: React.FC<FilterProps> = ({ totalCount }) => {
           </BtnName>
         </Link>
       </BtnBox>
-    </div>
+    </>
   );
 };
 
