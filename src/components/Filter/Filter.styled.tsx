@@ -8,6 +8,7 @@ export const ValueWord = styled.span`
   color: var(--black);
 `;
 export const ToStudy = styled.p`
+  margin-top: 40px;
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 14px;
@@ -39,11 +40,23 @@ export const BtnBox = styled.div`
   display: flex;
   gap: 16px;
 `;
+
+export const InputBlock = styled.div`
+  height: 48px;
+  margin-top: 12px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+`;
 export const InputBox = styled.div`
   position: relative;
   width: 343px;
-  margin-top: 32px;
   margin-bottom: 8px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: 274px;
+  }
 `;
 export const Input = styled.input`
   outline: none;
@@ -66,6 +79,9 @@ export const Input = styled.input`
     line-height: 150%;
     color: var(--black);
   }
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: 274px;
+  }
 `;
 export const IconSvgStyled = styled(IconSvg)`
   position: absolute;
@@ -73,27 +89,33 @@ export const IconSvgStyled = styled(IconSvg)`
   right: 24px;
 `;
 
-export const RadioBox = styled.div`
+export const RadioBlock = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: 16px;
+  width: 159px;
+  height: 17px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    height: 48px;
+    align-items: center;
+  }
+`;
+
+export const RadioBox = styled.div`
   position: relative;
-  /* height: 24px; */
+  width: 100%;
 `;
 export const Label = styled.label<{ active: boolean }>`
   font-family: var(--font-family);
   font-weight: 400;
-  font-size: 16px;
-  line-height: 137%;
-  text-align: left;
-  margin-top: 5px;
-  /* background-color: red; */
-  /* width: 300px; */
-  /* position: absolute;
-  left: 30px; */
-  padding-left: 20px;
-
-  color: ${props => (props.active ? '#101828' : 'rgba(16, 24, 40, 0.6)')};
+  font-size: 12px;
+  text-align: center;
+  color: var(--black);
+  line-height: 18px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.mobileL}) {
     /* width: 60%; */
@@ -103,13 +125,10 @@ export const Label = styled.label<{ active: boolean }>`
 export const RadioInput = styled.input`
   outline: none;
   border: none;
-
-  /* height: 24px; */
-  /* width: 24px; */
-  /* width: 100%; */
+  cursor: pointer;
+  width: 100%;
   z-index: 1;
   opacity: 0;
-  cursor: pointer;
 `;
 
 export const IconBox = styled.div<{ active: boolean }>`
@@ -117,12 +136,12 @@ export const IconBox = styled.div<{ active: boolean }>`
   align-items: center;
   justify-content: center;
 
-  width: 24px;
-  height: 24px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
 
   position: absolute;
-  top: 50% -9px;
+  top: 0;
   left: 0;
 
   background: ${props =>
@@ -132,14 +151,8 @@ export const IconBox = styled.div<{ active: boolean }>`
 `;
 
 export const IconDot = styled.div<{ active: boolean }>`
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-
   background: ${props => (props.active ? 'var(--green)' : 'transparent')};
-`;
-export const RadioBlock = styled.div`
-  display: flex;
-  gap: 16px;
-  margin-bottom: 14px;
 `;

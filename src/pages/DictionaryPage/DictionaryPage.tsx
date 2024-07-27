@@ -57,6 +57,7 @@ const DictionaryPage = () => {
     const resultAction = async () => {
       await dispatch(getWordsOwnThunk(data));
       await dispatch(getWordsStatisticsThunk());
+      await dispatch(getWordsCategoriesThunk());
     };
     resultAction();
     // console.log('totalPages', resultAction);

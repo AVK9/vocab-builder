@@ -6,6 +6,12 @@ const SelectWrapper = styled.div`
   position: relative;
   width: 343px;
   margin-bottom: 8px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: 164px;
+  }
+`;
+const InputWrapper = styled.div`
+  position: relative;
 `;
 
 const Input = styled.div`
@@ -29,6 +35,12 @@ const Input = styled.div`
   &:hover {
     border: 1px solid var(--green);
   }
+  &:first-letter {
+    text-transform: uppercase;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: 164px;
+  }
 `;
 
 const IconSvgBox = styled.div`
@@ -48,14 +60,14 @@ const OptionsList = styled.ul<{ isOpen: boolean }>`
   padding: 12px 0px;
   width: 343px;
   overflow-y: auto;
-  z-index: 10;
   position: absolute;
   top: 56px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  opacity: ${props => (props.isOpen ? 1 : 0)};
+  z-index: ${props => (props.isOpen ? 10 : 0)};
   max-height: ${props => (props.isOpen ? 'auto' : '0px')};
+  opacity: ${props => (props.isOpen ? 1 : 0)};
   transition: opacity 0.7s, max-height 0.5s ease-in-out;
 `;
 
@@ -75,6 +87,9 @@ const OptionItem = styled.li`
   }
   &:last-child {
     border-bottom: none;
+  }
+  &:first-letter {
+    text-transform: uppercase;
   }
 `;
 
@@ -152,19 +167,20 @@ const SelectField: React.FC<SelectFieldProps> = ({
 
   return (
     <SelectWrapper ref={wrapperRef}>
-      <Input onClick={toggleDropdown}>{selected}</Input>
-      <IconSvgBox>
-        {isClear && (
-          <IconSvg icon="x" stroke="black" size="20px" onClick={clearField} />
-        )}
-        <IconSvg
-          onClick={toggleDropdown}
-          icon="angle-small-down-2"
-          size="25px"
-          fill="black"
-        />
-      </IconSvgBox>
-
+      <InputWrapper>
+        <Input onClick={toggleDropdown}>{selected}</Input>
+        <IconSvgBox>
+          {isClear && (
+            <IconSvg icon="x" stroke="black" size="20px" onClick={clearField} />
+          )}
+          <IconSvg
+            onClick={toggleDropdown}
+            icon="angle-small-down-2"
+            size="25px"
+            fill="black"
+          />
+        </IconSvgBox>
+      </InputWrapper>
       <OptionsList isOpen={isOpen}>
         {categories.map((item, index) => (
           <OptionItem key={index} onClick={() => handleSelect(item)}>
