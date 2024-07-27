@@ -7,7 +7,9 @@ const SelectWrapper = styled.div`
   width: 343px;
   margin-bottom: 8px;
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    width: 164px;
+    /* width: 164px; */
+    width: 244px;
+    margin-bottom: 0px;
   }
 `;
 const InputWrapper = styled.div`
@@ -39,7 +41,8 @@ const Input = styled.div`
     text-transform: uppercase;
   }
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    width: 164px;
+    /* width: 164px; */
+    width: 244px;
   }
 `;
 

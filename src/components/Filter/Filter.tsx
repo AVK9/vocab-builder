@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import {
+  BtnBlock,
   BtnBox,
   BtnName,
+  FilterBox,
   IconBox,
   IconDot,
   IconSvgStyled,
@@ -40,7 +42,7 @@ const Filter: React.FC<FilterProps> = ({ totalCount }) => {
   console.log('search', search);
 
   return (
-    <>
+    <FilterBox>
       <InputBlock>
         <InputBox>
           <Input
@@ -92,23 +94,25 @@ const Filter: React.FC<FilterProps> = ({ totalCount }) => {
           ''
         )}
       </InputBlock>
-      <ToStudy>
-        To study: <ValueWord>{totalCount}</ValueWord>
-      </ToStudy>
-      <BtnBox>
-        <button type="button">
-          <BtnName>
-            Add Word <IconSvg icon="plus" stroke="var(--green)" size="20px" />
-          </BtnName>
-        </button>
-        <Link to={TRAINING_ROUTE}>
-          <BtnName>
-            Train oneself
-            <IconSvg icon="arrow-right" stroke="var(--green)" size="20px" />
-          </BtnName>
-        </Link>
-      </BtnBox>
-    </>
+      <BtnBlock>
+        <ToStudy>
+          To study: <ValueWord>{totalCount}</ValueWord>
+        </ToStudy>
+        <BtnBox>
+          <button type="button">
+            <BtnName>
+              Add Word <IconSvg icon="plus" stroke="var(--green)" size="20px" />
+            </BtnName>
+          </button>
+          <Link to={TRAINING_ROUTE}>
+            <BtnName>
+              Train oneself
+              <IconSvg icon="arrow-right" stroke="var(--green)" size="20px" />
+            </BtnName>
+          </Link>
+        </BtnBox>
+      </BtnBlock>
+    </FilterBox>
   );
 };
 

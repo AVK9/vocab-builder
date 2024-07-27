@@ -1,14 +1,34 @@
 import styled from 'styled-components';
 import { IconSvg } from './../common/IconSvg';
 
+export const FilterBox = styled.div`
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    margin-top: 52px;
+    margin-bottom: 28px;
+  }
+`;
+
 export const ValueWord = styled.span`
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 20px;
   color: var(--black);
 `;
+export const BtnBlock = styled.div`
+  margin-top: 96px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 28px;
+    margin-bottom: 28px;
+  }
+`;
 export const ToStudy = styled.p`
-  margin-top: 40px;
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 14px;
@@ -39,6 +59,10 @@ export const BtnBox = styled.div`
   margin-bottom: 32px;
   display: flex;
   gap: 16px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 `;
 
 export const InputBlock = styled.div`
@@ -49,6 +73,9 @@ export const InputBlock = styled.div`
     align-items: center;
     gap: 8px;
   }
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    margin-top: 0px;
+  }
 `;
 export const InputBox = styled.div`
   position: relative;
@@ -56,6 +83,7 @@ export const InputBox = styled.div`
   margin-bottom: 8px;
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     width: 274px;
+    margin-bottom: 0px;
   }
 `;
 export const Input = styled.input`
