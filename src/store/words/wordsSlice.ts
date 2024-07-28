@@ -29,12 +29,14 @@ const initialState: WordsState = {
   totalCount: 0,
   wordsAll: {
     results: [],
+    sumResults: [],
     totalPages: 0,
     page: 0,
     perPage: 0,
   },
   wordsOwn: {
     results: [],
+    sumResults: [],
     totalPages: 0,
     page: 0,
     perPage: 0,

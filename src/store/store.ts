@@ -1,6 +1,6 @@
 import storage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
-// import { filterReduser } from './contacts/sliceFilter';
+import { filterReduser } from './words/sliceFilter';
 import { authReduser } from './auth/authSlice';
 import {
   persistStore,
@@ -25,7 +25,8 @@ const persistedReduser = persistReducer(persistConfig, authReduser);
 export const store = configureStore({
   reducer: {
     words: wordsReduser,
-    // filter: filterReduser,
+    search: filterReduser,
+    catigories: filterReduser,
     auth: persistedReduser,
   },
   middleware: getDefaultMiddleware =>

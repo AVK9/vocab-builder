@@ -1,18 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  filter: "",
-}
+  search: '',
+  catigories: '',
+};
 
 const filterSlice = createSlice({
-    name: 'filter',
-    initialState,
-    reducers: {
-        filterContactAction: (state, { payload }) => {
-              state.filter = payload
-        }
-    }
-})
+  name: 'search',
+  initialState,
+  reducers: {
+    filterWordAction: (state, { payload }) => {
+      state.search = payload;
+    },
+    catigoriesWordAction: (state, { payload }) => {
+      state.catigories = payload;
+      console.log('state.catigories', payload);
+    },
+  },
+});
 
-export const { filterContactAction} = filterSlice.actions
-export const filterReduser = filterSlice.reducer
+export const { filterWordAction } = filterSlice.actions;
+export const { catigoriesWordAction } = filterSlice.actions;
+
+export const filterReduser = filterSlice.reducer;

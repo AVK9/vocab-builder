@@ -47,7 +47,6 @@ const RecommendPage = () => {
   }, [dispatch]);
 
   const words = useSelector(selectWordsAll);
-  console.log('words', words.totalPages);
 
   return (
     <Back>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BtnBlock,
   BtnBox,
@@ -16,31 +16,65 @@ import {
   RadioInput,
   ToStudy,
   ValueWord,
-} from './Filter.styled';
+} from './Dashboard.styled';
 import { IconSvg } from 'components/common/IconSvg';
 import { Link } from 'react-router-dom';
 import { TRAINING_ROUTE } from 'utils/const';
 import SelectField from 'components/common/SelectField';
 import { useSelector } from 'react-redux';
 import { selectStateWordsCategories } from 'store/words/wordsSelectors';
+import {
+  catigoriesWordAction,
+  filterWordAction,
+} from 'store/words/sliceFilter';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from 'store/store';
 
-interface FilterProps {
+interface DashboardProps {
   totalCount: number;
 }
-const Filter: React.FC<FilterProps> = ({ totalCount }) => {
+const Dashboard: React.FC<DashboardProps> = ({ totalCount }) => {
   const [search, setSearch] = useState('');
   const [select, setSelect] = useState('');
   const [radio, setRadio] = useState('Regular');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      const trimmedSearch = search.trim();
+      setDebouncedSearch(trimmedSearch);
+    }, 300);
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [search]);
+
+  useEffect(() => {
+    if (debouncedSearch !== undefined) {
+      dispatch(filterWordAction(debouncedSearch));
+    }
+  }, [debouncedSearch, dispatch]);
 
   const categories = useSelector(selectStateWordsCategories);
 
   const handleSelectChange = (selectedValue: string) => {
     setSelect(selectedValue);
-    console.log('select', select);
-    console.log('radio', radio);
   };
-  console.log('search', search);
 
+  useEffect(() => {
+    if (select !== 'Categories') {
+      dispatch(catigoriesWordAction(select));
+    }
+    if (select === 'verb') {
+      dispatch(catigoriesWordAction(radio));
+    }
+    if (select === 'Categories') {
+      dispatch(catigoriesWordAction('categories'));
+    }
+  }, [dispatch, radio, select]);
   return (
     <FilterBox>
       <InputBlock>
@@ -116,4 +150,4 @@ const Filter: React.FC<FilterProps> = ({ totalCount }) => {
   );
 };
 
-export default Filter;
+export default Dashboard;

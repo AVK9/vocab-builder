@@ -17,12 +17,16 @@ import {
 } from 'store/words/wordsThunk';
 import { DictionaryPageBox } from './DictionaryPage.styled';
 import Pagination from 'components/Pagination/Pagination';
-import { selectTotalCount, selectWordsOwn } from 'store/words/wordsSelectors';
+import {
+  selectCatigoriesWords,
+  selectSearchWords,
+  selectTotalCount,
+  selectWordsOwn,
+} from 'store/words/wordsSelectors';
 import WordsTableDictionary from 'components/WordsTableDictionary/WordsTableDictionary';
-import Filter from 'components/Filter/Filter';
+import Dashboard from 'components/Dashboard/Dashboard';
 
 const DictionaryPage = () => {
-  const token = useSelector(isAuthSelector);
   const loading = useSelector(loadingSelector);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -40,7 +44,6 @@ const DictionaryPage = () => {
       limit: 7,
     };
     const resultAction = async () => {
-      console.log('sadasdasd');
       await dispatch(getWordsOwnThunk(data));
     };
     resultAction();
@@ -63,9 +66,12 @@ const DictionaryPage = () => {
     // console.log('totalPages', resultAction);
   }, [dispatch]);
 
-  const words = useSelector(selectWordsOwn);
+  const wordsOwn = useSelector(selectWordsOwn);
   const totalCount = useSelector(selectTotalCount);
-  console.log('words', words);
+
+  const searchWords = useSelector(selectSearchWords);
+  const searchCatigoriesWords = useSelector(selectCatigoriesWords);
+  // console.log('searchCatigoriesWords :>> ', searchCatigoriesWords);
 
   if (loading) {
     return <LoaderPercent />;
@@ -74,11 +80,11 @@ const DictionaryPage = () => {
   return (
     <Back>
       <DictionaryPageBox>
-        <Filter totalCount={totalCount} />
-        <WordsTableDictionary words={words.results} />
+        <Dashboard totalCount={totalCount} />
+        <WordsTableDictionary words={searchCatigoriesWords} />
         <Pagination
           currentPage={currentPage}
-          totalPages={words.totalPages}
+          totalPages={wordsOwn.totalPages}
           onPageChange={handlePageChange}
         />
       </DictionaryPageBox>

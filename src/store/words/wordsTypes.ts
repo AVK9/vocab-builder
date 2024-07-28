@@ -10,6 +10,7 @@ export interface Word {
 
 export interface WordsResponse {
   results: Word[];
+  sumResults?: Word[];
   totalPages: number;
   page: number;
   perPage: number;
@@ -34,6 +35,7 @@ export interface getWordsAllData {
 
 export interface getWordsAllApiResponse {
   results: Word[];
+  sumResults?: Word[];
   totalPages: number;
   page: number;
   perPage: number;
@@ -62,6 +64,7 @@ export interface getWordsData {
 
 export interface getWordsResponse {
   results: Word[];
+  sumResults?: Word[];
   totalPages: number;
   page: number;
   perPage: number;

@@ -8,16 +8,39 @@ export const selectError = (state: RootState) => state.words.error;
 export const selectWordsAll = (state: RootState) => state.words.wordsAll;
 export const selectWordsOwn = (state: RootState) => state.words.wordsOwn;
 export const selectTotalCount = (state: RootState) => state.words.totalCount;
-// export const selectFilter = (state) => state.filter.filter
+export const selectFilter = (state: RootState) => state.search.search;
+export const selectCatigories = (state: RootState) => state.search.catigories;
 
-// export const selectVisibleContacts = createSelector(
-// [ selectStateContacts, selectFilter],
-//     (contacts, filter) => {
-
-//          return filter.length > 0
-//       ?  contacts.filter(contact =>
-//             contact.name.toLowerCase()
-//               .includes(filter.toLowerCase()))
-//              : contacts;
-//  }
-// )
+export const selectSearchWords = createSelector(
+  [selectWordsOwn, selectFilter],
+  (sumResults, search) => {
+    const sumResultsRes = sumResults.sumResults || [];
+    return search.length > 0
+      ? sumResultsRes.filter(item =>
+          item.en.toLowerCase().includes(search.toLowerCase())
+        )
+      : sumResults.results;
+  }
+);
+export const selectCatigoriesWords = createSelector(
+  [selectSearchWords, selectCatigories],
+  (sumResults, search) => {
+    if (search === 'Regular') {
+      return search.length > 0
+        ? sumResults.filter(item => item.isIrregular === true)
+        : sumResults;
+    }
+    if (search === 'Irregular') {
+      return search.length > 0
+        ? sumResults.filter(item => item.isIrregular === false)
+        : sumResults;
+    }
+    if (search === 'categories') {
+      return sumResults;
+    } else {
+      return search.length > 0
+        ? sumResults.filter(item => item.category.includes(search))
+        : sumResults;
+    }
+  }
+);

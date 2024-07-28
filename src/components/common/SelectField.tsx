@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IconSvg } from './IconSvg';
+import { getWordsOwnThunk } from 'store/words/wordsThunk';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from 'store/store';
 
 const SelectWrapper = styled.div`
   position: relative;
@@ -112,6 +115,8 @@ const SelectField: React.FC<SelectFieldProps> = ({
   const [isClear, setIsClear] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const handleClickOutside = (event: MouseEvent) => {
     if (
       wrapperRef.current &&
@@ -162,6 +167,15 @@ const SelectField: React.FC<SelectFieldProps> = ({
     setSelected(holder);
     setIsClear(false);
     onSelectChange(holder);
+    // dispatch(
+    //   getWordsOwnThunk({
+    //     keyword: '',
+    //     category: '',
+    //     isIrregular: false,
+    //     page: 1,
+    //     limit: 7,
+    //   })
+    // );
   };
 
   useEffect(() => {

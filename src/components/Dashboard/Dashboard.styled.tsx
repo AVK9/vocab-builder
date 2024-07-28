@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconSvg } from './../common/IconSvg';
+import { IconSvg } from '../common/IconSvg';
 
 export const FilterBox = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
