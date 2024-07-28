@@ -1,21 +1,17 @@
-import React from 'react';
-
-import { Popup, Backdrop, CloseBtn } from './Modal.styled';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { useModal } from './ModalContext';
+import { Backdrop, CloseBtn, Popup } from './ModalWin.styled';
 import { IconSvg } from 'components/common/IconSvg';
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children?: React.ReactNode;
-}
+const ModalWin: React.FC = () => {
+  const { modalContent, closeModal, isOpen } = useModal();
+  const modalRoot = document.getElementById('modal-root');
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   const [open, setOpen] = useState(false);
-
   const handleClose = () => {
     setOpen(false);
-    setTimeout(onClose, 800);
+    setTimeout(closeModal, 800);
   };
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -59,18 +55,23 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     };
   }, []);
 
-  if (!isOpen && !open) return null;
+  if (!modalRoot || !modalContent) return null;
 
-  return (
-    <Backdrop isOpen={isOpen} onClick={handleBackdropClick}>
-      <Popup isOpen={open}>
+  return createPortal(
+    <Backdrop
+      className="modal-overlay"
+      isOpen={isOpen}
+      onClick={handleBackdropClick}
+    >
+      <Popup className="modal-content" isOpen={open}>
         <CloseBtn onClick={handleClose}>
           <IconSvg size="24px" icon="x" stroke="white" />
         </CloseBtn>
-        <div>{children}</div>
+        {modalContent}
       </Popup>
-    </Backdrop>
+    </Backdrop>,
+    modalRoot
   );
 };
 
-export default Modal;
+export default ModalWin;

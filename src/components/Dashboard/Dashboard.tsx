@@ -29,6 +29,8 @@ import {
 } from 'store/words/sliceFilter';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
+import { useModal } from 'components/ModalWin/ModalContext';
+import ModalContentAddWord from '../ModalWin/ModalContentAddWord/ModalContentAddWord';
 
 interface DashboardProps {
   totalCount: number;
@@ -75,6 +77,13 @@ const Dashboard: React.FC<DashboardProps> = ({ totalCount }) => {
       dispatch(catigoriesWordAction('categories'));
     }
   }, [dispatch, radio, select]);
+
+  const { openModal } = useModal();
+  const { closeModal } = useModal();
+  const handleOpenModal = () => {
+    openModal(<ModalContentAddWord closeModal={closeModal} />);
+  };
+
   return (
     <FilterBox>
       <InputBlock>
@@ -134,7 +143,7 @@ const Dashboard: React.FC<DashboardProps> = ({ totalCount }) => {
         </ToStudy>
         <BtnBox>
           <button type="button">
-            <BtnName>
+            <BtnName onClick={handleOpenModal}>
               Add Word <IconSvg icon="plus" stroke="var(--green)" size="20px" />
             </BtnName>
           </button>
