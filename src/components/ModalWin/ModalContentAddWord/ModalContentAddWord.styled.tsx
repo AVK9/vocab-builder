@@ -1,5 +1,29 @@
 import styled from 'styled-components';
 
+export const ContentBox = styled.div`
+  margin-top: 32px;
+`;
+export const HeadPopup = styled.h2`
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 117%;
+  letter-spacing: -0.02em;
+  color: var(--white);
+`;
+export const Content = styled.p`
+  margin: 16px 0px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--white);
+`;
+export const FormBox = styled.div`
+  /* background-color: red; */
+  width: 100%;
+`;
+
 export const NameBox = styled.p`
   display: flex;
   align-items: center;

@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import SelectField from 'components/common/SelectField';
+import SelectField from 'components/common/SelectField/SelectField';
 import EditWordContent from 'components/Modal/EditWordContent';
 import { useSelector } from 'react-redux';
 import { selectStateWordsCategories } from 'store/words/wordsSelectors';
 import {
   ButtonBox,
+  Content,
+  ContentBox,
   EditWordContentBox,
+  FormBox,
+  HeadPopup,
   Input,
   InputBox,
   Name,
@@ -24,12 +28,13 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
   closeModal,
 }) => {
   const [select, setSelect] = useState('');
-
+  const [radio, setRadio] = useState('Regular');
   const categories = useSelector(selectStateWordsCategories);
 
   const handleSelectChange = (selectedValue: string) => {
     setSelect(selectedValue);
   };
+  const handleRadioChange = (radioValue: string) => setRadio(radioValue);
 
   const [wordUA, setWordUa] = useState('');
   const [wordEn, setWordEn] = useState('');
@@ -37,6 +42,8 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
   const dispatch = useDispatch<AppDispatch>();
 
   const handleAddWord = async () => {
+    console.log('radio!!!@@@ :>> ', radio);
+
     // const body = {
     //   id: data._id,
     //   en: wordEn,
@@ -49,41 +56,55 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
 
   return (
     <div>
-      <h2>Add word</h2>
-      <p>
-        Adding a new word to the dictionary is an important step in enriching
-        the language base and expanding the vocabulary.
-      </p>
-      <SelectField
-        holder="Categories"
-        categories={categories}
-        onSelectChange={handleSelectChange}
-      />
-      <EditWordContentBox>
-        <InputBox>
-          <NameBox>
-            <IconSvg icon="ua" size="28px" />
-            <Name>Ukrainian</Name>
-          </NameBox>
+      <ContentBox>
+        <HeadPopup>Add word</HeadPopup>
+        <Content>
+          Adding a new word to the dictionary is an important step in enriching
+          the language base and expanding the vocabulary.
+        </Content>
+      </ContentBox>
+      <FormBox>
+        <SelectField
+          holder="Categories"
+          categories={categories}
+          onSelectChange={handleSelectChange}
+          onRadioChange={handleRadioChange}
+          color="white"
+        />
+        <EditWordContentBox>
+          <InputBox>
+            <NameBox>
+              <IconSvg icon="ua" size="28px" />
+              <Name>Ukrainian</Name>
+            </NameBox>
 
-          <Input value={wordUA} onChange={e => setWordUa(e.target.value)} />
-        </InputBox>
-        <InputBox>
-          <NameBox>
-            <IconSvg icon="uk" size="28px" />
-            <Name>English</Name>
-          </NameBox>
-          <Input value={wordEn} onChange={e => setWordEn(e.target.value)} />
-        </InputBox>
-        <ButtonBox>
-          <Button add={true} margin="16px 0px 32px 0px" onClick={handleAddWord}>
-            Save
-          </Button>
-          <Button cansel={true} margin="16px 0px 32px 0px" onClick={closeModal}>
-            Cansel
-          </Button>
-        </ButtonBox>
-      </EditWordContentBox>
+            <Input value={wordUA} onChange={e => setWordUa(e.target.value)} />
+          </InputBox>
+          <InputBox>
+            <NameBox>
+              <IconSvg icon="uk" size="28px" />
+              <Name>English</Name>
+            </NameBox>
+            <Input value={wordEn} onChange={e => setWordEn(e.target.value)} />
+          </InputBox>
+          <ButtonBox>
+            <Button
+              add={true}
+              margin="16px 0px 32px 0px"
+              onClick={handleAddWord}
+            >
+              Save
+            </Button>
+            <Button
+              cansel={true}
+              margin="16px 0px 32px 0px"
+              onClick={closeModal}
+            >
+              Cansel
+            </Button>
+          </ButtonBox>
+        </EditWordContentBox>
+      </FormBox>
     </div>
   );
 };

@@ -4,23 +4,17 @@ import {
   BtnBox,
   BtnName,
   FilterBox,
-  IconBox,
-  IconDot,
   IconSvgStyled,
   Input,
   InputBlock,
   InputBox,
-  Label,
-  RadioBlock,
-  RadioBox,
-  RadioInput,
   ToStudy,
   ValueWord,
 } from './Dashboard.styled';
 import { IconSvg } from 'components/common/IconSvg';
 import { Link } from 'react-router-dom';
 import { TRAINING_ROUTE } from 'utils/const';
-import SelectField from 'components/common/SelectField';
+import SelectField from 'components/common/SelectField/SelectField';
 import { useSelector } from 'react-redux';
 import { selectStateWordsCategories } from 'store/words/wordsSelectors';
 import {
@@ -66,7 +60,10 @@ const Dashboard: React.FC<DashboardProps> = ({ totalCount }) => {
     setSelect(selectedValue);
   };
 
+  const handleRadioChange = (radioValue: string) => setRadio(radioValue);
+
   useEffect(() => {
+    console.log('radio', radio);
     if (select !== 'Categories') {
       dispatch(catigoriesWordAction(select));
     }
@@ -94,48 +91,15 @@ const Dashboard: React.FC<DashboardProps> = ({ totalCount }) => {
           />
           <IconSvgStyled icon="search" stroke="black" size="20px" />
         </InputBox>
-        <SelectField
-          holder="Categories"
-          categories={categories}
-          onSelectChange={handleSelectChange}
-        />
-
-        {select === 'verb' ? (
-          <RadioBlock>
-            <RadioBox>
-              <Label active={radio === 'Regular'}>
-                <RadioInput
-                  type="radio"
-                  name="werb"
-                  value="Regular"
-                  checked={radio === 'Regular'}
-                  onChange={() => setRadio('Regular')}
-                />
-                Regular
-              </Label>
-              <IconBox active={radio === 'Regular'}>
-                <IconDot active={radio === 'Regular'} />
-              </IconBox>
-            </RadioBox>
-            <RadioBox>
-              <Label active={radio === 'Irregular'}>
-                <RadioInput
-                  type="radio"
-                  name="werb"
-                  value="Irregular"
-                  checked={radio === 'Irregular'}
-                  onChange={() => setRadio('Irregular')}
-                />
-                Irregular
-              </Label>
-              <IconBox active={radio === 'Irregular'}>
-                <IconDot active={radio === 'Irregular'} />
-              </IconBox>
-            </RadioBox>
-          </RadioBlock>
-        ) : (
-          ''
-        )}
+        <InputBox>
+          <SelectField
+            holder="Categories"
+            categories={categories}
+            onSelectChange={handleSelectChange}
+            onRadioChange={handleRadioChange}
+            specialStyle={true}
+          />
+        </InputBox>
       </InputBlock>
       <BtnBlock>
         <ToStudy>
