@@ -29,13 +29,13 @@ export const Popup = styled.div<StyledProps>`
   padding: 16px 16px 48px 16px;
   width: 90%;
   max-width: 566px;
-  height: 621px;
+  /* height: 621px; */
   max-height: 95%;
   overflow-y: auto;
 
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     border-radius: 30px;
-    padding: 64px;
+    padding: 48px 64px;
   }
 
   @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {

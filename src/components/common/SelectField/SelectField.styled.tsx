@@ -22,6 +22,9 @@ export const SelectWrapper = styled.div<{ specialStyle?: boolean }>`
 `;
 export const InputWrapper = styled.div<{ specialStyle?: boolean }>`
   position: relative;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: 254px;
+  }
   ${props =>
     props.specialStyle &&
     css`
@@ -151,7 +154,7 @@ export const RadioBlock = styled.div`
   width: 159px;
   height: 17px;
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    height: 48px;
+    height: 23px;
     align-items: center;
   }
 `;

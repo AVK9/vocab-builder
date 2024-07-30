@@ -10,10 +10,12 @@ import {
   EditWordContentBox,
   FormBox,
   HeadPopup,
+  InfoText,
   Input,
   InputBox,
   Name,
   NameBox,
+  SelectedBox,
 } from './ModalContentAddWord.styled';
 import { IconSvg } from 'components/common/IconSvg';
 import { Button } from 'components/common/Button';
@@ -64,13 +66,20 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
         </Content>
       </ContentBox>
       <FormBox>
-        <SelectField
-          holder="Categories"
-          categories={categories}
-          onSelectChange={handleSelectChange}
-          onRadioChange={handleRadioChange}
-          color="white"
-        />
+        <SelectedBox>
+          <SelectField
+            holder="Categories"
+            categories={categories}
+            onSelectChange={handleSelectChange}
+            onRadioChange={handleRadioChange}
+            color="white"
+          />
+          {radio === 'Irregular' && select === 'verb' && (
+            <InfoText>
+              Such data must be entered in the format I form-II form-III form.
+            </InfoText>
+          )}
+        </SelectedBox>
         <EditWordContentBox>
           <InputBox>
             <NameBox>
