@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import {
+  CreateWordResp,
   DellWord,
   EditWord,
   getWordsAllApiResponse,
@@ -90,4 +91,13 @@ export const handleWordsStatistics = (
   action: PayloadAction<TotalCountResponse>
 ) => {
   state.totalCount = action.payload.totalCount;
+};
+
+export const handleCreateWord = (
+  state: WordsState,
+  action: PayloadAction<CreateWordResp>
+) => {
+  const currState = state.wordsOwn.sumResults || [];
+  state.wordsOwn.sumResults = [...currState, action.payload];
+  state.wordsOwn.results = [...state.wordsOwn.results, action.payload];
 };

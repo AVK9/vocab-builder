@@ -85,3 +85,20 @@ export interface EditWord {
 export interface TotalCountResponse {
   totalCount: number;
 }
+
+export interface CreateWordReq {
+  en: string;
+  ua: string;
+  category: string;
+  isIrregular: boolean;
+}
+
+export interface CreateWordResp {
+  _id: string;
+  en: string;
+  ua: string;
+  category: string;
+  isIrregular: boolean;
+  owner?: string;
+  progress?: number;
+}

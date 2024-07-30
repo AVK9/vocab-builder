@@ -21,6 +21,7 @@ import { IconSvg } from 'components/common/IconSvg';
 import { Button } from 'components/common/Button';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
+import { createWordThunk } from 'store/words/wordsThunk';
 
 interface ModalContentAddWordProps {
   closeModal: () => void;
@@ -29,6 +30,9 @@ interface ModalContentAddWordProps {
 const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
   closeModal,
 }) => {
+  const fieldEn = /\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*\b/;
+  const fieldUA = /^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/u;
+
   const [select, setSelect] = useState('');
   const [radio, setRadio] = useState('Regular');
   const categories = useSelector(selectStateWordsCategories);
@@ -46,14 +50,15 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
   const handleAddWord = async () => {
     console.log('radio!!!@@@ :>> ', radio);
 
-    // const body = {
-    //   id: data._id,
-    //   en: wordEn,
-    //   ua: wordUA,
-    //   category: data.category,
-    //   isIrregular: data.isIrregular,
-    // };
-    // await dispatch(editWordsOwnThunk(body));
+    const body = {
+      en: wordEn,
+      ua: wordUA,
+      category: select,
+      isIrregular: radio === 'Regular' ? true : false,
+    };
+
+    console.log('body :>> ', body);
+    await dispatch(createWordThunk(body));
   };
 
   return (

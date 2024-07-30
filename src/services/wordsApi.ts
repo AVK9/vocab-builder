@@ -1,4 +1,6 @@
 import {
+  CreateWordReq,
+  CreateWordResp,
   DellWord,
   EditWord,
   getWordsAllApiResponse,
@@ -105,5 +107,24 @@ export const getWordsStatisticsApi = async (
       Authorization: `Bearer ${token}`,
     },
   });
+  return data;
+};
+
+export const createWordApi = async (
+  token: string,
+  reqData: CreateWordReq
+): Promise<CreateWordResp> => {
+  const { en, ua, category, isIrregular } = reqData;
+
+  const { data } = await api.post<CreateWordResp>(
+    `/words/create`,
+    { en, ua, category, isIrregular },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
   return data;
 };
