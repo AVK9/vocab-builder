@@ -1,4 +1,11 @@
 import styled, { css } from 'styled-components';
+import { IconSvg } from '../IconSvg';
+
+interface IconBoxProps {
+  active: boolean;
+  color?: string;
+  specialStyle?: boolean;
+}
 
 export const SelectWrapper = styled.div<{ specialStyle?: boolean }>`
   position: relative;
@@ -30,9 +37,7 @@ export const InputWrapper = styled.div<{ specialStyle?: boolean }>`
 export const Input = styled.div<{ specialStyle?: boolean }>`
   cursor: pointer;
   outline: none;
-  /* flex-shrink: 0; */
-  border: 1px solid rgba(18, 20, 23, 0.1);
-  background-color: #fff;
+
   border-radius: 15px;
   padding: 12px 24px;
   width: 100%;
@@ -42,24 +47,34 @@ export const Input = styled.div<{ specialStyle?: boolean }>`
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
-  color: var(--black);
   transition: border 0.5s ease-in-out;
 
-  &:hover {
-    border: 1px solid var(--green);
-  }
   &:first-letter {
     text-transform: uppercase;
+  }
+
+  border: 1px solid #d1d5db;
+  background-color: transparent;
+  color: var(--white);
+
+  &:hover {
+    border: 1px solid white;
   }
 
   ${props =>
     props.specialStyle &&
     css`
+      border: 1px solid rgba(18, 20, 23, 0.1);
+      background-color: #fff;
+      color: var(--black);
       @media (min-width: ${({ theme }) => theme.breakpoints.mobileX}) {
         width: 343px;
       }
       @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
         width: 244px;
+      }
+      &:hover {
+        border: 1px solid var(--green);
       }
     `}
 `;
@@ -71,6 +86,22 @@ export const IconSvgBox = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+`;
+export const IconSvgStyled = styled(IconSvg)<{ specialStyle?: boolean }>`
+  stroke: white;
+  ${props =>
+    props.specialStyle &&
+    css`
+      stroke: black;
+    `}
+`;
+export const IconSvgFill = styled(IconSvg)<{ specialStyle?: boolean }>`
+  fill: white;
+  ${props =>
+    props.specialStyle &&
+    css`
+      fill: black;
+    `}
 `;
 
 export const OptionsList = styled.ul<{ isOpen: boolean }>`
@@ -129,12 +160,12 @@ export const RadioBox = styled.div`
   position: relative;
   width: 100%;
 `;
-export const Label = styled.label<{ active: boolean }>`
+export const Label = styled.label<{ specialStyle?: boolean }>`
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 12px;
   text-align: center;
-  color: var(--black);
+  color: var(--white);
   line-height: 18px;
   cursor: pointer;
   width: 100%;
@@ -143,9 +174,11 @@ export const Label = styled.label<{ active: boolean }>`
   align-items: center;
   gap: 8px;
 
-  @media (min-width: ${({ theme }) => theme.breakpoints.mobileL}) {
-    /* width: 60%; */
-  }
+  ${props =>
+    props.specialStyle &&
+    css`
+      color: var(--black);
+    `}
 `;
 
 export const RadioInput = styled.input`
@@ -157,10 +190,7 @@ export const RadioInput = styled.input`
   opacity: 0;
 `;
 
-export const IconBox = styled.div<{
-  active: boolean;
-  color: string | undefined;
-}>`
+export const IconBox = styled.div<IconBoxProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,7 +210,16 @@ export const IconBox = styled.div<{
   border: ${props =>
     props.active
       ? `2px solid var(--${props.color || 'green'})`
-      : '2px solid #636366'};
+      : '2px solid #fff'};
+
+  ${props =>
+    props.specialStyle &&
+    css<IconBoxProps>`
+      border: ${props =>
+        props.active
+          ? `2px solid var(--${props.color || 'green'})`
+          : '2px solid #636366'};
+    `}
 `;
 
 export const IconDot = styled.div<{

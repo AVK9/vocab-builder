@@ -6,6 +6,8 @@ import {
   IconBox,
   IconDot,
   IconSvgBox,
+  IconSvgFill,
+  IconSvgStyled,
   Input,
   InputWrapper,
   Label,
@@ -108,18 +110,17 @@ const SelectField: React.FC<SelectFieldProps> = ({
           </Input>
           <IconSvgBox>
             {isClear && (
-              <IconSvg
+              <IconSvgStyled
+                specialStyle={specialStyle}
                 icon="x"
-                stroke="black"
                 size="20px"
                 onClick={clearField}
               />
             )}
-            <IconSvg
+            <IconSvgFill
+              specialStyle={specialStyle}
               onClick={toggleDropdown}
               icon="angle-small-down-2"
-              size="25px"
-              fill="black"
             />
           </IconSvgBox>
         </InputWrapper>
@@ -134,7 +135,10 @@ const SelectField: React.FC<SelectFieldProps> = ({
       {selected === 'verb' ? (
         <RadioBlock>
           <RadioBox>
-            <Label active={radio === 'Regular'}>
+            <Label
+              specialStyle={specialStyle}
+              // active={radio === 'Irregular'}
+            >
               <RadioInput
                 color={color}
                 type="radio"
@@ -148,12 +152,19 @@ const SelectField: React.FC<SelectFieldProps> = ({
               />
               Regular
             </Label>
-            <IconBox color={color} active={radio === 'Regular'}>
+            <IconBox
+              specialStyle={specialStyle}
+              color={color}
+              active={radio === 'Regular'}
+            >
               <IconDot color={color} active={radio === 'Regular'} />
             </IconBox>
           </RadioBox>
           <RadioBox>
-            <Label active={radio === 'Irregular'}>
+            <Label
+              specialStyle={specialStyle}
+              // active={radio === 'Irregular'}
+            >
               <RadioInput
                 type="radio"
                 name="werb"
@@ -166,7 +177,11 @@ const SelectField: React.FC<SelectFieldProps> = ({
               />
               Irregular
             </Label>
-            <IconBox color={color} active={radio === 'Irregular'}>
+            <IconBox
+              specialStyle={specialStyle}
+              color={color}
+              active={radio === 'Irregular'}
+            >
               <IconDot color={color} active={radio === 'Irregular'} />
             </IconBox>
           </RadioBox>
