@@ -32,7 +32,7 @@ interface Word {
   en: string;
   ua: string;
   category: string;
-  isIrregular: boolean;
+  isIrregular?: boolean;
   owner?: string;
   progress?: number;
   definition?: string;

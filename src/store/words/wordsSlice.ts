@@ -60,18 +60,9 @@ const wordsSlice = createSlice({
       .addCase(editWordsOwnThunk.fulfilled, handleEditWordsOwn)
       .addCase(getWordsStatisticsThunk.fulfilled, handleWordsStatistics)
       .addCase(createWordThunk.fulfilled, handleCreateWord)
-      .addMatcher(
-        ({ type }): boolean => type.endsWith('/pendihg'),
-        handlePending
-      )
-      .addMatcher(
-        ({ type }): boolean => type.endsWith('/fulfilled'),
-        handleFulfilled
-      )
-      .addMatcher(
-        ({ type }): boolean => type.endsWith('/rejected'),
-        handleRejected
-      );
+      .addMatcher(({ type }) => type.endsWith('/pendihg'), handlePending)
+      .addMatcher(({ type }) => type.endsWith('/fulfilled'), handleFulfilled)
+      .addMatcher(({ type }) => type.endsWith('/rejected'), handleRejected);
   },
 });
 

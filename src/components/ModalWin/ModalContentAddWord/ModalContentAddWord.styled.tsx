@@ -75,15 +75,20 @@ export const EditWordContentBox = styled.div`
   margin-top: 32px;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ errorField?: boolean }>`
   outline: none;
-  border: 1px solid #d1d5db;
+  /* border: 1px solid #d1d5db; */
+  border: 1px solid ${props => (props.errorField ? '#d80027' : '#d1d5db')};
   border-radius: 15px;
   padding: 12px 24px 12px 24px;
   width: 100%;
   height: 48px;
   margin-bottom: 16px;
   background-color: transparent;
+
+  &.error {
+    border: 1px solid #d80027;
+  }
 
   font-family: var(--font-family);
   font-weight: 500;

@@ -13,7 +13,7 @@ interface EditWordContentProps {
     en: string;
     ua: string;
     category: string;
-    isIrregular: boolean;
+    isIrregular?: boolean;
     owner?: string;
     progress?: number;
   };
@@ -75,7 +75,7 @@ const EditWordContent: React.FC<EditWordContentProps> = ({
       en: wordEn,
       ua: wordUA,
       category: data.category,
-      isIrregular: data.isIrregular,
+      isIrregular: data.isIrregular ?? false,
     };
     await dispatch(editWordsOwnThunk(body));
   };

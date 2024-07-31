@@ -3,7 +3,7 @@ export interface Word {
   en: string;
   ua: string;
   category: string;
-  isIrregular: boolean;
+  isIrregular?: boolean;
   owner?: string;
   progress?: number;
 }
@@ -90,7 +90,7 @@ export interface CreateWordReq {
   en: string;
   ua: string;
   category: string;
-  isIrregular: boolean;
+  isIrregular?: boolean;
 }
 
 export interface CreateWordResp {
@@ -98,7 +98,7 @@ export interface CreateWordResp {
   en: string;
   ua: string;
   category: string;
-  isIrregular: boolean;
+  isIrregular?: boolean;
   owner?: string;
   progress?: number;
 }

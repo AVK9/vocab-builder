@@ -14,7 +14,6 @@ const filterSlice = createSlice({
     },
     catigoriesWordAction: (state, { payload }) => {
       state.catigories = payload;
-      console.log('state.catigories', payload);
     },
   },
 });

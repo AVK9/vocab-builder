@@ -85,7 +85,6 @@ const SelectField: React.FC<SelectFieldProps> = ({
 
   const handleSelect = (value: string) => {
     setSelected(value);
-    console.log('selected', selected);
     setIsOpen(false);
     setIsClear(true);
     onSelectChange(value);

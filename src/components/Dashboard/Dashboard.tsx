@@ -63,7 +63,6 @@ const Dashboard: React.FC<DashboardProps> = ({ totalCount }) => {
   const handleRadioChange = (radioValue: string) => setRadio(radioValue);
 
   useEffect(() => {
-    console.log('radio', radio);
     if (select !== 'Categories') {
       dispatch(catigoriesWordAction(select));
     }
