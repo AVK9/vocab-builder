@@ -75,7 +75,10 @@ export const EditWordContentBox = styled.div`
   margin-top: 32px;
 `;
 
-export const Input = styled.input<{ errorField?: boolean }>`
+export const Input = styled.input<{
+  errorField?: boolean;
+  isInputDisabled?: boolean;
+}>`
   outline: none;
   /* border: 1px solid #d1d5db; */
   border: 1px solid ${props => (props.errorField ? '#d80027' : '#d1d5db')};
@@ -99,11 +102,33 @@ export const Input = styled.input<{ errorField?: boolean }>`
     width: 334px;
   }
 `;
-export const InputBox = styled.div`
+
+export const Tooltip = styled.p<{
+  isInputDisabled?: boolean;
+}>`
+  position: absolute;
+  bottom: 27px;
+  left: 25px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: transparent;
+`;
+export const InputBox = styled.div<{
+  isInputDisabled?: boolean;
+}>`
+  position: relative;
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
     gap: 8px;
+  }
+  &:hover {
+    ${Tooltip} {
+      /* display: ${props => (props.isInputDisabled ? 'block' : 'none')}; */
+      color: #d76378;
+    }
   }
 `;

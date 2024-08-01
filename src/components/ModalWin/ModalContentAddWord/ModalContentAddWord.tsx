@@ -19,6 +19,7 @@ import {
   Name,
   NameBox,
   SelectedBox,
+  Tooltip,
 } from './ModalContentAddWord.styled';
 import { IconSvg } from 'components/common/IconSvg';
 import { Button } from 'components/common/Button';
@@ -36,15 +37,26 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
   closeModal,
 }) => {
   const [select, setSelect] = useState('');
+  const [isInputDisabled, setInputDisabled] = useState(true);
   const [radio, setRadio] = useState('Regular');
   const categories = useSelector(selectStateWordsCategories);
 
   const patternFieldEn = /\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*\b/;
   const patternFieldUa = /^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/;
   const patternIrregular = /^[A-Za-z]+-[A-Za-z]+-[A-Za-z]+$/;
+  const patternFieldEnUn =
+    radio === 'Regular'
+      ? /\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*\b/
+      : /^[A-Za-z]+-[A-Za-z]+-[A-Za-z]+$/;
 
   const handleSelectChange = (selectedValue: string) => {
     setSelect(selectedValue);
+
+    if (selectedValue === 'Categories') {
+      setInputDisabled(true);
+    } else {
+      setInputDisabled(false);
+    }
   };
   const handleRadioChange = (radioValue: string) => setRadio(radioValue);
 
@@ -54,61 +66,67 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
   const [errorFieldEn, setErrorFieldEn] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
-  const errorMessage = useSelector(selectError);
-
-  const body = {
-    en: wordEn,
-    ua: wordUa,
-    category: select,
-    isIrregular: radio !== 'Regular' ? true : false,
-  };
-  const bd = {
-    en: wordEn,
-    ua: wordUa,
-    category: select,
-  };
 
   const handleAddWord = async () => {
+    const bodyWerb = {
+      en: wordEn,
+      ua: wordUa,
+      category: select,
+      isIrregular: radio !== 'Regular' ? true : false,
+    };
+    const body = {
+      en: wordEn,
+      ua: wordUa,
+      category: select,
+    };
+
     if (!wordUa || !wordEn || errorFieldUa || errorFieldEn) {
       toast.warn('Please input all filds');
     }
     if (select === 'Categories') {
       toast.warn('Please choise Categories of the word');
     }
-    if (select !== 'verb' && select !== 'Categories') {
-      const resultAction = await dispatch(createWordThunk(bd));
+    if (select !== 'verb' && select !== 'Categories' && wordUa && wordEn) {
+      const resultAction = await dispatch(createWordThunk(body));
       if (createWordThunk.rejected.match(resultAction)) {
         toast.error(`${resultAction.payload}`);
       } else {
         toast('Word add successfully');
         closeModal();
       }
-    }
-    if (
-      radio === 'Regular' &&
-      select === 'verb' &&
-      patternFieldEn.test(wordEn)
-    ) {
-      await dispatch(createWordThunk(body));
-      toast('Word add successfully');
-      closeModal();
       return;
     }
     if (
-      radio === 'Irregular' &&
+      // radio === 'Regular' &&
       select === 'verb' &&
-      patternIrregular.test(wordEn)
+      patternFieldEnUn.test(wordEn)
     ) {
-      console.log('body :>> ', body);
-      await dispatch(createWordThunk(body));
-      toast('Word add successfully');
-      closeModal();
+      const resultAction = await dispatch(createWordThunk(bodyWerb));
+      if (createWordThunk.rejected.match(resultAction)) {
+        toast.error(`${resultAction.payload}`);
+      } else {
+        toast('Word add successfully');
+        closeModal();
+      }
       return;
     }
+
+    // if (
+    //   radio === 'Irregular' &&
+    //   select === 'verb' &&
+    //   patternIrregular.test(wordEn)
+    // ) {
+    //   console.log('body :>> ', body);
+    //   await dispatch(createWordThunk(body));
+    //   toast('Word add successfully');
+    //   closeModal();
+    //   return;
+    // }
     if (
       radio === 'Irregular' &&
       select === 'verb' &&
-      !patternIrregular.test(wordEn)
+      // !patternIrregular.test(wordEn)
+      !patternFieldEn.test(wordEn)
     ) {
       toast.warn(
         'Such data must be entered in the format I form-II form-III form'
@@ -130,8 +148,6 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
       setError(true);
     }
   };
-
-  // console.log('errorMessage', errorMessage);
 
   return (
     <div>
@@ -158,12 +174,13 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
           )}
         </SelectedBox>
         <EditWordContentBox>
-          <InputBox>
+          <InputBox isInputDisabled={isInputDisabled}>
             <NameBox>
               <IconSvg icon="ua" size="28px" />
               <Name>Ukrainian</Name>
             </NameBox>
             <Input
+              disabled={isInputDisabled}
               className={errorFieldUa ? 'error' : ''}
               errorField={errorFieldUa}
               value={wordUa}
@@ -171,13 +188,18 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
                 handleInputChange(e, setWordUa, patternFieldUa, setErrorFieldUa)
               }
             />
+
+            {isInputDisabled && (
+              <Tooltip>At first shose Categories field</Tooltip>
+            )}
           </InputBox>
-          <InputBox>
+          <InputBox isInputDisabled={isInputDisabled}>
             <NameBox>
               <IconSvg icon="uk" size="28px" />
               <Name>English</Name>
             </NameBox>
             <Input
+              disabled={isInputDisabled}
               className={errorFieldEn ? 'error' : ''}
               errorField={errorFieldEn}
               value={wordEn}
@@ -192,6 +214,9 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
                 )
               }
             />
+            {isInputDisabled && (
+              <Tooltip>At first shose Categories field</Tooltip>
+            )}
           </InputBox>
           <ButtonBox>
             <Button
