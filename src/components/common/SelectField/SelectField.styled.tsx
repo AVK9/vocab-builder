@@ -156,6 +156,7 @@ export const RadioBlock = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     height: 23px;
     align-items: center;
+    margin-top: 13px;
   }
 `;
 

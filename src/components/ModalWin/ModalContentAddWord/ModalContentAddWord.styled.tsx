@@ -66,7 +66,7 @@ export const Name = styled.span`
 `;
 
 export const ButtonBox = styled.div`
-  max-width: 310px;
+  /* max-width: 310px; */
 
   display: flex;
   gap: 8px;
@@ -88,6 +88,11 @@ export const Input = styled.input<{
   height: 48px;
   margin-bottom: 16px;
   background-color: transparent;
+  transition: border 0.8s ease-in-out, transform 0.8s ease-in-out;
+
+  &:hover {
+    border: 1px solid #ffffff;
+  }
 
   &.error {
     border: 1px solid #d80027;
@@ -99,7 +104,7 @@ export const Input = styled.input<{
   line-height: 150%;
   color: var(--white);
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    width: 334px;
+    width: 354px;
   }
 `;
 
@@ -123,7 +128,7 @@ export const InputBox = styled.div<{
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 32px;
   }
   &:hover {
     ${Tooltip} {

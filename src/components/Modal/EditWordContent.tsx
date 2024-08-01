@@ -34,8 +34,6 @@ const Name = styled.span`
 `;
 
 const ButtonBox = styled.div`
-  max-width: 310px;
-
   display: flex;
   gap: 8px;
 `;
@@ -51,12 +49,16 @@ const Input = styled.input`
   width: 100%;
   height: 48px;
   margin-bottom: 16px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    width: 353px;
+  }
 `;
 const InputBox = styled.div`
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: flex;
     flex-direction: row-reverse;
-    gap: 8px;
+    justify-content: flex-end;
+    gap: 32px;
   }
 `;
 

@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+
+import { IconSvg } from 'components/common/IconSvg';
+import { Button } from 'components/common/Button';
+import { AppDispatch } from 'store/store';
+import { createWordThunk } from 'store/words/wordsThunk';
 import SelectField from 'components/common/SelectField/SelectField';
-import EditWordContent from 'components/Modal/EditWordContent';
-import { useSelector } from 'react-redux';
-import {
-  selectError,
-  selectStateWordsCategories,
-} from 'store/words/wordsSelectors';
+import { selectStateWordsCategories } from 'store/words/wordsSelectors';
 import {
   ButtonBox,
   Content,
@@ -21,13 +23,6 @@ import {
   SelectedBox,
   Tooltip,
 } from './ModalContentAddWord.styled';
-import { IconSvg } from 'components/common/IconSvg';
-import { Button } from 'components/common/Button';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from 'store/store';
-import { createWordThunk } from 'store/words/wordsThunk';
-import { toast } from 'react-toastify';
-import { string } from 'yup';
 
 interface ModalContentAddWordProps {
   closeModal: () => void;
@@ -86,7 +81,12 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
     if (select === 'Categories') {
       toast.warn('Please choise Categories of the word');
     }
-    if (select !== 'verb' && select !== 'Categories' && wordUa && wordEn) {
+    if (
+      select !== 'verb' &&
+      select !== 'Categories' &&
+      patternFieldUa.test(wordUa) &&
+      patternFieldEn.test(wordEn)
+    ) {
       const resultAction = await dispatch(createWordThunk(body));
       if (createWordThunk.rejected.match(resultAction)) {
         toast.error(`${resultAction.payload}`);
@@ -96,11 +96,7 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
       }
       return;
     }
-    if (
-      // radio === 'Regular' &&
-      select === 'verb' &&
-      patternFieldEnUn.test(wordEn)
-    ) {
+    if (select === 'verb' && patternFieldEnUn.test(wordEn)) {
       const resultAction = await dispatch(createWordThunk(bodyWerb));
       if (createWordThunk.rejected.match(resultAction)) {
         toast.error(`${resultAction.payload}`);
@@ -110,23 +106,10 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
       }
       return;
     }
-
-    // if (
-    //   radio === 'Irregular' &&
-    //   select === 'verb' &&
-    //   patternIrregular.test(wordEn)
-    // ) {
-    //   console.log('body :>> ', body);
-    //   await dispatch(createWordThunk(body));
-    //   toast('Word add successfully');
-    //   closeModal();
-    //   return;
-    // }
     if (
       radio === 'Irregular' &&
       select === 'verb' &&
-      // !patternIrregular.test(wordEn)
-      !patternFieldEn.test(wordEn)
+      !patternIrregular.test(wordEn)
     ) {
       toast.warn(
         'Such data must be entered in the format I form-II form-III form'
@@ -188,7 +171,6 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
                 handleInputChange(e, setWordUa, patternFieldUa, setErrorFieldUa)
               }
             />
-
             {isInputDisabled && (
               <Tooltip>At first shose Categories field</Tooltip>
             )}
@@ -221,14 +203,14 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
           <ButtonBox>
             <Button
               add={true}
-              margin="16px 0px 32px 0px"
+              margin="16px 0px 0px 0px"
               onClick={handleAddWord}
             >
               Save
             </Button>
             <Button
               cansel={true}
-              margin="16px 0px 32px 0px"
+              margin="16px 0px 0px 0px"
               onClick={closeModal}
             >
               Cansel

@@ -27,7 +27,7 @@ export const Popup = styled.div<StyledProps>`
   border-radius: 15px;
   padding: 16px;
   width: 80%;
-  max-width: 566px;
+  max-width: 627px;
   max-height: 95%;
   overflow-y: auto;
 

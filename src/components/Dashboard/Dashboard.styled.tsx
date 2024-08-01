@@ -33,6 +33,7 @@ export const ToStudy = styled.p`
   font-weight: 500;
   font-size: 14px;
   color: rgba(18, 20, 23, 0.5);
+  white-space: nowrap;
 `;
 export const BtnName = styled.span`
   display: flex;
