@@ -20,6 +20,7 @@ export interface WordsState {
   isLoading: boolean;
   error: string | null;
   categories: string[];
+  wordsTasks: WordsTasksResp;
   totalCount: number;
   wordsAll: WordsResponse;
   wordsOwn: WordsResponse;
@@ -101,4 +102,14 @@ export interface CreateWordResp {
   isIrregular?: boolean;
   owner?: string;
   progress?: number;
+}
+
+export interface WordTask {
+  _id: string;
+  ua: string;
+  task: string;
+}
+
+export interface WordsTasksResp {
+  words: WordTask[];
 }

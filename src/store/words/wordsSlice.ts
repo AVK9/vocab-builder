@@ -9,6 +9,7 @@ import {
   getWordsCategoriesThunk,
   getWordsOwnThunk,
   getWordsStatisticsThunk,
+  getWordsTasksThunk,
 } from './wordsThunk';
 import { WordsState, getWordsResponse } from './wordsTypes';
 
@@ -24,11 +25,13 @@ import {
   handleEditWordsOwn,
   handleWordsStatistics,
   handleCreateWord,
+  handleWordsTasks,
 } from './wordsHandlers';
 
 const initialState: WordsState = {
   categories: [],
   totalCount: 0,
+  wordsTasks: { words: [] },
   wordsAll: {
     results: [],
     sumResults: [],
@@ -60,6 +63,7 @@ const wordsSlice = createSlice({
       .addCase(editWordsOwnThunk.fulfilled, handleEditWordsOwn)
       .addCase(getWordsStatisticsThunk.fulfilled, handleWordsStatistics)
       .addCase(createWordThunk.fulfilled, handleCreateWord)
+      .addCase(getWordsTasksThunk.fulfilled, handleWordsTasks)
       .addMatcher(({ type }) => type.endsWith('/pendihg'), handlePending)
       .addMatcher(({ type }) => type.endsWith('/fulfilled'), handleFulfilled)
       .addMatcher(({ type }) => type.endsWith('/rejected'), handleRejected);

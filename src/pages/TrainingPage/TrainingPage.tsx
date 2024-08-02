@@ -1,11 +1,21 @@
+import React, { useEffect } from 'react';
 import TrainingRoom from 'components/TrainingRoom/TrainingRoom';
-import React from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from 'store/store';
+import { getWordsTasksThunk } from 'store/words/wordsThunk';
+import Back from 'components/common/Back';
 
-const TrainingPage = () => {
+const TrainingPage: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getWordsTasksThunk());
+  }, [dispatch]);
+
   return (
-    <div>
+    <Back>
       <TrainingRoom />
-    </div>
+    </Back>
   );
 };
 

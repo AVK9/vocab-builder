@@ -9,6 +9,7 @@ import {
   getWordsResponse,
   TotalCountResponse,
   Word,
+  WordsTasksResp,
 } from 'store/words/wordsTypes';
 import { api } from './api';
 
@@ -103,6 +104,17 @@ export const getWordsStatisticsApi = async (
   token: string
 ): Promise<TotalCountResponse> => {
   const { data } = await api<TotalCountResponse>('/words/statistics', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data;
+};
+
+export const getWordsTasksApi = async (
+  token: string
+): Promise<WordsTasksResp> => {
+  const { data } = await api<WordsTasksResp>('/words/tasks', {
     headers: {
       Authorization: `Bearer ${token}`,
     },

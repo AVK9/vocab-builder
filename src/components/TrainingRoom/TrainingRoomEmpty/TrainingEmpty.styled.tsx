@@ -45,6 +45,7 @@ export const TextTraining = styled.p`
     line-height: 150%;
   }
 `;
+
 export const BtnBox = styled.div`
   margin-top: 132px;
   width: 100%;

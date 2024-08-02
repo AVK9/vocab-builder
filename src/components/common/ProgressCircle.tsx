@@ -5,6 +5,8 @@ interface ProgressCircleProps {
   percentage: number;
   size?: number;
   strokeWidth?: number;
+  colorPers?: string;
+  color?: string;
 }
 
 const CircleContainer = styled.div<{ size: number }>`
@@ -17,18 +19,19 @@ const Svg = styled.svg`
   transform: rotate(-90deg);
 `;
 
-const CircleBackground = styled.circle<{ strokeWidth: number }>`
+const CircleBackground = styled.circle<{ strokeWidth: number; color?: string }>`
   fill: none;
-  stroke: #d4f8d3;
+  stroke: ${props => props.color || '#d4f8d3'};
   stroke-width: ${({ strokeWidth }) => strokeWidth};
 `;
 
 const CircleProgress = styled.circle<{
   percentage: number;
   strokeWidth: number;
+  colorPers?: string;
 }>`
   fill: none;
-  stroke: #2bd627;
+  stroke: ${props => props.colorPers || '#2bd627'};
   stroke-width: ${({ strokeWidth }) => strokeWidth};
   stroke-dasharray: 100;
   stroke-dashoffset: ${({ percentage }) => 100 - percentage};
@@ -39,6 +42,8 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
   percentage,
   size = 50,
   strokeWidth = 5,
+  colorPers,
+  color,
 }) => {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -51,13 +56,16 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
           cy={size / 2}
           r={radius}
           strokeWidth={strokeWidth}
+          color={color}
         />
+
         <CircleProgress
           cx={size / 2}
           cy={size / 2}
           r={radius}
           strokeWidth={strokeWidth}
           percentage={percentage}
+          colorPers={colorPers}
           style={{
             strokeDasharray: circumference,
             strokeDashoffset: (circumference * (100 - percentage)) / 100,

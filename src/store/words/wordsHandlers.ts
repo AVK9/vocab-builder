@@ -8,6 +8,7 @@ import {
   TotalCountResponse,
   Word,
   WordsState,
+  WordsTasksResp,
 } from './wordsTypes';
 
 export const handlePending = (state: WordsState) => {
@@ -92,6 +93,13 @@ export const handleWordsStatistics = (
   action: PayloadAction<TotalCountResponse>
 ) => {
   state.totalCount = action.payload.totalCount;
+};
+
+export const handleWordsTasks = (
+  state: WordsState,
+  action: PayloadAction<WordsTasksResp>
+) => {
+  state.wordsTasks = action.payload;
 };
 
 export const handleCreateWord = (

@@ -8,6 +8,7 @@ export const selectError = (state: RootState) => state.words.error;
 export const selectWordsAll = (state: RootState) => state.words.wordsAll;
 export const selectWordsOwn = (state: RootState) => state.words.wordsOwn;
 export const selectTotalCount = (state: RootState) => state.words.totalCount;
+export const selectWordsTasks = (state: RootState) => state.words.wordsTasks;
 export const selectFilter = (state: RootState) => state.search.search;
 export const selectCatigories = (state: RootState) => state.search.catigories;
 

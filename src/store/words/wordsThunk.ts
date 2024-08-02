@@ -9,6 +9,7 @@ import {
   getWordsCategoriesApi,
   getWordsOwnApi,
   getWordsStatisticsApi,
+  getWordsTasksApi,
 } from 'services/wordsApi';
 import { RootState } from 'store/store';
 import {
@@ -109,6 +110,17 @@ export const getWordsStatisticsThunk = createAsyncThunk(
     try {
       const state = getState() as RootState;
       return await getWordsStatisticsApi(state.auth.token!);
+    } catch (error: any) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+export const getWordsTasksThunk = createAsyncThunk(
+  'words/getWordsTasks',
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const state = getState() as RootState;
+      return await getWordsTasksApi(state.auth.token!);
     } catch (error: any) {
       return rejectWithValue(error.response.data.message);
     }
