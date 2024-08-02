@@ -17,9 +17,12 @@ import {
   TrainingRoomBox,
   UaTrainingBox,
   VidgetBox,
+  BtnNext,
+  Textarea,
 } from './TrainingRoom.styled';
 import ProgressCircle from 'components/common/ProgressCircle';
 import { IconSvg } from 'components/common/IconSvg';
+import { store } from './../../store/store';
 
 const TrainingRoom: React.FC = () => {
   const getWordsTasks = useSelector(selectWordsTasks);
@@ -45,12 +48,22 @@ const TrainingRoom: React.FC = () => {
           </ProgressBarBox>
           <TrainingBox>
             <UaTrainingBox>
+              <Textarea placeholder="Введіть переклад" />
               <LanguageBox>
                 <IconSvg icon="ua" size="28px" />
                 <Language>Ukrainian</Language>
               </LanguageBox>
+              <BtnNext>
+                Next
+                <IconSvg
+                  icon="arrow-right"
+                  stroke="var(--green)"
+                  size="20px  "
+                />
+              </BtnNext>
             </UaTrainingBox>
             <EnTrainingBox>
+              <Textarea placeholder="Введіть переклад" />
               <LanguageBox>
                 <IconSvg icon="uk" size="28px" />
                 <Language>English</Language>

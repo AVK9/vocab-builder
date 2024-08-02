@@ -45,6 +45,15 @@ export const Persent = styled.span`
 
 export const TrainingBox = styled.div`
   margin-top: 8px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    border-radius: 15px;
+    padding: 18px;
+    background: #fff;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    margin-top: 16px;
+    display: flex;
+  }
 `;
 export const UaTrainingBox = styled.div`
   position: relative;
@@ -54,6 +63,15 @@ export const UaTrainingBox = styled.div`
   width: 100%;
   height: 195px;
   background: var(--white);
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    height: 282px;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    border-right: 1px solid #dbdbdb;
+    border-radius: 8px 0 0 0;
+    width: 602px;
+    height: 302px;
+  }
 `;
 export const EnTrainingBox = styled.div`
   position: relative;
@@ -62,6 +80,34 @@ export const EnTrainingBox = styled.div`
   width: 100%;
   height: 195px;
   background: var(--white);
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    height: 282px;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    border: 0px solid #dbdbdb;
+    border-radius: 0 8px 8px 0;
+    width: 602px;
+    height: 302px;
+  }
+`;
+export const Textarea = styled.textarea`
+  background-color: transparent;
+  resize: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 75%;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--black);
+  @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    height: 85%;
+    font-size: 20px;
+    width: 80%;
+  }
 `;
 export const LanguageBox = styled.div`
   position: absolute;
@@ -70,6 +116,10 @@ export const LanguageBox = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+  height: 28px;
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    top: 22px;
+  }
 `;
 export const Language = styled.span`
   font-family: var(--font-family);
@@ -77,6 +127,24 @@ export const Language = styled.span`
   font-size: 14px;
   color: var(--black);
   line-height: 28px;
+`;
+export const BtnNext = styled.button`
+  position: absolute;
+  bottom: 22px;
+  left: 22px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: rgba(18, 20, 23, 0.5);
 `;
 export const BtnBox = styled.div`
   margin-top: 132px;
@@ -86,11 +154,14 @@ export const BtnBox = styled.div`
   justify-content: center;
   align-items: center;
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    margin-top: 64px;
+    margin-top: 40px;
     flex-direction: row;
     gap: 10px;
     width: 427px;
     max-height: 55px;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.laptop}) {
+    margin-top: 80px;
   }
 `;
 export const BtnCansel = styled.button`
