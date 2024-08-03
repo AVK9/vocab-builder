@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import {
+  AnswersWordsResp,
   CreateWordResp,
   DellWord,
   EditWord,
@@ -109,4 +110,11 @@ export const handleCreateWord = (
   const currState = state.wordsOwn.sumResults || [];
   state.wordsOwn.sumResults = [...currState, action.payload];
   state.wordsOwn.results = [...state.wordsOwn.results, action.payload];
+};
+
+export const handleAnswersWords = (
+  state: WordsState,
+  action: PayloadAction<AnswersWordsResp>
+) => {
+  state.wordsAnswers = action.payload;
 };

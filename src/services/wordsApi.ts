@@ -1,4 +1,6 @@
 import {
+  AnswersWordsReq,
+  AnswersWordsResp,
   CreateWordReq,
   CreateWordResp,
   DellWord,
@@ -138,5 +140,18 @@ export const createWordApi = async (
     }
   );
 
+  return data;
+};
+
+export const answersWordsApi = async (
+  token: string,
+  reqData: AnswersWordsReq
+): Promise<AnswersWordsResp> => {
+  const { data } = await api.post<AnswersWordsResp>(`/words/answers`, reqData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  console.log('dataAPI', data);
   return data;
 };

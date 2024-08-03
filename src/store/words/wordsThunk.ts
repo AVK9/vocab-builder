@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setTokenApi } from 'services/authApi';
 import {
   addWordOwnApi,
+  answersWordsApi,
   createWordApi,
   delWordsOwnApi,
   editWordsOwnApi,
@@ -13,6 +14,8 @@ import {
 } from 'services/wordsApi';
 import { RootState } from 'store/store';
 import {
+  AnswersWordsReq,
+  AnswersWordsResp,
   ApiError,
   CreateWordReq,
   CreateWordResp,
@@ -135,6 +138,19 @@ export const createWordThunk = createAsyncThunk<
   try {
     const state = getState() as RootState;
     return await createWordApi(state.auth.token!, body);
+  } catch (error: any) {
+    return rejectWithValue(error.response.data.message);
+  }
+});
+
+export const answersWordsThunk = createAsyncThunk<
+  AnswersWordsResp,
+  AnswersWordsReq,
+  { rejectValue: ApiError }
+>('words/answersWords', async (body, { rejectWithValue, getState }) => {
+  try {
+    const state = getState() as RootState;
+    return await answersWordsApi(state.auth.token!, body);
   } catch (error: any) {
     return rejectWithValue(error.response.data.message);
   }

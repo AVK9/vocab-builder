@@ -22,15 +22,23 @@ import {
 } from './TrainingRoom.styled';
 import ProgressCircle from 'components/common/ProgressCircle';
 import { IconSvg } from 'components/common/IconSvg';
-import { WordTask } from 'store/words/wordsTypes';
+import { Answer, WordTask } from 'store/words/wordsTypes';
+import { toast } from 'react-toastify';
+import { answersWordsThunk } from 'store/words/wordsThunk';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from 'store/store';
+import ModalContentWellDone from 'components/ModalWin/ModalContentWellDone/ModalContentWellDone';
+import { useModal } from 'components/ModalWin/ModalContext';
 
 const TrainingRoom: React.FC = () => {
   const getWordsTasks = useSelector(selectWordsTasks);
-  let percentage = 50;
-  let question = 0;
-  console.log('getWordsTasks', getWordsTasks);
-
+  const dispatch = useDispatch<AppDispatch>();
   const [treiningTask, setTreiningTask] = useState<WordTask[]>([]);
+  const [question, setQuestion] = useState(0);
+  const [answer, setAnswer] = useState('');
+  const [answerArr, setAnswerArr] = useState<Answer[]>([]);
+  const [percentage, setPercentage] = useState(0);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     if (getWordsTasks) {
@@ -40,12 +48,37 @@ const TrainingRoom: React.FC = () => {
 
   const training = () => {
     const tasks = treiningTask.length;
-    if (question <= tasks) {
-      question += 1;
-      console.log('question', question);
-    } else {
-      console.log('кінець');
+    let carentTask = treiningTask[question];
+
+    if (answer) {
+      let otvet = { ...carentTask, en: answer };
+      setAnswerArr([...answerArr, otvet]);
+
+      console.log('otvet :>> ', otvet);
+      console.log('answerArr :>> ', answerArr);
     }
+
+    if (question <= tasks) {
+      setIsDisabled(false);
+      setQuestion(question + 1);
+      setPercentage(Math.round((question * 100) / tasks));
+      setAnswer('');
+    } else {
+      toast('Training finish, words more not');
+      setIsDisabled(true);
+    }
+  };
+
+  const answersWordsBack = () => {
+    answerArr && dispatch(answersWordsThunk(answerArr));
+    handleOpenModal();
+  };
+  console.log('question', answer);
+
+  const { openModal } = useModal();
+  const { closeModal } = useModal();
+  const handleOpenModal = () => {
+    openModal(<ModalContentWellDone closeModal={closeModal} />);
   };
 
   return (
@@ -67,12 +100,12 @@ const TrainingRoom: React.FC = () => {
           </ProgressBarBox>
           <TrainingBox>
             <UaTrainingBox>
-              <Textarea placeholder="Введіть переклад" />
+              <Textarea value={treiningTask[question]?.ua} />
               <LanguageBox>
                 <IconSvg icon="ua" size="28px" />
                 <Language>Ukrainian</Language>
               </LanguageBox>
-              <BtnNext onClick={training}>
+              <BtnNext disabled={isDisabled} onClick={training}>
                 Next
                 <IconSvg
                   icon="arrow-right"
@@ -84,7 +117,8 @@ const TrainingRoom: React.FC = () => {
             <EnTrainingBox>
               <Textarea
                 placeholder="Введіть переклад"
-                value={treiningTask[question]?.ua}
+                value={answer}
+                onChange={e => setAnswer(e.target.value)}
               />
               <LanguageBox>
                 <IconSvg icon="uk" size="28px" />
@@ -93,7 +127,7 @@ const TrainingRoom: React.FC = () => {
             </EnTrainingBox>
           </TrainingBox>
           <BtnBox>
-            <Button margin="0px" height="56px">
+            <Button onClick={answersWordsBack} margin="0px" height="56px">
               Save
             </Button>
             <BtnCansel>Cansel</BtnCansel>

@@ -128,12 +128,12 @@ export const Language = styled.span`
   color: var(--black);
   line-height: 28px;
 `;
-export const BtnNext = styled.button`
+export const BtnNext = styled.button<{ disabled: boolean }>`
   position: absolute;
   bottom: 22px;
   left: 22px;
   border: none;
-  cursor: pointer;
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   outline: none;
   white-space: nowrap;
   display: flex;
@@ -144,7 +144,7 @@ export const BtnNext = styled.button`
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
-  color: rgba(18, 20, 23, 0.5);
+  color: ${props => (props.disabled ? '#d7d7d7' : 'rgba(18, 20, 23, 0.5)')};
 `;
 export const BtnBox = styled.div`
   margin-top: 132px;

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import {
   addWordOwnThunk,
+  answersWordsThunk,
   createWordThunk,
   delWordsOwnThunk,
   editWordsOwnThunk,
@@ -26,12 +27,14 @@ import {
   handleWordsStatistics,
   handleCreateWord,
   handleWordsTasks,
+  handleAnswersWords,
 } from './wordsHandlers';
 
 const initialState: WordsState = {
   categories: [],
   totalCount: 0,
   wordsTasks: [],
+  wordsAnswers: [],
   wordsAll: {
     results: [],
     sumResults: [],
@@ -64,6 +67,7 @@ const wordsSlice = createSlice({
       .addCase(getWordsStatisticsThunk.fulfilled, handleWordsStatistics)
       .addCase(createWordThunk.fulfilled, handleCreateWord)
       .addCase(getWordsTasksThunk.fulfilled, handleWordsTasks)
+      .addCase(answersWordsThunk.fulfilled, handleAnswersWords)
       .addMatcher(({ type }) => type.endsWith('/pendihg'), handlePending)
       .addMatcher(({ type }) => type.endsWith('/fulfilled'), handleFulfilled)
       .addMatcher(({ type }) => type.endsWith('/rejected'), handleRejected);

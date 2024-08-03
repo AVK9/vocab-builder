@@ -21,6 +21,7 @@ export interface WordsState {
   error: string | null;
   categories: string[];
   wordsTasks: WordTask[];
+  wordsAnswers: Answer[];
   totalCount: number;
   wordsAll: WordsResponse;
   wordsOwn: WordsResponse;
@@ -113,3 +114,14 @@ export interface WordTask {
 export interface WordsTasksResp {
   tasks: WordTask[];
 }
+
+export interface Answer {
+  _id: string;
+  en: string;
+  ua: string;
+  task: string;
+  isDone?: boolean;
+}
+
+export type AnswersWordsResp = Answer[];
+export type AnswersWordsReq = Answer[];
