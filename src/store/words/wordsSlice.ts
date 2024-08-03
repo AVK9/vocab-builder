@@ -31,7 +31,7 @@ import {
 const initialState: WordsState = {
   categories: [],
   totalCount: 0,
-  wordsTasks: { words: [] },
+  wordsTasks: [],
   wordsAll: {
     results: [],
     sumResults: [],

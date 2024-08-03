@@ -20,7 +20,7 @@ export interface WordsState {
   isLoading: boolean;
   error: string | null;
   categories: string[];
-  wordsTasks: WordsTasksResp;
+  wordsTasks: WordTask[];
   totalCount: number;
   wordsAll: WordsResponse;
   wordsOwn: WordsResponse;
@@ -111,5 +111,5 @@ export interface WordTask {
 }
 
 export interface WordsTasksResp {
-  words: WordTask[];
+  tasks: WordTask[];
 }

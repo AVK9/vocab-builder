@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWordsTasks } from 'store/words/wordsSelectors';
 
@@ -22,12 +22,31 @@ import {
 } from './TrainingRoom.styled';
 import ProgressCircle from 'components/common/ProgressCircle';
 import { IconSvg } from 'components/common/IconSvg';
-import { store } from './../../store/store';
+import { WordTask } from 'store/words/wordsTypes';
 
 const TrainingRoom: React.FC = () => {
   const getWordsTasks = useSelector(selectWordsTasks);
+  let percentage = 50;
+  let question = 0;
   console.log('getWordsTasks', getWordsTasks);
-  const percentage = 50;
+
+  const [treiningTask, setTreiningTask] = useState<WordTask[]>([]);
+
+  useEffect(() => {
+    if (getWordsTasks) {
+      setTreiningTask(getWordsTasks);
+    }
+  }, [getWordsTasks, treiningTask]);
+
+  const training = () => {
+    const tasks = treiningTask.length;
+    if (question <= tasks) {
+      question += 1;
+      console.log('question', question);
+    } else {
+      console.log('кінець');
+    }
+  };
 
   return (
     <TrainingRoomBox>
@@ -53,7 +72,7 @@ const TrainingRoom: React.FC = () => {
                 <IconSvg icon="ua" size="28px" />
                 <Language>Ukrainian</Language>
               </LanguageBox>
-              <BtnNext>
+              <BtnNext onClick={training}>
                 Next
                 <IconSvg
                   icon="arrow-right"
@@ -63,7 +82,10 @@ const TrainingRoom: React.FC = () => {
               </BtnNext>
             </UaTrainingBox>
             <EnTrainingBox>
-              <Textarea placeholder="Введіть переклад" />
+              <Textarea
+                placeholder="Введіть переклад"
+                value={treiningTask[question]?.ua}
+              />
               <LanguageBox>
                 <IconSvg icon="uk" size="28px" />
                 <Language>English</Language>

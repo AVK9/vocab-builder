@@ -99,7 +99,7 @@ export const handleWordsTasks = (
   state: WordsState,
   action: PayloadAction<WordsTasksResp>
 ) => {
-  state.wordsTasks = action.payload;
+  state.wordsTasks = action.payload.tasks;
 };
 
 export const handleCreateWord = (
