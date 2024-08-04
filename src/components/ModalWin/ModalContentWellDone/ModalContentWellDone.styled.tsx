@@ -2,10 +2,11 @@ import styled from 'styled-components';
 import book from '../../../assets/img/book.png';
 
 export const BoxWellDone = styled.div`
-  /* margin-top: 32px;
+  height: 378px;
+  /* margin-top: 32px; */
   @media (min-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    margin-top: 0px; */
-
+    height: 423px;
+  }
   background-image: url(${book});
   background-repeat: no-repeat;
   background-position: right bottom;
@@ -25,6 +26,7 @@ export const AnswersTrue = styled.div``;
 export const AnswersFalse = styled.div``;
 export const Answers = styled.div`
   display: flex;
+  justify-content: center;
   gap: 32px;
 `;
 export const List = styled.ul``;

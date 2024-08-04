@@ -29,9 +29,12 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
 import ModalContentWellDone from 'components/ModalWin/ModalContentWellDone/ModalContentWellDone';
 import { useModal } from 'components/ModalWin/ModalContext';
+import { DICTIONARY_ROUTE } from 'utils/const';
+import { useNavigate } from 'react-router-dom';
 
 const TrainingRoom: React.FC = () => {
   const getWordsTasks = useSelector(selectWordsTasks);
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const [treiningTask, setTreiningTask] = useState<WordTask[]>([]);
   const [question, setQuestion] = useState(0);
@@ -70,10 +73,30 @@ const TrainingRoom: React.FC = () => {
   };
 
   const answersWordsBack = () => {
-    answerArr && dispatch(answersWordsThunk(answerArr));
-    handleOpenModal();
+    let carentTask = treiningTask[question];
+
+    if (!answerArr.length && answer) {
+      let otvet = { ...carentTask, en: answer };
+      setAnswerArr([...answerArr, otvet]);
+
+      console.log('otvet :>> ', otvet);
+      console.log('answerArr :>> ', answerArr);
+      dispatch(answersWordsThunk([otvet]));
+      handleOpenModal();
+    }
+    console.log('answerArr', answerArr);
+    if (answerArr.length) {
+      dispatch(answersWordsThunk(answerArr));
+      handleOpenModal();
+    }
+    if (!answerArr.length && !answer) {
+      toast.warn('Give at least one answer');
+    }
+    return;
   };
-  console.log('question', answer);
+  const exit = () => {
+    navigate(DICTIONARY_ROUTE);
+  };
 
   const { openModal } = useModal();
   const { closeModal } = useModal();
@@ -130,7 +153,7 @@ const TrainingRoom: React.FC = () => {
             <Button onClick={answersWordsBack} margin="0px" height="56px">
               Save
             </Button>
-            <BtnCansel>Cansel</BtnCansel>
+            <BtnCansel onClick={exit}>Cansel</BtnCansel>
           </BtnBox>
         </>
       ) : (
