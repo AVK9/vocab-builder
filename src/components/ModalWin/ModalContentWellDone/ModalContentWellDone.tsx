@@ -31,7 +31,6 @@ const ModalContentWellDone: React.FC<ModalContentWellDoneProps> = ({
     navigate(DICTIONARY_ROUTE);
   };
 
-  console.log('WordsAnswers', wordsAnswers);
   const wordsAnswersTrue = wordsAnswers.filter(item => item.isDone === true);
   const wordsAnswersFalse = wordsAnswers.filter(item => item.isDone === false);
 
@@ -47,7 +46,7 @@ const ModalContentWellDone: React.FC<ModalContentWellDoneProps> = ({
 
           <List>
             {wordsAnswersTrue.map(word => (
-              <Item>{word.en}</Item>
+              <Item key={word.en}>{word.en}</Item>
             ))}
           </List>
         </AnswersTrue>
@@ -56,7 +55,7 @@ const ModalContentWellDone: React.FC<ModalContentWellDoneProps> = ({
 
           <List>
             {wordsAnswersFalse.map(word => (
-              <Item>{word.en}</Item>
+              <Item key={word.en}>{word.en}</Item>
             ))}
           </List>
         </AnswersFalse>

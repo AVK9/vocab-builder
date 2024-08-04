@@ -35,7 +35,6 @@ const DictionaryPage = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
 
-    console.log('currentPage', page);
     const data = {
       keyword: '',
       category: '',
@@ -63,7 +62,6 @@ const DictionaryPage = () => {
       await dispatch(getWordsCategoriesThunk());
     };
     resultAction();
-    // console.log('totalPages', resultAction);
   }, [dispatch]);
 
   const wordsOwn = useSelector(selectWordsOwn);
@@ -71,8 +69,7 @@ const DictionaryPage = () => {
 
   const searchWords = useSelector(selectSearchWords);
   const searchCatigoriesWords = useSelector(selectCatigoriesWords);
-  // console.log('searchCatigoriesWords :>> ', searchCatigoriesWords);
-
+  
   if (loading) {
     return <LoaderPercent />;
   }

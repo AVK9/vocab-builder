@@ -14,7 +14,6 @@ export const setTokenApi = (token: string): void => {
 
 export const signUpApi = async (body: SignUpData): Promise<SignUpResponse> => {
   const { data } = await api.post<SignUpResponse>('/users/signup', body);
-  console.log('data', data);
   return data;
 };
 

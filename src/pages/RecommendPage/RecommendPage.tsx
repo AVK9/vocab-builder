@@ -17,7 +17,6 @@ const RecommendPage = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
 
-    console.log('currentPage', page);
     const data = {
       keyword: '',
       category: '',
@@ -43,7 +42,6 @@ const RecommendPage = () => {
       await dispatch(getWordsAllThunk(data));
     };
     resultAction();
-    // console.log('totalPages', resultAction);
   }, [dispatch]);
 
   const words = useSelector(selectWordsAll);

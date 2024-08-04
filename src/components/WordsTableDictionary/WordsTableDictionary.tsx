@@ -20,8 +20,7 @@ import {
   Tr,
 } from './WordsTableDictionary.styled';
 import { IconSvg } from 'components/common/IconSvg';
-import { Butn, ButnText } from './WordsTableDictionary.styled';
-import { addWordOwnThunk } from 'store/words/wordsThunk';
+import { Butn } from './WordsTableDictionary.styled';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
 import ProgressCircle from 'components/common/ProgressCircle';
@@ -45,7 +44,6 @@ interface WordsTableProps {
 const WordsTableDictionary: React.FC<WordsTableProps> = ({ words }) => {
   const [openPopupId, setOpenPopupId] = useState<string | null>(null);
 
-  const dispatch = useDispatch<AppDispatch>();
   const columns = useMemo<ColumnDef<Word>[]>(
     () => [
       {
@@ -111,11 +109,6 @@ const WordsTableDictionary: React.FC<WordsTableProps> = ({ words }) => {
     ],
     [openPopupId]
   );
-
-  const handleEditWord = async (word: Word) => {
-    console.log('Adding word:', word);
-    // await dispatch(addWordOwnThunk(word._id));
-  };
 
   const table = useReactTable({
     data: words,

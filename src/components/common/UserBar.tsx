@@ -103,11 +103,9 @@ const UserBar: React.FC = () => {
 
   const openModal = () => {
     setIsOpen(true);
-    console.log('openModal=>', isOpen);
   };
   const closeModal = () => {
     setIsOpen(false);
-    console.log('closeModal=>', isOpen);
   };
 
   const modalRoot = document.getElementById('modal-root');

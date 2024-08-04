@@ -152,6 +152,5 @@ export const answersWordsApi = async (
       Authorization: `Bearer ${token}`,
     },
   });
-  console.log('dataAPI', data);
   return data;
 };

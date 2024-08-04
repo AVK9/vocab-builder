@@ -13,6 +13,7 @@ interface StyledButtonProps {
   link?: string;
   cansel1?: boolean;
   logout?: string;
+  type?: string;
   children?: React.ReactNode;
   onClick?: () => void;
 }

@@ -85,7 +85,6 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
   );
 
   const handleAddWord = async (word: Word) => {
-    console.log('Adding word:', word._id);
     await dispatch(addWordOwnThunk(word._id));
   };
 

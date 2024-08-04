@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectWordsTasks } from 'store/words/wordsSelectors';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 import TrainingEmpty from './TrainingRoomEmpty/TrainingEmpty';
 import { Button } from 'components/common/Button';
@@ -23,14 +26,11 @@ import {
 import ProgressCircle from 'components/common/ProgressCircle';
 import { IconSvg } from 'components/common/IconSvg';
 import { Answer, WordTask } from 'store/words/wordsTypes';
-import { toast } from 'react-toastify';
 import { answersWordsThunk } from 'store/words/wordsThunk';
-import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
 import ModalContentWellDone from 'components/ModalWin/ModalContentWellDone/ModalContentWellDone';
 import { useModal } from 'components/ModalWin/ModalContext';
 import { DICTIONARY_ROUTE } from 'utils/const';
-import { useNavigate } from 'react-router-dom';
 
 const TrainingRoom: React.FC = () => {
   const getWordsTasks = useSelector(selectWordsTasks);
@@ -56,9 +56,6 @@ const TrainingRoom: React.FC = () => {
     if (answer) {
       let otvet = { ...carentTask, en: answer };
       setAnswerArr([...answerArr, otvet]);
-
-      console.log('otvet :>> ', otvet);
-      console.log('answerArr :>> ', answerArr);
     }
 
     if (question <= tasks) {
@@ -74,26 +71,41 @@ const TrainingRoom: React.FC = () => {
 
   const answersWordsBack = () => {
     let carentTask = treiningTask[question];
+    let otvet = { ...carentTask, en: answer };
+    let ansverArr = [...answerArr, otvet];
 
     if (!answerArr.length && answer) {
-      let otvet = { ...carentTask, en: answer };
-      setAnswerArr([...answerArr, otvet]);
-
-      console.log('otvet :>> ', otvet);
-      console.log('answerArr :>> ', answerArr);
-      dispatch(answersWordsThunk([otvet]));
-      handleOpenModal();
+      saveAnsver(otvet);
+      setAnswerArr(ansverArr);
     }
-    console.log('answerArr', answerArr);
     if (answerArr.length) {
-      dispatch(answersWordsThunk(answerArr));
-      handleOpenModal();
+      saveAnsverArr(ansverArr);
     }
     if (!answerArr.length && !answer) {
       toast.warn('Give at least one answer');
     }
     return;
   };
+
+  const saveAnsver = async (otvet: Answer) => {
+    const resultAction = await dispatch(answersWordsThunk([otvet]));
+    if (answersWordsThunk.rejected.match(resultAction)) {
+      toast.error(`${resultAction.payload}`);
+    } else {
+      handleOpenModal();
+    }
+    return;
+  };
+  const saveAnsverArr = async (ansverArr: Answer[]) => {
+    const resultAction = await dispatch(answersWordsThunk(ansverArr));
+    if (answersWordsThunk.rejected.match(resultAction)) {
+      toast.error(`${resultAction.payload}`);
+    } else {
+      handleOpenModal();
+    }
+    return;
+  };
+
   const exit = () => {
     navigate(DICTIONARY_ROUTE);
   };
@@ -128,7 +140,7 @@ const TrainingRoom: React.FC = () => {
                 <IconSvg icon="ua" size="28px" />
                 <Language>Ukrainian</Language>
               </LanguageBox>
-              <BtnNext disabled={isDisabled} onClick={training}>
+              <BtnNext type="button" disabled={isDisabled} onClick={training}>
                 Next
                 <IconSvg
                   icon="arrow-right"
@@ -150,7 +162,12 @@ const TrainingRoom: React.FC = () => {
             </EnTrainingBox>
           </TrainingBox>
           <BtnBox>
-            <Button onClick={answersWordsBack} margin="0px" height="56px">
+            <Button
+              type="submit"
+              onClick={answersWordsBack}
+              margin="0px"
+              height="56px"
+            >
               Save
             </Button>
             <BtnCansel onClick={exit}>Cansel</BtnCansel>
