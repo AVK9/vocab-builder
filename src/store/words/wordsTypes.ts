@@ -10,7 +10,6 @@ export interface Word {
 
 export interface WordsResponse {
   results: Word[];
-  sumResults?: Word[];
   totalPages: number;
   page: number;
   perPage: number;
@@ -30,14 +29,13 @@ export interface WordsState {
 export interface getWordsAllData {
   keyword: string;
   category: string;
-  isIrregular: boolean;
-  page: number;
-  limit: number;
+  isIrregular?: boolean;
+  page?: number;
+  limit?: number;
 }
 
 export interface getWordsAllApiResponse {
   results: Word[];
-  sumResults?: Word[];
   totalPages: number;
   page: number;
   perPage: number;
@@ -47,26 +45,16 @@ export interface ApiError {
   message: string;
 }
 
-// export interface OwnWord {
-//   _id: string;
-//   en: string;
-//   ua: string;
-//   category: string;
-//   isIrregular: boolean;
-//   owner: string;
-//   progress: number;
-// }
 export interface getWordsData {
   keyword: string;
   category: string;
-  isIrregular: boolean;
-  page: number;
-  limit: number;
+  isIrregular?: boolean;
+  page?: number;
+  limit?: number;
 }
 
 export interface getWordsResponse {
   results: Word[];
-  sumResults?: Word[];
   totalPages: number;
   page: number;
   perPage: number;
@@ -81,7 +69,7 @@ export interface EditWord {
   en: string;
   ua: string;
   category: string;
-  isIrregular: boolean;
+  isIrregular?: boolean;
 }
 
 export interface TotalCountResponse {

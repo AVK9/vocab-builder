@@ -14,36 +14,40 @@ export const selectWordsAnswers = (state: RootState) =>
 export const selectFilter = (state: RootState) => state.search.search;
 export const selectCatigories = (state: RootState) => state.search.catigories;
 
-export const selectSearchWords = createSelector(
-  [selectWordsOwn, selectFilter],
-  (sumResults, search) => {
-    const sumResultsRes = sumResults.sumResults || [];
-    return search.length > 0
-      ? sumResultsRes.filter(item =>
-          item.en.toLowerCase().includes(search.toLowerCase())
-        )
-      : sumResults.results;
-  }
-);
-export const selectCatigoriesWords = createSelector(
-  [selectSearchWords, selectCatigories],
-  (sumResults, search) => {
-    if (search === 'Regular') {
-      return search.length > 0
-        ? sumResults.filter(item => item.isIrregular === true)
-        : sumResults;
-    }
-    if (search === 'Irregular') {
-      return search.length > 0
-        ? sumResults.filter(item => item.isIrregular === false)
-        : sumResults;
-    }
-    if (search === 'categories') {
-      return sumResults;
-    } else {
-      return search.length > 0
-        ? sumResults.filter(item => item.category.includes(search))
-        : sumResults;
-    }
-  }
-);
+// export const selectSearchWords = createSelector(
+//   [selectWordsOwn, selectFilter],
+//   (sumResults, search) => {
+//     const sumResultsRes = sumResults.sumResults || [];
+//     console.log('sumResults.results', sumResults.results);
+//     console.log('sumResults.search', search);
+//     return search.length > 0
+//       ? sumResultsRes.filter(item =>
+//           item.en.toLowerCase().includes(search.toLowerCase())
+//         )
+//       : sumResults.results;
+//   }
+// );
+// export const selectCatigoriesWords = createSelector(
+//   [selectSearchWords, selectCatigories],
+//   (sumResults, search) => {
+//     console.log('CatigoriesWords.Regular', sumResults);
+//     console.log('CatigoriesWords.searchRegular', search);
+//     if (search === 'Regular') {
+//       return search.length > 0
+//         ? sumResults.filter(item => item.isIrregular === false)
+//         : sumResults;
+//     }
+//     if (search === 'Irregular') {
+//       return search.length > 0
+//         ? sumResults.filter(item => item.isIrregular === true)
+//         : sumResults;
+//     }
+//     if (search === 'categories') {
+//       return sumResults;
+//     } else {
+//       return search.length > 0
+//         ? sumResults.filter(item => item.category.includes(search))
+//         : sumResults;
+//     }
+//   }
+// );

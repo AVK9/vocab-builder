@@ -25,7 +25,7 @@ interface SelectFieldProps {
   color?: string | undefined;
   categories: string[];
   onSelectChange: (selectedValue: string) => void;
-  onRadioChange: (radioValue: string) => void;
+  onRadioChange: (radioValue: boolean) => void;
   specialStyle?: boolean;
 }
 
@@ -40,7 +40,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState('Categories');
   const [isClear, setIsClear] = useState(false);
-  const [radio, setRadio] = useState('Regular');
+  const [radio, setRadio] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -143,10 +143,10 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 type="radio"
                 name="werb"
                 value="Regular"
-                checked={radio === 'Regular'}
+                checked={radio === false}
                 onChange={() => {
-                  setRadio('Regular');
-                  onRadioChange('Regular');
+                  setRadio(false);
+                  onRadioChange(false);
                 }}
               />
               Regular
@@ -154,9 +154,9 @@ const SelectField: React.FC<SelectFieldProps> = ({
             <IconBox
               specialStyle={specialStyle}
               color={color}
-              active={radio === 'Regular'}
+              active={radio === false}
             >
-              <IconDot color={color} active={radio === 'Regular'} />
+              <IconDot color={color} active={radio === false} />
             </IconBox>
           </RadioBox>
           <RadioBox>
@@ -168,10 +168,10 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 type="radio"
                 name="werb"
                 value="Irregular"
-                checked={radio === 'Irregular'}
+                checked={radio === true}
                 onChange={() => {
-                  setRadio('Irregular');
-                  onRadioChange('Irregular');
+                  setRadio(true);
+                  onRadioChange(true);
                 }}
               />
               Irregular
@@ -179,9 +179,9 @@ const SelectField: React.FC<SelectFieldProps> = ({
             <IconBox
               specialStyle={specialStyle}
               color={color}
-              active={radio === 'Irregular'}
+              active={radio === true}
             >
-              <IconDot color={color} active={radio === 'Irregular'} />
+              <IconDot color={color} active={radio === true} />
             </IconBox>
           </RadioBox>
         </RadioBlock>

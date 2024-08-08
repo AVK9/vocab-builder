@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   BtnBlock,
   BtnBox,
@@ -28,51 +28,84 @@ import ModalContentAddWord from '../ModalWin/ModalContentAddWord/ModalContentAdd
 
 interface DashboardProps {
   totalCount: number;
+  onSearchChange: (search: string) => void;
+  onSelectChange: (select: string) => void;
+  onRadioChange: (radio: boolean) => void;
 }
-const Dashboard: React.FC<DashboardProps> = ({ totalCount }) => {
+const Dashboard: React.FC<DashboardProps> = ({
+  totalCount,
+  onSearchChange,
+  onSelectChange,
+  onRadioChange,
+}) => {
   const [search, setSearch] = useState('');
   const [select, setSelect] = useState('');
-  const [radio, setRadio] = useState('Regular');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [radio, setRadio] = useState(false);
+  const debouncedSearchRef = useRef<NodeJS.Timeout | null>(null);
+  // const dispatch = useDispatch<AppDispatch>();
 
-  const dispatch = useDispatch<AppDispatch>();
+  const searc = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const { value } = e.currentTarget;
+    setSearch(value);
 
-  useEffect(() => {
-    const timerId = setTimeout(() => {
-      const trimmedSearch = search.trim();
-      setDebouncedSearch(trimmedSearch);
-    }, 300);
-
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, [search]);
-
-  useEffect(() => {
-    if (debouncedSearch !== undefined) {
-      dispatch(filterWordAction(debouncedSearch));
+    if (debouncedSearchRef.current) {
+      clearTimeout(debouncedSearchRef.current);
     }
-  }, [debouncedSearch, dispatch]);
+
+    debouncedSearchRef.current = setTimeout(() => {
+      const trimmedSearch = value.trim();
+      onSearchChange(trimmedSearch);
+    }, 300);
+  };
+
+  // useEffect(() => {
+  //   console.log('Dashboard useEffect (search)');
+  //   const timerId = setTimeout(() => {
+  //     const trimmedSearch = search.trim();
+  //     setDebouncedSearch(trimmedSearch);
+  //     onSearchChange(trimmedSearch);
+  //   }, 300);
+
+  //   return () => {
+  //     clearTimeout(timerId);
+  //   };
+  // }, [search, onSearchChange]);
+
+  // useEffect(() => {
+  //   console.log('Dashboard useEffect (debouncedSearch, select)');
+  //   if (debouncedSearch !== undefined) {
+  //     dispatch(filterWordAction(debouncedSearch));
+  //   }
+  // }, [debouncedSearch, dispatch]);
 
   const categories = useSelector(selectStateWordsCategories);
 
   const handleSelectChange = (selectedValue: string) => {
     setSelect(selectedValue);
+    onSelectChange(selectedValue === 'Categories' ? '' : selectedValue);
   };
 
-  const handleRadioChange = (radioValue: string) => setRadio(radioValue);
+  const handleRadioChange = (radioValue: boolean) => {
+    setRadio(radioValue);
 
-  useEffect(() => {
-    if (select !== 'Categories') {
-      dispatch(catigoriesWordAction(select));
-    }
-    if (select === 'verb') {
-      dispatch(catigoriesWordAction(radio));
-    }
-    if (select === 'Categories') {
-      dispatch(catigoriesWordAction('categories'));
-    }
-  }, [dispatch, radio, select]);
+    onRadioChange(radioValue);
+  };
+
+  // useEffect(() => {
+
+  //   if (select !== 'Categories') {
+  //     // resultAction();
+  //     dispatch(catigoriesWordAction(select));
+  //   }
+  //   if (select === 'verb') {
+  //     console.log('radio', radio);
+  //     dispatch(catigoriesWordAction(radio));
+  //   }
+  //   if (select === 'Categories') {
+  //     dispatch(catigoriesWordAction('categories'));
+  //   }
+  // }, [dispatch, radio, select]);
 
   const { openModal } = useModal();
   const { closeModal } = useModal();
@@ -86,7 +119,9 @@ const Dashboard: React.FC<DashboardProps> = ({ totalCount }) => {
         <InputBox>
           <Input
             placeholder="Find the word"
-            onChange={e => setSearch(e.target.value)}
+            // onChange={e => setSearch(e.target.value)}
+            onChange={searc}
+            value={search}
           />
           <IconSvgStyled icon="search" stroke="black" size="20px" />
         </InputBox>

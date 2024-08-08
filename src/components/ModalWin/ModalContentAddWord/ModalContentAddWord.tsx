@@ -33,14 +33,14 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
 }) => {
   const [select, setSelect] = useState('');
   const [isInputDisabled, setInputDisabled] = useState(true);
-  const [radio, setRadio] = useState('Regular');
+  const [radio, setRadio] = useState(false);
   const categories = useSelector(selectStateWordsCategories);
 
   const patternFieldEn = /\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*\b/;
   const patternFieldUa = /^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/;
   const patternIrregular = /^[A-Za-z]+-[A-Za-z]+-[A-Za-z]+$/;
   const patternFieldEnUn =
-    radio === 'Regular'
+    radio === false
       ? /\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*\b/
       : /^[A-Za-z]+-[A-Za-z]+-[A-Za-z]+$/;
 
@@ -53,7 +53,7 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
       setInputDisabled(false);
     }
   };
-  const handleRadioChange = (radioValue: string) => setRadio(radioValue);
+  const handleRadioChange = (radioValue: boolean) => setRadio(radioValue);
 
   const [wordUa, setWordUa] = useState('');
   const [wordEn, setWordEn] = useState('');
@@ -67,7 +67,7 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
       en: wordEn,
       ua: wordUa,
       category: select,
-      isIrregular: radio !== 'Regular' ? true : false,
+      isIrregular: radio,
     };
     const body = {
       en: wordEn,
@@ -106,11 +106,7 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
       }
       return;
     }
-    if (
-      radio === 'Irregular' &&
-      select === 'verb' &&
-      !patternIrregular.test(wordEn)
-    ) {
+    if (radio === true && select === 'verb' && !patternIrregular.test(wordEn)) {
       toast.warn(
         'Such data must be entered in the format I form-II form-III form'
       );
@@ -150,7 +146,7 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
             onRadioChange={handleRadioChange}
             color="white"
           />
-          {radio === 'Irregular' && select === 'verb' && (
+          {radio === true && select === 'verb' && (
             <InfoText>
               Such data must be entered in the format I form-II form-III form.
             </InfoText>
@@ -189,7 +185,7 @@ const ModalContentAddWord: React.FC<ModalContentAddWordProps> = ({
                 handleInputChange(
                   e,
                   setWordEn,
-                  radio === 'Irregular' && select === 'verb'
+                  radio === true && select === 'verb'
                     ? patternIrregular
                     : patternFieldEn,
                   setErrorFieldEn

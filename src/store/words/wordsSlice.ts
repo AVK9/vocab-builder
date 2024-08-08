@@ -12,7 +12,7 @@ import {
   getWordsStatisticsThunk,
   getWordsTasksThunk,
 } from './wordsThunk';
-import { WordsState, getWordsResponse } from './wordsTypes';
+import { WordsState } from './wordsTypes';
 
 import {
   handleFulfilled,
@@ -37,14 +37,12 @@ const initialState: WordsState = {
   wordsAnswers: [],
   wordsAll: {
     results: [],
-    sumResults: [],
     totalPages: 0,
     page: 0,
     perPage: 0,
   },
   wordsOwn: {
     results: [],
-    sumResults: [],
     totalPages: 0,
     page: 0,
     perPage: 0,

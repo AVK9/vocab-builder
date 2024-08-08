@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { setTokenApi } from 'services/authApi';
 import {
   addWordOwnApi,
   answersWordsApi,

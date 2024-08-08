@@ -3,7 +3,6 @@ import {
   AnswersWordsResp,
   CreateWordResp,
   DellWord,
-  EditWord,
   getWordsAllApiResponse,
   getWordsResponse,
   TotalCountResponse,
@@ -47,15 +46,6 @@ export const handleGetWordsOwn = (
   state: WordsState,
   action: PayloadAction<getWordsResponse>
 ) => {
-  const currState = state.wordsOwn.sumResults || [];
-
-  const uniqueResults = new Set(currState.map(word => word._id));
-  const newUniqueResults = action.payload.results.filter(
-    word => !uniqueResults.has(word._id)
-  );
-
-  state.wordsOwn.sumResults = [...currState, ...newUniqueResults];
-
   state.wordsOwn.results = action.payload.results;
   state.wordsOwn.totalPages = action.payload.totalPages;
   state.wordsOwn.page = action.payload.page;
@@ -107,8 +97,6 @@ export const handleCreateWord = (
   state: WordsState,
   action: PayloadAction<CreateWordResp>
 ) => {
-  const currState = state.wordsOwn.sumResults || [];
-  state.wordsOwn.sumResults = [...currState, action.payload];
   state.wordsOwn.results = [...state.wordsOwn.results, action.payload];
 };
 

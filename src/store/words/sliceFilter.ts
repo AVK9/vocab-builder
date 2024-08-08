@@ -13,6 +13,7 @@ const filterSlice = createSlice({
       state.search = payload;
     },
     catigoriesWordAction: (state, { payload }) => {
+      console.log('catigoriesWordAction', payload);
       state.catigories = payload;
     },
   },
