@@ -17,17 +17,11 @@ import { TRAINING_ROUTE } from 'utils/const';
 import SelectField from 'components/common/SelectField/SelectField';
 import { useSelector } from 'react-redux';
 import { selectStateWordsCategories } from 'store/words/wordsSelectors';
-import {
-  catigoriesWordAction,
-  filterWordAction,
-} from 'store/words/sliceFilter';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from 'store/store';
 import { useModal } from 'components/ModalWin/ModalContext';
 import ModalContentAddWord from '../ModalWin/ModalContentAddWord/ModalContentAddWord';
 
 interface DashboardProps {
-  totalCount: number;
+  totalCount?: number;
   onSearchChange: (search: string) => void;
   onSelectChange: (select: string) => void;
   onRadioChange: (radio: boolean) => void;
@@ -42,9 +36,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   const [select, setSelect] = useState('');
   const [radio, setRadio] = useState(false);
   const debouncedSearchRef = useRef<NodeJS.Timeout | null>(null);
-  // const dispatch = useDispatch<AppDispatch>();
 
-  const searc = (e: React.FormEvent<HTMLInputElement>) => {
+  const searchInputField = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { value } = e.currentTarget;
     setSearch(value);
@@ -59,26 +52,6 @@ const Dashboard: React.FC<DashboardProps> = ({
     }, 300);
   };
 
-  // useEffect(() => {
-  //   console.log('Dashboard useEffect (search)');
-  //   const timerId = setTimeout(() => {
-  //     const trimmedSearch = search.trim();
-  //     setDebouncedSearch(trimmedSearch);
-  //     onSearchChange(trimmedSearch);
-  //   }, 300);
-
-  //   return () => {
-  //     clearTimeout(timerId);
-  //   };
-  // }, [search, onSearchChange]);
-
-  // useEffect(() => {
-  //   console.log('Dashboard useEffect (debouncedSearch, select)');
-  //   if (debouncedSearch !== undefined) {
-  //     dispatch(filterWordAction(debouncedSearch));
-  //   }
-  // }, [debouncedSearch, dispatch]);
-
   const categories = useSelector(selectStateWordsCategories);
 
   const handleSelectChange = (selectedValue: string) => {
@@ -92,21 +65,6 @@ const Dashboard: React.FC<DashboardProps> = ({
     onRadioChange(radioValue);
   };
 
-  // useEffect(() => {
-
-  //   if (select !== 'Categories') {
-  //     // resultAction();
-  //     dispatch(catigoriesWordAction(select));
-  //   }
-  //   if (select === 'verb') {
-  //     console.log('radio', radio);
-  //     dispatch(catigoriesWordAction(radio));
-  //   }
-  //   if (select === 'Categories') {
-  //     dispatch(catigoriesWordAction('categories'));
-  //   }
-  // }, [dispatch, radio, select]);
-
   const { openModal } = useModal();
   const { closeModal } = useModal();
   const handleOpenModal = () => {
@@ -119,8 +77,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <InputBox>
           <Input
             placeholder="Find the word"
-            // onChange={e => setSearch(e.target.value)}
-            onChange={searc}
+            onChange={searchInputField}
             value={search}
           />
           <IconSvgStyled icon="search" stroke="black" size="20px" />

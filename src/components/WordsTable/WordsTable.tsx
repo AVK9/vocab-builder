@@ -21,6 +21,7 @@ import { Butn, ButnText } from './WordsTable.styled';
 import { addWordOwnThunk } from 'store/words/wordsThunk';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
+import { toast } from 'react-toastify';
 
 interface Word {
   _id: string;
@@ -85,7 +86,12 @@ const WordsTable: React.FC<WordsTableProps> = ({ words }) => {
   );
 
   const handleAddWord = async (word: Word) => {
-    await dispatch(addWordOwnThunk(word._id));
+    const resultAction = await dispatch(addWordOwnThunk(word._id));
+    if (addWordOwnThunk.rejected.match(resultAction)) {
+      toast.error(`${resultAction.payload}`);
+    } else {
+      toast('The word add to dictionary sucsesfull');
+    }
   };
 
   const table = useReactTable({

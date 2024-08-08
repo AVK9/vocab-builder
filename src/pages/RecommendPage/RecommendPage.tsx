@@ -1,54 +1,65 @@
 import WordsTable from 'components/WordsTable/WordsTable';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
-import { selectWordsAll } from 'store/words/wordsSelectors';
+import { selectLoading, selectWordsAll } from 'store/words/wordsSelectors';
 import { getWordsAllThunk } from 'store/words/wordsThunk';
 import { RecommendPageBox } from './RecommendPage.styled';
 import Back from 'components/common/Back';
 import Pagination from 'components/Pagination/Pagination';
+import { LoaderPercent } from 'components/Loader/LoaderPercent';
+import Dashboard from 'components/Dashboard/Dashboard';
 
 const RecommendPage = () => {
+  const loading = useSelector(selectLoading);
   const dispatch = useDispatch<AppDispatch>();
 
+  const [search, setSearch] = useState('');
+  const [select, setSelect] = useState('');
+  const [radio, setRadio] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-
-    const data = {
-      keyword: '',
-      category: '',
-      isIrregular: false,
-      page,
-      limit: 7,
-    };
-    const resultAction = async () => {
-      await dispatch(getWordsAllThunk(data));
-    };
-    resultAction();
   };
 
+  const fetchWords = useCallback(
+    (
+      search: string,
+      select: string,
+      radio: boolean | undefined,
+      currentPage: number | undefined
+    ) => {
+      const data = {
+        keyword: search,
+        category: select,
+        ...(select === 'verb' && { isIrregular: radio }),
+        ...(currentPage !== 1 && { page: currentPage }),
+      };
+      dispatch(getWordsAllThunk(data));
+    },
+    [dispatch]
+  );
   useEffect(() => {
-    const data = {
-      keyword: '',
-      category: '',
-      isIrregular: false,
-      page: 1,
-      limit: 7,
-    };
-    const resultAction = async () => {
-      await dispatch(getWordsAllThunk(data));
-    };
-    resultAction();
-  }, [dispatch]);
+    fetchWords(search, select, radio, currentPage);
+  }, [search, select, fetchWords, radio, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, select, radio]);
 
   const words = useSelector(selectWordsAll);
 
   return (
     <Back>
+      {loading && <LoaderPercent />}
       <RecommendPageBox>
+        <Dashboard
+          onSearchChange={setSearch}
+          onSelectChange={setSelect}
+          onRadioChange={setRadio}
+        />
         <WordsTable words={words.results} />
         <Pagination
           currentPage={currentPage}

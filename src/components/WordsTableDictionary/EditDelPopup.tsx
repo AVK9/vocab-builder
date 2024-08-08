@@ -1,6 +1,8 @@
 import { IconSvg } from 'components/common/IconSvg';
 import EditWordContent from 'components/Modal/EditWordContent';
 import Modal from 'components/Modal/Modal';
+import ModalContentConfirmation from 'components/ModalWin/ModalContentConfirmation/ModalContentConfirmation';
+import { useModal } from 'components/ModalWin/ModalContext';
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
@@ -90,15 +92,23 @@ const EditDelPopup: React.FC<EditDelPopupProps> = ({
     openModal();
   };
 
-  const delWord = async () => {
-    await dispatch(delWordsOwnThunk(data._id));
-    onClose();
-  };
+  // const delWord = async () => {
+  //   await dispatch(delWordsOwnThunk(data._id));
+  //   onClose();
+  // };
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.currentTarget === event.target) {
       onClose();
     }
+  };
+
+  const { openModals } = useModal();
+  const { closeModals } = useModal();
+  const handleOpenModal = () => {
+    openModals(
+      <ModalContentConfirmation delItem={data._id} clos={closeModals} />
+    );
   };
 
   useEffect(() => {
@@ -133,7 +143,7 @@ const EditDelPopup: React.FC<EditDelPopupProps> = ({
           <IconSvg icon="edit" stroke="var(--green)" size="16px" />
           <BtnName>Edit</BtnName>
         </Btn>
-        <Btn type="button" onClick={delWord}>
+        <Btn type="button" onClick={handleOpenModal}>
           <IconSvg icon="trash" stroke="var(--green)" size="16px" />
           <BtnName>Delete</BtnName>
         </Btn>

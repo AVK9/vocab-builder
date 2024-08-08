@@ -45,6 +45,7 @@ const DictionaryPage = () => {
         ...(select === 'verb' && { isIrregular: radio }),
         ...(currentPage !== 1 && { page: currentPage }),
       };
+
       dispatch(getWordsOwnThunk(data));
     },
     [dispatch]
@@ -61,6 +62,10 @@ const DictionaryPage = () => {
   useEffect(() => {
     fetchWords(search, select, radio, currentPage);
   }, [search, select, fetchWords, radio, currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, select, radio]);
 
   const wordsOwn = useSelector(selectWordsOwn);
   const totalCount = useSelector(selectTotalCount);
