@@ -85,6 +85,7 @@ export const handleWordsStatistics = (
   action: PayloadAction<TotalCountResponse>
 ) => {
   state.totalCount = action.payload.totalCount;
+  state.totalCount = state.totalCount + 1;
 };
 
 export const handleWordsTasks = (
