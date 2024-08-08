@@ -93,9 +93,24 @@ export interface CreateWordResp {
   progress?: number;
 }
 
-export interface WordTask {
+export interface UaTask {
   _id: string;
   ua: string;
+  task: 'en';
+}
+
+export interface EnTask {
+  _id: string;
+  en: string;
+  task: 'ua';
+}
+export type WordTaskUaEn = UaTask | EnTask;
+export type WordsTasksExams = WordTaskUaEn[];
+
+export interface WordTask {
+  _id: string;
+  ua?: string;
+  en?: string;
   task: string;
 }
 
@@ -105,8 +120,8 @@ export interface WordsTasksResp {
 
 export interface Answer {
   _id: string;
-  en: string;
-  ua: string;
+  en?: string;
+  ua?: string;
   task: string;
   isDone?: boolean;
 }

@@ -44,42 +44,58 @@ const TrainingRoom: React.FC = () => {
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    if (getWordsTasks) {
-      setTreiningTask(getWordsTasks);
-    }
+    setTreiningTask(getWordsTasks);
   }, [getWordsTasks, treiningTask]);
 
-  const training = () => {
-    const tasks = treiningTask.length;
-    let carentTask = treiningTask[question];
+  let carentTask = treiningTask[question];
+  const tasks = treiningTask.length;
 
-    if (answer) {
+  const nextQest = () => {
+    if (getWordsTasks.length) {
+      if (question < tasks - 1) {
+        setIsDisabled(false);
+        setPercentage(Math.round(((question + 1) * 100) / tasks));
+        setQuestion(question + 1);
+        training();
+        setAnswer('');
+      } else {
+        toast('Training finish, words more not');
+        setPercentage(100);
+        setIsDisabled(true);
+      }
+    }
+    return;
+  };
+
+  const training = () => {
+    if (carentTask.task === 'en' && answer) {
       let otvet = { ...carentTask, en: answer };
       setAnswerArr([...answerArr, otvet]);
     }
-
-    if (question <= tasks) {
-      setIsDisabled(false);
-      setQuestion(question + 1);
-      setPercentage(Math.round((question * 100) / tasks));
-      setAnswer('');
-    } else {
-      toast('Training finish, words more not');
-      setIsDisabled(true);
+    if (carentTask.task === 'ua' && answer) {
+      let otvet = { ...carentTask, ua: answer };
+      setAnswerArr([...answerArr, otvet]);
     }
   };
 
   const answersWordsBack = () => {
-    let carentTask = treiningTask[question];
-    let otvet = { ...carentTask, en: answer };
-    let ansverArr = [...answerArr, otvet];
+    training();
 
-    if (!answerArr.length && answer) {
-      saveAnsver(otvet);
-      setAnswerArr(ansverArr);
+    if (!answerArr.length && answer && carentTask.task === 'en') {
+      saveAnsver({ ...carentTask, en: answer });
+      setAnswerArr(answerArr);
     }
-    if (answerArr.length) {
-      saveAnsverArr(ansverArr);
+    if (!answerArr.length && answer && carentTask.task === 'ua') {
+      saveAnsver({ ...carentTask, ua: answer });
+      setAnswerArr(answerArr);
+    }
+    if (answerArr.length && carentTask.task === 'en') {
+      let otvet = { ...carentTask, en: answer };
+      saveAnsverArr([...answerArr, otvet]);
+    }
+    if (answerArr.length && carentTask.task === 'ua') {
+      let otvet = { ...carentTask, ua: answer };
+      saveAnsverArr([...answerArr, otvet]);
     }
     if (!answerArr.length && !answer) {
       toast.warn('Give at least one answer');
@@ -135,12 +151,16 @@ const TrainingRoom: React.FC = () => {
           </ProgressBarBox>
           <TrainingBox>
             <UaTrainingBox>
-              <Textarea value={treiningTask[question]?.ua} />
+              <Textarea
+                value={carentTask?.task === 'en' ? carentTask?.ua : answer}
+                placeholder="Введіть переклад"
+                onChange={e => setAnswer(e.target.value)}
+              />
               <LanguageBox>
                 <IconSvg icon="ua" size="28px" />
                 <Language>Ukrainian</Language>
               </LanguageBox>
-              <BtnNext type="button" disabled={isDisabled} onClick={training}>
+              <BtnNext type="button" disabled={isDisabled} onClick={nextQest}>
                 Next
                 <IconSvg
                   icon="arrow-right"
@@ -152,7 +172,7 @@ const TrainingRoom: React.FC = () => {
             <EnTrainingBox>
               <Textarea
                 placeholder="Введіть переклад"
-                value={answer}
+                value={carentTask?.task === 'ua' ? carentTask?.en : answer}
                 onChange={e => setAnswer(e.target.value)}
               />
               <LanguageBox>
