@@ -118,7 +118,7 @@ const TrainingRoom: React.FC = () => {
 
   return (
     <TrainingRoomBox>
-      {getWordsTasks ? (
+      {getWordsTasks.length ? (
         <>
           <ProgressBarBox>
             <ProgressBar>
