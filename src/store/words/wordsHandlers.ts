@@ -26,7 +26,6 @@ export const handleRejected = (
 ) => {
   state.isLoading = false;
   state.error = action.payload;
-  console.log('action.payload', action.payload);
 };
 
 export const handleGetWordsCategories = (
