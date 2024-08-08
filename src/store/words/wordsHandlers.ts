@@ -56,6 +56,7 @@ export const handleAddWordOwn = (
   action: PayloadAction<Word>
 ) => {
   state.wordsOwn.results = [...state.wordsOwn.results, action.payload];
+  state.totalCount = state.totalCount + 1;
 };
 
 export const handleDelWordsOwn = (
@@ -66,6 +67,7 @@ export const handleDelWordsOwn = (
     index => index._id === action.payload.id
   );
   state.wordsOwn.results.splice(item, 1);
+  state.totalCount = state.totalCount - 1;
 };
 
 export const handleEditWordsOwn = (
