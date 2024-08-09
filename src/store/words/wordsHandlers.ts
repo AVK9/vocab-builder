@@ -34,6 +34,7 @@ export const handleGetWordsCategories = (
 ) => {
   state.categories = action.payload;
 };
+
 export const handleGetWordsAll = (
   state: WordsState,
   action: PayloadAction<getWordsAllApiResponse>
@@ -49,14 +50,6 @@ export const handleGetWordsOwn = (
   state.wordsOwn.totalPages = action.payload.totalPages;
   state.wordsOwn.page = action.payload.page;
   state.wordsOwn.perPage = action.payload.perPage;
-};
-
-export const handleAddWordOwn = (
-  state: WordsState,
-  action: PayloadAction<Word>
-) => {
-  state.wordsOwn.results = [...state.wordsOwn.results, action.payload];
-  state.totalCount = state.totalCount + 1;
 };
 
 export const handleDelWordsOwn = (
@@ -100,6 +93,7 @@ export const handleCreateWord = (
   action: PayloadAction<CreateWordResp>
 ) => {
   state.wordsOwn.results = [...state.wordsOwn.results, action.payload];
+  state.totalCount = state.totalCount + 1;
 };
 
 export const handleAnswersWords = (
@@ -107,4 +101,11 @@ export const handleAnswersWords = (
   action: PayloadAction<AnswersWordsResp>
 ) => {
   state.wordsAnswers = action.payload;
+};
+export const handleAddWordOwn = (
+  state: WordsState,
+  action: PayloadAction<Word>
+) => {
+  state.wordsOwn.results = [...state.wordsOwn.results, action.payload];
+  state.totalCount = state.totalCount + 1;
 };

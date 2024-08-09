@@ -3,7 +3,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from 'store/store';
-import { selectLoading, selectWordsAll } from 'store/words/wordsSelectors';
+import {
+  selectLoading,
+  selectTotalCount,
+  selectWordsAll,
+} from 'store/words/wordsSelectors';
 import { getWordsAllThunk } from 'store/words/wordsThunk';
 import { RecommendPageBox } from './RecommendPage.styled';
 import Back from 'components/common/Back';
@@ -50,12 +54,14 @@ const RecommendPage = () => {
   }, [search, select, radio]);
 
   const words = useSelector(selectWordsAll);
+  const totalCount = useSelector(selectTotalCount);
 
   return (
     <Back>
       {loading && <LoaderPercent />}
       <RecommendPageBox>
         <Dashboard
+          totalCount={totalCount}
           onSearchChange={setSearch}
           onSelectChange={setSelect}
           onRadioChange={setRadio}
