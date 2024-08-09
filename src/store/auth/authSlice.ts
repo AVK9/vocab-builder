@@ -33,7 +33,6 @@ const authSlice = createSlice({
       .addCase(refreshThunk.rejected, state => {
         state.token = null;
         state.profile = null;
-        // localStorage.clear()
       })
 
       .addCase(loginOutThunk.fulfilled, handleLoginOut)

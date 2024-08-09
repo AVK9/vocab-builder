@@ -22,7 +22,7 @@ const Pagination: React.FC<PaginationProps> = ({
     } else {
       pages.push(1);
       if (currentPage > 3) {
-        pages.push(-1); // Dot
+        pages.push(-1);
       }
       const startPage = Math.max(2, currentPage - 1);
       const endPage = Math.min(totalPages - 1, currentPage + 1);
@@ -30,7 +30,7 @@ const Pagination: React.FC<PaginationProps> = ({
         pages.push(i);
       }
       if (currentPage < totalPages - 2) {
-        pages.push(-1); // Dot
+        pages.push(-1);
       }
       pages.push(totalPages);
     }

@@ -136,7 +136,6 @@ const SelectField: React.FC<SelectFieldProps> = ({
           <RadioBox>
             <Label
               specialStyle={specialStyle}
-              // active={radio === 'Irregular'}
             >
               <RadioInput
                 color={color}
@@ -162,7 +161,6 @@ const SelectField: React.FC<SelectFieldProps> = ({
           <RadioBox>
             <Label
               specialStyle={specialStyle}
-              // active={radio === 'Irregular'}
             >
               <RadioInput
                 type="radio"

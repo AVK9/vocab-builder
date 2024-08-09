@@ -92,11 +92,6 @@ const EditDelPopup: React.FC<EditDelPopupProps> = ({
     openModal();
   };
 
-  // const delWord = async () => {
-  //   await dispatch(delWordsOwnThunk(data._id));
-  //   onClose();
-  // };
-
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.currentTarget === event.target) {
       onClose();
